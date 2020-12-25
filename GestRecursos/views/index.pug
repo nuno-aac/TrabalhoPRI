@@ -1,8 +1,17 @@
 extends layout
 
 block content
-  h1 Autenticação Básica com NodeJS
-  p Chegaste à homepage...
+  .w3-container.w3-bar.w3-amber
+      a(href="/")
+        .w3-bar-item.w3-xlarge
+          img(src="/images/home.svg", alt="Home", style='width:35px; height:35px;')
+      a(href="/")
+        .w3-bar-item.w3-xlarge Recursos
+      a(href="/")
+        .w3-bar-item.w3-xlarge.w3-right Perfil
+      a(href="/")
+        .w3-bar-item.w3-xlarge.w3-right Os meus Recursos
+      
   ul
     li
       a(href="/users/login") Login
