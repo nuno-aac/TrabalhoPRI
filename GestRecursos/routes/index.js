@@ -11,6 +11,10 @@ router.get('/protegida', verificaAutenticacao, function (req, res) {
   res.render('protegida');
 });
 
+router.get('/upload', verificaAutenticacao, verificaAcessoAdmin, function (req, res) {
+  res.render('upload')
+})
+
 function verificaAutenticacao(req, res, next) {
   console.log('User (VERIFIC.): ' + JSON.stringify(req.user))
   if (req.isAuthenticated()) {
@@ -21,8 +25,14 @@ function verificaAutenticacao(req, res, next) {
   }
 }
 
-router.get('/upload', function(req, res){
-  res.render('upload')
-})
+function verificaAcessoAdmin(req, res, next) {
+  console.log('User (VERIFIC.): ' + JSON.stringify(req.user))
+  if (req.user.access == 'ADMIN') {
+    next();
+  }
+  else {
+    res.redirect("/users/register");
+  }
+}
 
 module.exports = router;
