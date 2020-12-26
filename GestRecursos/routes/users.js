@@ -34,7 +34,7 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
     console.log('CB DA POST LOGIN')
     console.log('Auth: ' + JSON.stringify(req.user))
     console.log(req.body)
-    res.redirect('/protegida')
+    res.redirect('/')
 })
 
 router.post('/register', function (req, res) {

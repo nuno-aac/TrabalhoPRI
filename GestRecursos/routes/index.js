@@ -2,17 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', verificaAutenticacao, function(req, res, next) {
   res.render('index', { title: 'Express' });
-});
-
-router.get('/protegida', verificaAutenticacao, function (req, res) {
-  console.log('CB DA PROTEGIDA')
-  res.render('protegida');
 });
 
 router.get('/upload', verificaAutenticacao, verificaAcessoAdmin, function (req, res) {
   res.render('upload')
+})
+
+router.get('/recursos', verificaAutenticacao, function(req,res) {
+  res.render('recursos')
 })
 
 function verificaAutenticacao(req, res, next) {
