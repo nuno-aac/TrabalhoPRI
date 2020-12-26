@@ -21,4 +21,8 @@ function verificaAutenticacao(req, res, next) {
   }
 }
 
+router.get('/upload', function(req, res){
+  res.render('upload')
+})
+
 module.exports = router;
