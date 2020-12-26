@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 
 var recursoSchema = new mongoose.Schema({
+    //contributors
     //meta-data
 })
 
