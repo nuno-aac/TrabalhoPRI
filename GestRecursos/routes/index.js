@@ -6,7 +6,7 @@ router.get('/', verificaAutenticacao, function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/upload', verificaAutenticacao, verificaAcessoAdmin, function (req, res) {
+router.get('/upload', verificaAutenticacao, function (req, res) {
   res.render('upload')
 })
 
