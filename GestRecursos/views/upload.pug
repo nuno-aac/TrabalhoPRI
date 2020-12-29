@@ -11,6 +11,17 @@ block content
         option(value="") -select-
         option(value="slides") Slides
         option(value="teste") Teste
+    hr
+    div
+      label Visibilidade:
+        div
+          div  
+            label Público 
+            input(type='radio', name='visibilidade', value='PUBLIC')
+          div
+            label Privado 
+            input(type='radio', name='visibilidade', value='PRIVATE')
+    hr
     label Título:
     input.w3-input(type="text" name="titulo")
     input(class="w3-input" type="file" name="myFile")

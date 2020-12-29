@@ -9,8 +9,12 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
 router.get('/', verificaAutenticacao, function(req, res, next) {
-  Recurso.list()
-    .then(dados => res.render('recursos', {recursos: dados}))
+  Recurso.listPrivate(req.user.id)
+    .then(privateRec => {
+        Recurso.listPublic()
+            .then(publicRec => res.render('recursos', {recursosPriv: privateRec, recursosPublic: publicRec}))
+            .catch(error => res.render('error', { error: error }))
+    })
     .catch(error => res.render('error', { error: error }))
 });
 
@@ -20,13 +24,13 @@ router.get('/upload', verificaAutenticacao, function (req, res) {
 
 
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
-router.get('/download/:recursoid', function(req,res){
+router.get('/download/:recursoid', verificaAutenticacao, function(req,res){
     res.download(__dirname.split('routes')[0] + 'public/fileStore/' + req.params.recursoid + '.zip')
 })
 
 
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
-router.post('/', upload.array('myFile'), function(req,res){
+router.post('/', verificaAutenticacao, upload.array('myFile'), function(req,res){
     // req.file is the 'myFile' file
     //req.body will hold the text fields if any
 
@@ -42,7 +46,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             tipo: req.body.tipo,
             titulo: req.body.titulo,
             dataRegisto: d,
-            visibilidade: "PUBLIC",
+            visibilidade: req.body.visibilidade,
             autor: req.user.id,
             size: a.size//is this correct?
         })

@@ -6,6 +6,16 @@ module.exports.list = () => {
     return Recurso.find().exec()
 }
 
+// Returns list of PUBLIC recursos
+module.exports.listPublic = () => {
+    return Recurso.find({visibilidade: "PUBLIC"})
+}
+
+// Returns list of PRIVATE recursos of certain autor
+module.exports.listPrivate = id => {
+    return Recurso.find({visibilidade: "PRIVATE", autor: id})
+}
+
 //Fazer isto porque not sure if right ----------------------
 // Returns a recurso by id
 module.exports.lookUp = id => {

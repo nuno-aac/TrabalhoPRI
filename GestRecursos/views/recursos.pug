@@ -15,6 +15,9 @@ block content
         .w3-bar-item.w3-xlarge.w3-right Os meus Recursos
 
   ul
-    each rec in recursos
-      a(href=('/recursos/download/' + rec._id))
-        li= rec.titulo
+    each recpriv in recursosPriv
+      a(href=('/recursos/download/' + recpriv._id))
+        li= recpriv.titulo
+    each recpubl in recursosPublic
+      a(href=('/recursos/download/' + recpubl._id))
+        li= recpubl.titulo

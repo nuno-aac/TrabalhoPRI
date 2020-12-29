@@ -22,11 +22,11 @@ router.get('/register', function (req, res) {
     res.render('reg-form');
 });
 
-router.get('/:id', function (req, res) {
+/*router.get('/:id', function (req, res) {
     User.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp(err))
-})
+})*/
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
