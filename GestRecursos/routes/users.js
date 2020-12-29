@@ -4,7 +4,6 @@ var passport = require('passport');
 var User = require('../controllers/user')
 
 router.get('/login', function (req, res) {
-    console.log('CB DO LOGIN')
     res.render('login')
 })
 
@@ -20,7 +19,6 @@ router.get('/logout', function (req, res) {
 })
 
 router.get('/register', function (req, res) {
-    console.log('CB DA HOMEPAGE: ' + req.sessionID)
     res.render('reg-form');
 });
 
@@ -31,13 +29,14 @@ router.get('/:id', function (req, res) {
 })
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    console.log('CB DA POST LOGIN')
-    console.log('Auth: ' + JSON.stringify(req.user))
-    console.log(req.body)
-    res.redirect('/')
+    req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
+    User.edit(req.user._id, req.user)
+        .then(dados => res.redirect('/'))
+        .catch(err => console.log(err))
 })
 
 router.post('/register', function (req, res) {
+    req.body.dataRegisto = new Date().toISOString().substr(0,19)
     User.insert(req.body)
         .then(dados => res.redirect('/'))
         .catch(error => res.render('error', { error: error }))

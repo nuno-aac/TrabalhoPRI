@@ -44,12 +44,10 @@ passport.use(new LocalStrategy(
 ))
 
 passport.serializeUser((user, done) => {
-  console.log('Vou serializar o user na sessao: ' + JSON.stringify(user))
   done(null, user.id)
 })
 
 passport.deserializeUser((uid, done) => {
-  console.log("Vou desserializar o user na sessao: " + uid)
   User.lookUp(uid)
     .then(dados => done(null, dados))
     .catch(erro => done(erro, false))
@@ -61,17 +59,16 @@ passport.deserializeUser((uid, done) => {
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var recursosRouter = require('./routes/recursos')
 
 var app = express();
 
 app.use(session({
   genid: req => {
-    console.log('Estou dentro do middleware da sessao...')
-    console.log(req.sessionID)
     return uuidv4()
   },
   secret: 'secret pri tp L',
-  store: new FileStore(),
+  store: new FileStore({logFn: function(){}}), //esta a esconder mensagens de erro porque estavam a aparecer mil sem razao
   resave: false,
   saveUninitialized: false
 }))
@@ -91,6 +88,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/recursos', recursosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

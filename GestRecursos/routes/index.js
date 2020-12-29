@@ -10,12 +10,7 @@ router.get('/upload', verificaAutenticacao, function (req, res) {
   res.render('upload')
 })
 
-router.get('/recursos', verificaAutenticacao, function(req,res) {
-  res.render('recursos')
-})
-
 function verificaAutenticacao(req, res, next) {
-  console.log('User (VERIFIC.): ' + JSON.stringify(req.user))
   if (req.isAuthenticated()) {
     next();
   }
@@ -25,7 +20,6 @@ function verificaAutenticacao(req, res, next) {
 }
 
 function verificaAcessoAdmin(req, res, next) {
-  console.log('User (VERIFIC.): ' + JSON.stringify(req.user))
   if (req.user.access == 'ADMIN') {
     next();
   }

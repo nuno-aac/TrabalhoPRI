@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 
 var postSchema = new mongoose.Schema({
     //model for post, título, lista de comentários, etc?
-    titulo: String,
+    titulo: { type: String, required: true},
     conteudo: String,
     comments: [{ type: String }],
     upvotes: { type: Number, default: 0 },

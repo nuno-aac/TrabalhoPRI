@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var Post = require('../models/post')
 
-// Returns list of recursos
+// Returns list of posts
 module.exports.list = () => {
     return Post.find().exec()
 }

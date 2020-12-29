@@ -7,11 +7,10 @@ module.exports.list = () => {
 }
 
 //Fazer isto porque not sure if right ----------------------
-/*
 // Returns a recurso by id
 module.exports.lookUp = id => {
     return Recurso.findOne({ id: id }).exec()
-}*/
+}
 
 // Inserts a new recurso
 module.exports.insert = r => {

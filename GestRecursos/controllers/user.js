@@ -1,29 +1,29 @@
 var mongoose = require('mongoose')
 var User = require('../models/user')
 
-// Returns list of paragraphs
+// Returns list of users
 module.exports.list = () => {
     return User.find().exec()
 }
 
-// Returns a paragraph by id
+// Returns a user by id
 module.exports.lookUp = id => {
     return User.findOne({ id: id }).exec()
 }
 
-// Inserts a new paragraph
+// Inserts a new user
 module.exports.insert = u => {
     console.log(JSON.stringify(u))
     var newUser = new User(u)
     return newUser.save()
 }
 
-// Removes a paragraph by id
+// Removes a user by id
 module.exports.remove = id => {
     return User.deleteOne({ id: id })
 }
 
-// Changes a paragraph
+// Changes a user
 module.exports.edit = (id, u) => {
     return User.findByIdAndUpdate(id, u, { new: true })
 }
