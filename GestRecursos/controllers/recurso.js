@@ -9,7 +9,7 @@ module.exports.list = () => {
 //Fazer isto porque not sure if right ----------------------
 // Returns a recurso by id
 module.exports.lookUp = id => {
-    return Recurso.findOne({ id: id }).exec()
+    return Recurso.findOne({ _id: id }).exec()
 }
 
 // Inserts a new recurso
@@ -19,16 +19,14 @@ module.exports.insert = r => {
     return newRecurso.save()
 }
 
-//Fazer isto porque not sure if right ----------------------
-/*
 // Removes a recurso by id
 module.exports.remove = id => {
-    return Recurso.deleteOne({ id: id })
-}*/
+    return Recurso.deleteOne({ _id: id })
+}
 
 //Fazer isto porque not sure if right ----------------------
-/*
+
 // Changes a recurso
 module.exports.edit = (id, r) => {
     return Recurso.findByIdAndUpdate(id, r, { new: true })
-}*/
+}

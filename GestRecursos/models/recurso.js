@@ -7,7 +7,9 @@ var recursoSchema = new mongoose.Schema({
     dateCreation: Date, //this one is weird, como e que vamos buscar esta informaçao?
     dataRegisto: { type: Date, required: true},
     visibilidade: { type: String, required: true},
-    autor: mongoose.Schema.Types.ObjectId
+    autor: { type: String, required: true},
+    size: { type: Number, required: true},
+    rating: Number
 })
 
 module.exports = mongoose.model('recurso', recursoSchema)

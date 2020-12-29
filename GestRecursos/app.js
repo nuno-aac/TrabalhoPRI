@@ -53,10 +53,6 @@ passport.deserializeUser((uid, done) => {
     .catch(erro => done(erro, false))
 })
 
-
-
-
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var recursosRouter = require('./routes/recursos')

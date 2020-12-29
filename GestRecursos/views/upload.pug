@@ -1,12 +1,19 @@
 extends layout
 
 block content
-  div(class="w3-container w3-teal")
+  div(class="w3-container w3-red")
     h2 File Upload    
-  form(class="w3-container" action="/files" method="POST" enctype="multipart/form-data")
-    label(class="w3-text-teal") 
-      b Select file
-    input(class="w3-input w3-border w3-light-grey" type="file" name="myFile")
-    input(class="w3-btn w3-blue-grey" type="submit" value="Submit")
+  form.w3-container.w3-amber(action="/recursos" method="POST" enctype="multipart/form-data")
+    div
+      label
+        b Tipo de Recurso: 
+      select(name="tipo")
+        option(value="") -select-
+        option(value="slides") Slides
+        option(value="teste") Teste
+    label Título:
+    input.w3-input(type="text" name="titulo")
+    input(class="w3-input" type="file" name="myFile")
+    input(class="w3-btn w3-blue" type="submit" value="Submit")
 
      
