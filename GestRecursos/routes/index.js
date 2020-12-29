@@ -20,7 +20,7 @@ function verificaAcessoAdmin(req, res, next) {
     next();
   }
   else {
-    res.redirect("/users/register");
+    res.redirect("/users/register");//badalhoco
   }
 }
 
