@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 .dt-background {
     background: linear-gradient(360deg, #b6eae1, #D2FBAD);
@@ -22,6 +24,7 @@
 .dt-name {
     font-family: 'Yellowtail', cursive;
     font-size: 55px;
+    margin-left: 15px;
 }
 
 .dt-register {
