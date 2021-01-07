@@ -21,13 +21,17 @@
     margin: 2em;
 }
 
+.dt-align-center {
+    align-items: center;
+    justify-content: center;
+}
 .dt-name {
     font-family: 'Yellowtail', cursive;
     font-size: 55px;
     margin-left: 15px;
 }
 
-.dt-register {
+.dt-reg-link {
     flex: 1;
     text-align: right;
 }
@@ -42,6 +46,15 @@
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
 
     padding: 2em;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.dt-register{
+    background-color: whitesmoke;
+    box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
+
+    padding: 4em;
     padding-top: 3em;
     padding-bottom: 3em;
 }
