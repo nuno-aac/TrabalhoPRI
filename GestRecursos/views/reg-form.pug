@@ -7,11 +7,11 @@ block content
   .dt-login-container
     .dt-register.dt-round.w3-padding-left.w3-padding-right
       form.w3-container.dt-login-form(action='/users/register' method='POST')
-        input.w3-input.w3-margin-bottom(type="text" name="id" placeholder="Username...")
-        input.w3-input.w3-margin-bottom(type="password" name="password" placeholder="Password...")
-        input.w3-input.w3-margin-bottom(type="text" name="nome" placeholder="Nome...")
-        input.w3-input.w3-margin-bottom(type="text" name="email" placeholder="Email...")
-        input.w3-input.w3-margin-bottom(type="number" name="age" placeholder="Idade...")
+        input.w3-input.w3-margin-bottom.dt-input(type="text" name="id" placeholder="Username...")
+        input.w3-input.w3-margin-bottom.dt-input(type="password" name="password" placeholder="Password...")
+        input.w3-input.w3-margin-bottom.dt-input(type="text" name="nome" placeholder="Nome...")
+        input.w3-input.w3-margin-bottom.dt-input(type="text" name="email" placeholder="Email...")
+        input.w3-input.w3-margin-bottom.dt-input(type="number" name="age" placeholder="Idade...")
         input(type="hidden" name="access" value='USER')
         input(type="hidden" name="dataRegisto" value={})
         input.w3-btn.w3-dark-gray.dt-round.w3-margin(type="submit" value="Registar")

@@ -70,10 +70,21 @@
     place-items: center;
 }
 
+.dt-input:focus{
+    outline: 0;
+    border: 0;
+    border-bottom: 2px solid #9ac7bf;
+}
+
+.dt-input{
+    border-bottom: 1px solid grey;
+    background: none;
+}
+
 .dt-footer-login{
     margin: 2em;
 }
 
 .dt-round{
-    border-radius: 12%;
+    border-radius: 7%;
 }
