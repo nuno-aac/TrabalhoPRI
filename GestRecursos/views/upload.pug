@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  include navbar.pug
   div(class="w3-container w3-red")
     h2 File Upload    
   form.w3-container.w3-amber(action="/recursos" method="POST" enctype="multipart/form-data")
