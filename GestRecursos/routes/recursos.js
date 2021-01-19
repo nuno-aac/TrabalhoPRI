@@ -11,14 +11,8 @@ var upload = multer({dest: 'uploads/'})
 router.get('/', verificaAutenticacao, function(req, res, next) {
   Recurso.listPrivate(req.user.id)
     .then(privateRec => {
-        console.log('pri')
-        console.log(privateRec)
         Recurso.listPublic()
-            .then(publicRec => {
-                console.log('pub')
-                console.log(publicRec)
-                res.render('recursos', {recursosPriv: privateRec, recursosPublic: publicRec})
-            })
+            .then(publicRec => res.render('recursos', {recursosPriv: privateRec, recursosPublic: publicRec}))
             .catch(error => res.render('error', { error: error }))
     })
     .catch(error => res.render('error', { error: error }))
@@ -45,14 +39,15 @@ router.post('/', verificaAutenticacao, upload.array('myFile'), function(req,res)
 
     req.files.forEach(a => {
 
-        //console.log(a)
-        //console.log(req.body)
+        console.log(a)
+        console.log(req.body)
 
-        Recurso.insert(req.user.id,{
+        Recurso.insert({
             tipo: req.body.tipo,
             titulo: req.body.titulo,
             dataRegisto: d,
             visibilidade: req.body.visibilidade,
+            autor: req.user.id,
             size: a.size//is this correct?
         })
             .then(dados => {
