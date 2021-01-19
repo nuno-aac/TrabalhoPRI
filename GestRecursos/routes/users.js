@@ -7,6 +7,14 @@ router.get('/login', function (req, res) {
     res.render('login')
 })
 
+router.get('/perfil', function(req, res){
+    res.render('perfil', {dados: req.user})
+})
+
+router.get('/perfil/editar', function(req, res){
+    res.render('editarPerfil',{dados: req.user})
+})
+
 router.get('/logout', function (req, res) {
     req.logout();
     req.session.destroy(function (err) {

@@ -1,0 +1,28 @@
+extends layout
+block content
+    .w3-container.w3-bar.in-navbar-container
+        .in-navbar-left
+            h1 Editar Perfil
+        .in-navbar-right
+            a(href='http://localhost:6969/users/perfil').in-navbar-item Voltar ao perfil     
+
+    form(class="w3-container" action="/alunos" method="POST")
+
+        label(class="w3-text-teal") 
+            b Nome
+            input(class="w3-input w3-border w3-light-grey" type="text" value=dados.nome name="nome")
+
+        label(class="w3-text-teal") 
+            b Email
+            input(class="w3-input w3-border w3-light-grey" type="text" value=dados.email name="email")
+
+        label(class="w3-text-teal") 
+            b Filiação
+            input(class="w3-input w3-border w3-light-grey" type="text" value=dados.email name="filiaçao")    
+
+        label(class="w3-text-teal") 
+            b Bio
+            input(class="w3-input w3-border w3-light-grey" type="text" value=dados.bio name="bio") 
+
+        input(class="w3-btn w3-blue-grey" type="submit" value="Editar")
+                

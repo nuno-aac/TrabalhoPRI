@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    .w3-container.w3-bar.in-navbar-container
+        .in-navbar-left
+            h1 Perfil de #{dados.nome}
+        .in-navbar-right
+            a(href="/users/perfil/editar").in-navbar-item Editar
+    .w3-card-4
+        h3 Informação       
+        table(class="w3-table-all")
+            tr
+                th Nome
+                th Email
+                th Filiação
+                th Idade
+                th Bio
+            tr
+                td= dados.nome
+                td= dados.email
+                td= dados.filiaçao
+                td= dados.age
+                td= dados.bio
+           
