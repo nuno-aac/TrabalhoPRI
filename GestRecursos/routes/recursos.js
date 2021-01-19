@@ -42,12 +42,11 @@ router.post('/', verificaAutenticacao, upload.array('myFile'), function(req,res)
         console.log(a)
         console.log(req.body)
 
-        Recurso.insert({
+        Recurso.insert(req.user.id,{
             tipo: req.body.tipo,
             titulo: req.body.titulo,
             dataRegisto: d,
             visibilidade: req.body.visibilidade,
-            autor: req.user.id,
             size: a.size//is this correct?
         })
             .then(dados => {

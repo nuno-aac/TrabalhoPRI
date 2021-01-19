@@ -30,6 +30,8 @@ router.get('/register', function (req, res) {
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
+    //TENHO QUE DAR LOOKUP DO USER, MUDAR A DATA E DEPOIS EDIT, PORQUE O REQ.USER NAO VAI TER A INFO TODA
+    //USAR JWT
     User.edit(req.user._id, req.user)
         .then(dados => res.redirect('/'))
         .catch(err => console.log(err))

@@ -32,7 +32,7 @@ var User = require("./controllers/user")
 
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
-    User.lookUp(id)
+    User.lookUp(id) // DAR LOOK UP APENAS DE INFO NECESSARIA PORQUE SENAO É MUITO PESADO, MUDAR CONTROLLER
       .then(dados => {
         const user = dados
         if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }

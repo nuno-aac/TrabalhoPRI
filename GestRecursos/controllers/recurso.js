@@ -1,42 +1,53 @@
 var mongoose = require('mongoose')
-var Recurso = require('../models/recurso')
+const recurso = require('../models/recurso')
+var User = require('../models/recurso')
 
 // Returns list of recursos
 module.exports.list = () => {
-    return Recurso.find().exec()
+    return User.find().exec()
 }
 
 // Returns list of PUBLIC recursos
 module.exports.listPublic = () => {
-    return Recurso.find({visibilidade: "PUBLIC"})
+    return User.find({"recursos.visibilidade": "PUBLIC"})
 }
 
 // Returns list of PRIVATE recursos of certain autor
 module.exports.listPrivate = id => {
-    return Recurso.find({visibilidade: "PRIVATE", autor: id})
+    return User.find({"recursos.visibilidade": "PRIVATE", id: id})
 }
 
 //Fazer isto porque not sure if right ----------------------
 // Returns a recurso by id
 module.exports.lookUp = id => {
-    return Recurso.findOne({ _id: id }).exec()
+    return User.findOne({ "recursos._id": id }).exec()
 }
 
 // Inserts a new recurso
-module.exports.insert = r => {
-    console.log(JSON.stringify(r))
-    var newRecurso = new Recurso(r)
-    return newRecurso.save()
+module.exports.insert = (id,r) => {
+    console.log(r)
+    return User.update(
+        {id:id},
+        {$push: {recursos: {
+            tipo: r.tipo,
+            titulo: r.titulo,
+            dataRegisto: r.dataRegisto,
+            visibilidade: r.visibilidade,
+            size: r.size
+        }
+        }
+        }
+    )
 }
 
 // Removes a recurso by id
 module.exports.remove = id => {
-    return Recurso.deleteOne({ _id: id })
+    return User.deleteOne({ "recursos._id": id })
 }
 
 //Fazer isto porque not sure if right ----------------------
 
 // Changes a recurso
-module.exports.edit = (id, r) => {
-    return Recurso.findByIdAndUpdate(id, r, { new: true })
+module.exports.edit = (id, id_rec, r) => {
+    return User.findByIdAndUpdate({id:id, "recursos.id": id_rec}, {recursos:r}, { new: true })
 }
