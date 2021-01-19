@@ -7,18 +7,22 @@ block content
         .in-navbar-right
             a(href="/users/perfil/editar").in-navbar-item Editar
     .w3-card-4
-        h3 Informação       
+        h3 Informação Básica       
         table(class="w3-table-all")
             tr
                 th Nome
                 th Email
                 th Filiação
                 th Idade
-                th Bio
+                th Data de Registo
             tr
                 td= dados.nome
                 td= dados.email
                 td= dados.filiaçao
                 td= dados.age
-                td= dados.bio
+                td= dados.dataRegisto
+        h3 Bio       
+        table(class="w3-table-all")
+            tr
+                td= dados.bio        
            

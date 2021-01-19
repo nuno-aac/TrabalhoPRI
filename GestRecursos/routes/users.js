@@ -52,4 +52,10 @@ router.post('/register', function (req, res) {
         .catch(error => res.render('error', { error: error }))
 })
 
+/* editar perfil
+router.post('/users/perfil', function(req, res){
+
+})
+*/
+
 module.exports = router;
