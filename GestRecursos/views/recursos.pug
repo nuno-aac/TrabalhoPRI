@@ -1,8 +1,7 @@
-extends layout
+extends layoutin
 
 block content
   include navbar.pug
-
   ul
     each recpriv in recursosPriv
       a(href=('/recursos/download/' + recpriv._id))
