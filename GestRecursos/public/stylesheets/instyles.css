@@ -85,6 +85,7 @@ UPLOAD MODAL CSS */
 .in-upload-input{
     margin-left: 10px;
     border-bottom: 1px solid grey;
+    background-color: white !important;
     background: none;
 }
 
