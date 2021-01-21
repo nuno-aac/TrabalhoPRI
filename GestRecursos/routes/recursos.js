@@ -8,29 +8,18 @@ var fs = require('fs')
 var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
-router.get('/', verificaAutenticacao, function(req, res, next) {
+router.get('/', function(req, res, next) {
   Recurso.listPrivate(req.user.id)
     .then(privateRec => {
         Recurso.listPublic()
-            .then(publicRec => res.render('recursos', {recursosPriv: privateRec, recursosPublic: publicRec}))
-            .catch(error => res.render('error', { error: error }))
+            .then(publicRec => res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec}))
+            .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
     })
-    .catch(error => res.render('error', { error: error }))
+    .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
 });
 
-router.get('/upload', verificaAutenticacao, function (req, res) {
-    res.render('upload')
-  })
-
-
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
-router.get('/download/:recursoid', verificaAutenticacao, function(req,res){
-    res.download(__dirname.split('routes')[0] + 'public/fileStore/' + req.params.recursoid + '.zip')
-})
-
-
-/////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
-router.post('/', verificaAutenticacao, upload.array('myFile'), function(req,res){
+router.post('/', upload.array('myFile'), function(req,res){
     // req.file is the 'myFile' file
     //req.body will hold the text fields if any
 
@@ -73,19 +62,19 @@ router.post('/', verificaAutenticacao, upload.array('myFile'), function(req,res)
     
 })
 
-router.get('/:id', verificaAutenticacao, function(req,res){
+router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp(err))
     //res.render('recurso', )
 })
 
-function verificaAutenticacao(req, res, next) {
+function verificaAutenticacao(req, res, next) {//usar isto? pipeline vertical broski
     if (req.isAuthenticated()) {
       next();
     }
     else {
-      res.redirect("/users/login");
+      res.status(500).jsonp({erro: 'Erro na verificação do user'});
     }
   }
 

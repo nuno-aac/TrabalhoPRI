@@ -41,8 +41,8 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
 router.post('/register', function (req, res) {
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
     User.insert(req.body)
-        .then(dados => res.redirect('/'))
-        .catch(error => res.render('error', { error: error }))
+        .then(dados => res.status(200).jsonp(dados))
+        .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
 })
 
 /* editar perfil

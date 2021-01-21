@@ -1,22 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', verificaAutenticacao, function(req, res, next) {
-  res.render('index');
-});
-
-function verificaAutenticacao(req, res, next) {
+function verificaAutenticacao(req, res, next) {//usar isto?
   if (req.isAuthenticated()) {
     next();
   }
   else {
-    res.redirect("/users/login");
+    res.status(500).jsonp({erro: 'erro na verificação do user'});
   }
 }
 
 function verificaAcessoAdmin(req, res, next) {
-  if (req.user.access == 'ADMIN') {
+  if (req.userToken.level == 'ADMIN') {
     next();
   }
   else {

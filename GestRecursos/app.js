@@ -26,8 +26,6 @@ db.once('open', function () {
   console.log("Conexão ao MongoDB realizada com sucesso...")
 });
 
-
-
 var User = require("./controllers/user")
 
 app.use(function(req,res,next) {
@@ -35,7 +33,7 @@ app.use(function(req,res,next) {
   jwt.verify(myToken, "PRI2020", function(e, decoded) {
       if(e) res.status(401).jsonp({error: 'Nao se verificou o token, erro: ' + e})
       else {
-        req.user = { level: decoded.level, username: decoded.username}//REQ.USER -----
+        req.userToken = { level: decoded.level, username: decoded.username}//REQ.USERTOKEN -----
         next()
       }
   })
