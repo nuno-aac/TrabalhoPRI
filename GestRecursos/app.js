@@ -30,6 +30,17 @@ db.once('open', function () {
 
 var User = require("./controllers/user")
 
+app.use(function(req,res,next) {
+  var myToken = req.query.token || req.body.token
+  jwt.verify(myToken, "PRI2020", function(e, decoded) {
+      if(e) res.status(401).jsonp({error: 'Nao se verificou o token, erro: ' + e})
+      else {
+        req.user = { level: decoded.level, username: decoded.username}//REQ.USER -----
+        next()
+      }
+  })
+})
+
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
     User.lookUp(id) // DAR LOOK UP APENAS DE INFO NECESSARIA PORQUE SENAO É MUITO PESADO, MUDAR CONTROLLER
@@ -68,10 +79,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
