@@ -31,7 +31,7 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
                     user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
                     User.edit(user._id, user)
                         .then(dados => res.status(201).jsonp({token: token}))
-                        .catch(err => console.log(err))
+                        .catch(erro => console.log(erro))
                 }
             });
         })

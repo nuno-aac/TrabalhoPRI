@@ -51,7 +51,7 @@ router.post('/', upload.array('myFile'), function(req,res){
                         console.log(err)
                         Recurso.remove(dados._id)
                             .then(data => console.log(data))
-                            .catch(err => console.log("erro: " + err))
+                            .catch(erro => console.log("erro: " + erro))
                     }
                 })
             })
