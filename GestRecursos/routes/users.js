@@ -57,7 +57,7 @@ router.post('/perfil', function(req, res){
         .catch(err => res.status(500).jsonp(err))
 })*/
 
-router.post('/login', function (req, res) {
+router.post('/login',passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
     console.log(req.user)
     User.edit(req.user._id, req.user)
