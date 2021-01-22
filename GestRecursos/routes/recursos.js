@@ -9,6 +9,7 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
 router.get('/', function(req, res, next) {
+  console.log('[LEVEL] ' + req.userToken.level)
   Recurso.listPrivate(req.userToken.username)
     .then(privateRec => {
         Recurso.listPublic()

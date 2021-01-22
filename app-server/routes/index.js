@@ -2,26 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', verificaAutenticacao, function(req, res, next) {
-  res.render('index');
+router.get('/', function(req, res, next) {
+  axios.get('http://localhost:6969/').then(dados => {
+    res.render('index');
+  })
 });
-
-function verificaAutenticacao(req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  }
-  else {
-    res.redirect("/users/login");
-  }
-}
-
-function verificaAcessoAdmin(req, res, next) {
-  if (req.user.access == 'ADMIN') {
-    next();
-  }
-  else {
-    res.redirect("/users/register");//badalhoco
-  }
-}
 
 module.exports = router;

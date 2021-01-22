@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var jwt = require('jsonwebtoken')
 
 var { v4: uuidv4 } = require('uuid');
 var session = require('express-session')
@@ -27,17 +28,6 @@ db.once('open', function () {
 });
 
 var User = require("./controllers/user")
-
-app.use(function(req,res,next) {
-  var myToken = req.query.token || req.body.token
-  jwt.verify(myToken, "PRI2020", function(e, decoded) {
-      if(e) res.status(401).jsonp({error: 'Nao se verificou o token, erro: ' + e})
-      else {
-        req.userToken = { level: decoded.level, username: decoded.username}//REQ.USERTOKEN -----
-        next()
-      }
-  })
-})
 
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
@@ -68,6 +58,7 @@ var recursosRouter = require('./routes/recursos')
 
 var app = express();
 
+
 app.use(session({
   genid: req => {
     return uuidv4()
@@ -87,6 +78,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.use(function (req, res, next) {
+
+  if (req.url == "/users/login" || req.url == "/users/register")
+    next()
+  else{
+    var myToken = req.query.token || req.body.token
+    jwt.verify(myToken, "PRI2020", function (e, decoded) {
+      if (e) res.status(401).jsonp({ error: 'Nao se verificou o token, erro: ' + e })
+      else {
+        req.userToken = { level: decoded.level, username: decoded.username }//REQ.USERTOKEN -----
+        next()
+      }
+    })
+  }
+})
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recursos', recursosRouter);
@@ -103,8 +112,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(err.status || 500).jsonp({erro2: err.message});
 });
 
 module.exports = app;
