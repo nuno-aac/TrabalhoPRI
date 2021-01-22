@@ -6,23 +6,28 @@ block content
             h1 Perfil de #{dados.nome}
         .in-navbar-right
             a(href="/users/perfil/editar").in-navbar-item Editar
+            a(href="/").in-navbar-item Voltar à página inicial
     .w3-card-4
-        h3 Informação Básica       
+        h3 Informação       
         table(class="w3-table-all")
             tr
-                th Nome
-                th Email
-                th Filiação
-                th Idade
-                th Data de Registo
+                th ID:
+                td= dados.id
             tr
+                th Nome:
                 td= dados.nome
+            tr    
+                th Email:
                 td= dados.email
+            tr    
+                th Filiação:
                 td= dados.filiaçao
-                td= dados.age
-                td= dados.dataRegisto
-        h3 Bio       
-        table(class="w3-table-all")
             tr
-                td= dados.bio        
-           
+                th Idade:
+                td= dados.age
+            tr
+                th Data de Registo:
+                td= dados.dataRegisto    
+            tr
+                th Bio:
+                td= dados.bio
