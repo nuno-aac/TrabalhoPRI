@@ -57,7 +57,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             .catch(error => res.render('error', { error: error }))
     })
 
-    res.redirect('/recursos')
+    res.redirect('http://localhost:6970/recursos')
     
     
 })

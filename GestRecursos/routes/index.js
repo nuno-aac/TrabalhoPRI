@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', verificaAutenticacao, function (req, res) {
+router.get('/', function (req, res) {
   res.status(201).jsonp({status: 'success'})
 });
 
-function verificaAutenticacao(req, res, next) {//usar isto?
+/*function verificaAutenticacao(req, res, next) {//usar isto?
   if (req.isAuthenticated()) {
     next();
   }
@@ -22,6 +22,6 @@ function verificaAcessoAdmin(req, res, next) {
   else {
     res.redirect("/users/register");//badalhoco
   }
-}
+}*/
 
 module.exports = router;
