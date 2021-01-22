@@ -15,6 +15,25 @@ router.get('/logout', function (req, res) {
     });
 })
 
+router.post('/perfil', function(req, res){
+    var u = {
+        id: req.user.id,
+        password: req.body.password,
+        nome: req.body.nome,
+        email: req.body.email,
+        filiaçao: req.body.filiaçao, 
+        age: req.user.age,
+        bio: req.body.bio,
+        access: req.user.access,
+        dataRegisto: req.user.dataRegisto,       
+        dataUltimoAcesso: req.user.dataUltimoAcesso
+    }
+    User.edit(req.user.id, u)
+        .then(dados => res.status(200))
+        .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
+})
+
+
 /*router.get('/:id', function (req, res) {
     User.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
@@ -22,6 +41,13 @@ router.get('/logout', function (req, res) {
 })*/
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
+    req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
+    User.edit(req.user.id, req.user)
+        .then(dados => res.status(201))//req.user
+        .catch(erro => res.status(401).jsonp(erro))
+})
+
+router.post('/token', passport.authenticate('local'), function (req, res) {
     User.lookUp(req.user.id)
         .then(user => {
             jwt.sign({username: user.id, level:user.access},'PRI2020', {expiresIn: '3h'},//TOKEN - secret ou symmetric keys?

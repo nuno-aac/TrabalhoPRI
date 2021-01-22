@@ -81,14 +81,14 @@ app.use(passport.session());
 
 app.use(function (req, res, next) {
 
-  if (req.url == "/users/login" || req.url == "/users/register")
+  if (req.url == "/users/login" || req.url == "/users/register" || req.url == "/users/logout")
     next()
   else{
     var myToken = req.query.token || req.body.token
     jwt.verify(myToken, "PRI2020", function (e, decoded) {
       if (e) res.status(401).jsonp({ error: 'Nao se verificou o token, erro: ' + e })
       else {
-        req.userToken = { level: decoded.level, username: decoded.username }//REQ.USERTOKEN -----
+        req.user = { access: decoded.level, id: decoded.username }//REQ.USERTOKEN -----
         next()
       }
     })

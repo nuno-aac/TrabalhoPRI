@@ -9,8 +9,8 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
 router.get('/', function(req, res, next) {
-  console.log('[LEVEL] ' + req.userToken.level)
-  Recurso.listPrivate(req.userToken.username)
+  console.log('[LEVEL] ' + req.user.access)
+  Recurso.listPrivate(req.user.id)
     .then(privateRec => {
         Recurso.listPublic()
             .then(publicRec => res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec}))
@@ -37,7 +37,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             titulo: req.body.titulo,
             dataRegisto: d,
             visibilidade: req.body.visibilidade,
-            autor: req.userToken.username,
+            autor: req.user.id,
             size: a.size//is this correct?
         })
             .then(dados => {

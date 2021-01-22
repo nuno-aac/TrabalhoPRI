@@ -16,7 +16,7 @@ function verificaAutenticacao(req, res, next) {//usar isto?
 }
 
 function verificaAcessoAdmin(req, res, next) {
-  if (req.userToken.level == 'ADMIN') {
+  if (req.user.access == 'ADMIN') {
     next();
   }
   else {
