@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var Recurso = require('../controllers/recurso')
-var User = require('../controllers/user')
 
 var fs = require('fs')
 

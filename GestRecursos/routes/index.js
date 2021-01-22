@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', verificaAutenticacao, function (req, res, next) {
-  res.status(201)
+router.get('/', verificaAutenticacao, function (req, res) {
+  res.status(201).jsonp({status: 'success'})
 });
 
 function verificaAutenticacao(req, res, next) {//usar isto?

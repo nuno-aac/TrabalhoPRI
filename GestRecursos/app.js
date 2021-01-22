@@ -78,20 +78,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(passport.authenticate('local'))
 
 app.use(function (req, res, next) {
+  var myToken = req.query.token || req.body.token
 
-  if (req.url == "/users/login" || req.url == "/users/register" || req.url == "/users/logout")
+  if (req.url == "/users/login" || req.url == "/users/register")
     next()
-  else{
-    var myToken = req.query.token || req.body.token
+  else if (req.isAuthenticated()) {
+    console.log("AUtenticado por session")
+    next();
+  }
+  else if (myToken){
     jwt.verify(myToken, "PRI2020", function (e, decoded) {
       if (e) res.status(401).jsonp({ error: 'Nao se verificou o token, erro: ' + e })
       else {
-        req.user = { access: decoded.level, id: decoded.username }//REQ.USERTOKEN -----
+        console.log("AUtenticado por token: " + myToken)
+        req.user = { access: decoded.level, id: decoded.username }
         next()
       }
     })
+  }
+  else{ 
+    res.status(500).jsonp({ erro: 'erro na verificação do user' });
   }
 })
 

@@ -4,6 +4,23 @@ var passport = require('passport');
 var User = require('../controllers/user')
 var jwt = require('jsonwebtoken')
 
+router.get('/token', function (req, res) {
+    User.lookUp(req.user.id)
+        .then(user => {
+            jwt.sign({ username: user.id, level: user.access }, 'PRI2020', { expiresIn: '3h' },//TOKEN - secret ou symmetric keys?
+                function (err, token) {
+                    if (err) res.status(500).jsonp({ error: "Erro na geração do token: " + err })
+                    else {
+                        user.dataUltimoAcesso = new Date().toISOString().substr(0, 19)
+                        User.edit(user._id, user)
+                            .then(dados => res.status(201).jsonp({ token: token }))
+                            .catch(erro => console.log(erro))
+                    }
+                });
+        })
+        .catch(err => res.status(500).jsonp({ erro: 'Erro no lookup do User: ' + err }))
+})
+
 router.get('/logout', function (req, res) {
     req.logout();
     req.session.destroy(function (err) {
@@ -40,29 +57,12 @@ router.post('/perfil', function(req, res){
         .catch(err => res.status(500).jsonp(err))
 })*/
 
-router.post('/login', passport.authenticate('local'), function (req, res) {
+router.post('/login', function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
-    User.edit(req.user.id, req.user)
-        .then(dados => res.status(201))//req.user
+    console.log(req.user)
+    User.edit(req.user._id, req.user)
+        .then(dados => res.redirect('http://localhost:6970/'))//req.user
         .catch(erro => res.status(401).jsonp(erro))
-})
-
-router.post('/token', passport.authenticate('local'), function (req, res) {
-    User.lookUp(req.user.id)
-        .then(user => {
-            jwt.sign({username: user.id, level:user.access},'PRI2020', {expiresIn: '3h'},//TOKEN - secret ou symmetric keys?
-            function(err, token) {
-                if(err) res.status(500).jsonp({error: "Erro na geração do token: " + err})
-                else {
-                    user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
-                    User.edit(user._id, user)
-                        .then(dados => res.status(201).jsonp({token: token}))
-                        .catch(erro => console.log(erro))
-                }
-            });
-        })
-        .catch(err => res.status(500).jsonp({erro: 'Erro no lookup do User: ' + err}))
-
 })
 
 router.post('/register', function (req, res) {
@@ -71,8 +71,6 @@ router.post('/register', function (req, res) {
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
 })
-
-
 
 
 module.exports = router;
