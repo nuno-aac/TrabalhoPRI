@@ -45,23 +45,7 @@ router.post('/register', function (req, res) {
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
 })
 
-router.post('/perfil', function(req, res){
-    var u = {
-        id: req.user.id,
-        password: req.body.password,
-        nome: req.body.nome,
-        email: req.body.email,
-        filiaçao: req.body.filiaçao, 
-        age: req.user.age,
-        bio: req.body.bio,
-        access: req.user.access,
-        dataRegisto: req.user.dataRegisto,       
-        dataUltimoAcesso: req.user.dataUltimoAcesso
-    }
-    User.edit(req.user._id, u)
-    .then(dados => res.redirect('/users/perfil'))
-    .catch(err => console.log(err))
-})
+
 
 
 module.exports = router;
