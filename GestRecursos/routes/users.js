@@ -46,10 +46,7 @@ router.post('/register', function (req, res) {
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
 })
 
-/* editar perfil
-router.post('/users/perfil', function(req, res){
 
-})
-*/
+
 
 module.exports = router;
