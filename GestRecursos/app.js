@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jwt = require('jsonwebtoken')
+const cors = require('cors')
 
 var { v4: uuidv4 } = require('uuid');
 var session = require('express-session')
@@ -58,7 +59,23 @@ var recursosRouter = require('./routes/recursos')
 
 var app = express();
 
+app.use(cors({ credentials: true, origin: 'http://localhost:6970' }))
+/*
+  app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  }
+  else {
+    next();
+  }
+});
+*/
 app.use(session({
   genid: req => {
     return uuidv4()

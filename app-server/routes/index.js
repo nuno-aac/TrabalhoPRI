@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  axios.get('http://localhost:6969/').then(dados => {
+  axios.get('http://localhost:6969/', {withCredentials: true}).then(dados => {
     console.log(dados.data)
     if(dados.status == 201)
       res.render('index');
