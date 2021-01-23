@@ -59,8 +59,6 @@ router.post('/perfil', function(req, res){
 
 router.post('/login',passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
-    console.log("Tuck " + JSON.stringify(req.body))
-    console.log(req.user)
     User.edit(req.user._id, req.user)
         .then(dados => res.status(201).jsonp({user: req.user}))//req.user
         .catch(erro => res.status(401).jsonp(erro))

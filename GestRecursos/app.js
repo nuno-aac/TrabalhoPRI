@@ -59,7 +59,7 @@ var recursosRouter = require('./routes/recursos')
 
 var app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:6970' }))
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 /*
   app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
@@ -100,7 +100,6 @@ app.use(function (req, res, next) {
   if (req.url == "/users/login" || req.url == "/users/register")
     next()
   else if (req.isAuthenticated()) {
-    console.log("c")
     next();
   }
   else if (myToken){
@@ -113,8 +112,6 @@ app.use(function (req, res, next) {
     })
   }
   else{ 
-    console.log("ERREI")
-    console.log(req.body)
     res.status(401).jsonp({ erro: 'erro na verificação do user' });
   }
 })

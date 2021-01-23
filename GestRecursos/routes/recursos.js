@@ -28,7 +28,9 @@ router.post('/', upload.array('myFile'), function(req,res){
 
     req.files.forEach(a => {
 
+        console.log('a:')
         console.log(a)
+        console.log('body:')
         console.log(req.body)
 
         Recurso.insert({
@@ -40,6 +42,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             size: a.size//is this correct?
         })
             .then(dados => {
+                console.log('dados:')
                 console.log(dados)
 
                 let quarantinePath = __dirname.split('routes')[0] + a.path
@@ -57,7 +60,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             .catch(error => res.render('error', { error: error }))
     })
 
-    res.redirect('http://localhost:6970/recursos')
+    res.redirect('http://localhost:3000/recursos')//port
     
     
 })
