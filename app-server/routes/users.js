@@ -37,7 +37,7 @@ router.get('/register', function (req, res) {
 })*/
 
 router.post('/login', function (req, res) {
-    axios.post('http://localhost:6969/users/login', req.body)
+    axios.post('http://localhost:6969/users/login', req.body, { withCredentials: true })
         .then(dados => {
             res.cookie('user', dados.data.user, {
                 expires: new Date(Date.now() + '1d'),
