@@ -59,7 +59,7 @@ var recursosRouter = require('./routes/recursos')
 
 var app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+app.use(cors({ credentials: true, origin: 'http://localhost:6970' }))
 /*
   app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
