@@ -12,6 +12,7 @@ import {
   Route,
 } from "react-router-dom";
 import HomeScreen from './components/homeScreen';
+import Recursos from './components/recursos';
 
 function App() {
   return (
@@ -22,7 +23,12 @@ function App() {
             <Login/>
           </Route >
           <ProtectedRoute path="/">
-            <HomeScreen/>
+            <Route exact path='/recursos'>
+              <Recursos />
+            </Route>
+            <Route exact path='/'>
+              <HomeScreen />
+            </Route>
           </ProtectedRoute>
         </Switch >
       </Router>
