@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var User = require('../controllers/user')
 var jwt = require('jsonwebtoken')
+var Bcrypt = require('bcrypt')
 
 router.get('/token', function (req, res) {
     User.lookUp(req.user.id)
@@ -65,7 +66,7 @@ router.post('/login',passport.authenticate('local'), function (req, res) {
 })
 
 router.post('/register', function (req, res) {
-    request.body.password = Bcrypt.hashSync(request.body.password, 10);
+    req.body.password = Bcrypt.hashSync(req.body.password, 10);
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
     User.insert(req.body)
         .then(dados => res.status(200).jsonp(dados))
