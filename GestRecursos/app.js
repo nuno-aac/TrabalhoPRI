@@ -35,8 +35,8 @@ passport.use(new LocalStrategy(
     User.lookUp(id) // DAR LOOK UP APENAS DE INFO NECESSARIA PORQUE SENAO É MUITO PESADO, MUDAR CONTROLLER
       .then(dados => {
         const user = dados
-        if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }
-        if (password != user.password) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
+        if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }    
+        if (!Bcrypt.compareSync(password, user.password)) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
         return done(null, user)
       })
       .catch(erro => done(erro))
