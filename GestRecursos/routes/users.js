@@ -68,6 +68,7 @@ router.post('/login',passport.authenticate('local'), function (req, res) {
 router.post('/register', function (req, res) {
     req.body.password = Bcrypt.hashSync(req.body.password, 10);
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
+    req.body.access = 'USER'
     User.insert(req.body)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
