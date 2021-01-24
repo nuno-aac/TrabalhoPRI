@@ -32,7 +32,7 @@ function Login() {
                 <div className="dt-login dt-round w3-container dt-login-form">
                     <input className="w3-input w3-margin-bottom dt-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username..." />
                     <input className="w3-input w3-margin-bottom dt-input" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." />
-                    <button className="w3-btn w3-dark-gray dt-round w3-margin" onClick={handleLogin} >Login</button>
+                    <div className="w3-btn w3-dark-gray dt-round w3-margin" onClick={handleLogin} >Login</div>
                 </div>
             </div>
             <div className="dt-footer-login">
