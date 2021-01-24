@@ -99,6 +99,13 @@ UPLOAD MODAL CSS */
     border-bottom: 2px solid #a8e5da;
 }
 
+.in-upload-files{
+    border-radius: 10px;
+    background-color:rgba(0, 0, 0, 0.07);
+    padding: 20px;
+    margin-top: 10px;
+}
+
 .in-upload-submit{
     background: linear-gradient(360deg, #b6eae1, #D2FBAD);
     color: black;

@@ -20,6 +20,7 @@ const customStyles = {
         left: '50%',
         right: 'auto',
         bottom: 'auto',
+        borderRadius: '15px',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)'
     }
@@ -38,11 +39,16 @@ function Navbar() {
     }
     
     let [isModalOpen,setIsModalOpen] = useState(false);
+    let [numFiles, setNumFiles] = useState([1])
 
     let handleLogout = () => {
         auth.signout(() => {
             history.push('/users/login')
         })
+    }
+
+    let addFile = () => {
+        setNumFiles([...numFiles,1])
     }
 
     return (
@@ -67,9 +73,17 @@ function Navbar() {
                     </div>
                     <div class="in-upload">
                         <form class="w3-container in-flex-center w3-center" action="http://localhost:6969/recursos" method="POST" enctype="multipart/form-data">
-                            <div class="div w3-margin-top"><label>
-                                <h4> <b>Título:</b></h4>
-                            </label><input class="w3-input in-upload-input" type="text" name="titulo" autocomplete="off" /></div><input class="w3-input w3-margin" type="file" name="myFile" />
+                            <div class="div w3-margin">
+                                <label>
+                                    <h4> <b>Título:</b></h4>
+                                </label>
+                                <input class="w3-input in-upload-input" type="text" name="titulo" autocomplete="off" />
+                            </div>
+                            <div className='in-upload-files'>
+                                { numFiles.map((v,i) => <input class="w3-input w3-margin" type="file" name="myFile" />)
+                                }
+                                <div class="w3-btn in-upload-submit" onClick={addFile}> + </div>
+                            </div>
                             <div class="w3-margin-top"><label>Tipo de Recurso: </label><select name="tipo">
                                 <option value="">-Select-</option>
                                 <option value="slides">Slides</option>
