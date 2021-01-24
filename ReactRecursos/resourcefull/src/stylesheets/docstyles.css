@@ -54,9 +54,10 @@
     background-color: whitesmoke;
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
 
-    padding: 4em;
-    padding-top: 3em;
-    padding-bottom: 3em;
+    padding: 2em;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    margin-left: 100px;
 }
 
 .dt-login-form{

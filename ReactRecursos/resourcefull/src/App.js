@@ -2,7 +2,6 @@ import './stylesheets/style.css';
 import './stylesheets/docstyles.css';
 import './stylesheets/instyles.css';
 
-import Login from './components/login'
 import ProtectedRoute from './components/protectedRoute'
 import {ProvideAuth} from './contexts/authcontext'
 
@@ -11,8 +10,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+
+import Login from './components/login'
+import Register from './components/register';
 import HomeScreen from './components/homeScreen';
 import Recursos from './components/recursos';
+import Recurso from './components/recurso';
 
 function App() {
   return (
@@ -22,9 +25,15 @@ function App() {
           <Route exact path="/users/login">
             <Login/>
           </Route >
+          <Route exact path="/users/register">
+            <Register />
+          </Route >
           <ProtectedRoute path="/">
             <Route exact path='/recursos'>
               <Recursos />
+            </Route>
+            <Route exact path='/recurso'>
+              <Recurso />
             </Route>
             <Route exact path='/'>
               <HomeScreen />

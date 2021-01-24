@@ -13,7 +13,7 @@ function Recursos() {
         axios.get('http://localhost:6969/recursos', { withCredentials:true })
         .then(dados => { 
             console.log(dados.data)
-            setRecursos(dados.data.recursosPriv) 
+            setRecursos(dados.data.recursosPublic) 
             setIsLoading(false)
         })
         .catch(err => { console.log(err) })
