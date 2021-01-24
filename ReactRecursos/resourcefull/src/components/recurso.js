@@ -23,9 +23,9 @@ function Recursos() {
         <NavbarWrapper>
             <div className='in-recursos-container'>
                 {isLoading ? 
-                <></> 
+                <>{/*NADA*/}</> 
                 : 
-                <div>
+                <div className="w3-center">
                     {/* Recurso */}
                 </div>}
             </div>
