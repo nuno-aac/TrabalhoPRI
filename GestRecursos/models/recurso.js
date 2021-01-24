@@ -8,7 +8,7 @@ var recursoSchema = new mongoose.Schema({
     dataRegisto: { type: Date, required: true},
     visibilidade: { type: String, required: true},
     autor: { type: String, required: true},
-    size: { type: Number, required: true},
+    size: Number,
     rating: Number
 })
 

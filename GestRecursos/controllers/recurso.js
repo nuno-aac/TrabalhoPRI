@@ -24,7 +24,6 @@ module.exports.lookUp = id => {
 
 // Inserts a new recurso
 module.exports.insert = r => {
-    console.log(JSON.stringify(r))
     var newRecurso = new Recurso(r)
     return newRecurso.save()
 }
