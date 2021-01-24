@@ -19,7 +19,7 @@ function App() {
     <ProvideAuth>
       <Router>
         <Switch>
-          <Route path="/users/login">
+          <Route exact path="/users/login">
             <Login/>
           </Route >
           <ProtectedRoute path="/">
