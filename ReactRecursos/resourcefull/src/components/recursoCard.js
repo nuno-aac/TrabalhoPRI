@@ -36,7 +36,7 @@ function timeSince(date) {
 function RecursoCard({recurso}) {
 
     return (
-        <Link to="/recurso" style={{ textDecoration: 'none' }}>
+        <Link to={"/recurso/"+ recurso._id} style={{ textDecoration: 'none' }}>
             <div className='in-recursos-recurso'>
                 <div className='in-recurso-card'>
                     <h3>{recurso.titulo.slice(0,14)}{recurso.titulo.length>14 ? '...' : ''}</h3>

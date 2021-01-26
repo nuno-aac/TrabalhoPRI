@@ -32,7 +32,7 @@ function App() {
             <Route exact path='/recursos'>
               <Recursos />
             </Route>
-            <Route exact path='/recurso'>
+            <Route exact path='/recurso/:id'>
               <Recurso />
             </Route>
             <Route exact path='/'>

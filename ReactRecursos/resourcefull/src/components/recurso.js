@@ -4,6 +4,7 @@ import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const style = {
     height: '3em',
@@ -14,11 +15,13 @@ const style = {
 
 
 function Recursos() {
-    let [isLoading, setIsLoading] = useState(true);
+    let [isLoading, setIsLoading] = useState(true)
     let [recurso, setRecurso] = useState(null)
 
+    let { id } = useParams();
+
     useEffect(() => {
-        axios.get('http://localhost:6969/recursos/600efb659234621ca4825d2b', { withCredentials: true })
+        axios.get('http://localhost:6969/recursos/' + id, { withCredentials: true })
             .then(dados => {
                 console.log(dados.data)
                 setRecurso(dados.data)
