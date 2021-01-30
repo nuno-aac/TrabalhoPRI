@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
 router.post('/:id', function (req,res) {
     var p = {
         titulo: req.body.titulo,
+        conteudo: req.body.conteudo,
         autor: req.user.id,
         recursoid: req.params.id
     }
