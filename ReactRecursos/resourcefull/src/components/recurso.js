@@ -5,6 +5,7 @@ import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Modal from 'react-modal'
 
 const style = {
     height: '3em',
@@ -13,10 +14,43 @@ const style = {
     transform: 'translate(0, 0)'
 }
 
+const customStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 2,
+        backgroundColor: 'rgba(0, 8, 0, 0.85)'
+    },
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        borderRadius: '15px',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
 
 function Recursos() {
     let [isLoading, setIsLoading] = useState(true)
     let [recurso, setRecurso] = useState(null)
+    let [post, setPost] = useState('')
+
+    let openModal = () => {
+        setIsModalOpen(true)
+    }
+
+    let closeModal = () => {
+        setPost('')
+        setIsModalOpen(false)
+    }
+
+    let [isModalOpen, setIsModalOpen] = useState(false);
 
     let { id } = useParams();
 
@@ -28,7 +62,7 @@ function Recursos() {
                 setIsLoading(false)
             })
             .catch(err => { console.log(err) })
-    }, [])
+    }, [id])
 
     return (
         <NavbarWrapper>
@@ -65,11 +99,18 @@ function Recursos() {
 
                 </div>}
                 <div style={style}>
-                    <button class="w3-button w3-black" style={style}>Criar Post</button>
+                    <button class="w3-button w3-black" style={style} onClick={openModal}>Criar Post</button>
                     <button class="w3-button w3-black" style={style}>Ver Post</button>
                     <button class="w3-button w3-black" style={style}>Download</button>
                 </div>
             </div>
+            <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
+                <div className='in-new-post'>
+                    <h2 className='in-upload-header'>Novo Post</h2>
+                    <textarea className='in-post-input' value={post} onChange={(e) => setPost(e.target.value)} placeholder="Conteudo..." />
+                    <div className='w3-btn in-upload-submit'>Post</div>
+                </div>
+            </Modal>
         </NavbarWrapper>
     );
 }

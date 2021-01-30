@@ -140,7 +140,7 @@ RECURSOS PAGE CSS */
 .in-recursos-sidebar{
     height: 80vh;
     width: minmax(150px, 17%);
-    background: linear-gradient( white, whitesmoke);
+    background: white;
     border-right: rgb(20, 44, 36) solid 1px;
     position: sticky;
     bottom:10vh;
@@ -165,12 +165,12 @@ RECURSOS PAGE CSS */
 
     border-radius: 5%;
     border: rgb(60, 136, 111) solid 2px;
-    background: linear-gradient( white, whitesmoke);
+    background: white;
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
 }
 
 .in-recursos-recurso:hover{
-    background: linear-gradient( whitesmoke, rgb(234, 234, 234));
+    background: whitesmoke;
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -182,4 +182,22 @@ RECURSOS PAGE CSS */
 
 .in-img-card{
     width: 30%;
+}
+
+/*******************|
+RECURSOS PAGE CSS */
+
+.in-new-post{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.in-post-input{
+    height:30vh;
+    width:20vw;
+    margin:20px;
+    margin-bottom: 30px;
+    resize: none;
 }
