@@ -19,6 +19,11 @@ router.get('/', function(req, res, next) {
 });
 
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
+router.get('/download/:recursoid', function(req,res){
+    res.download(__dirname.split('routes')[0] + 'public/fileStore/' + req.params.recursoid + '.zip')
+})
+
+/////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
 router.post('/', upload.array('myFile'), function(req,res){
     // req.file is the 'myFile' file
     //req.body will hold the text fields if any
