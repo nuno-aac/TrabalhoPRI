@@ -39,6 +39,7 @@ const customStyles = {
 function Recursos() {
     let [isLoading, setIsLoading] = useState(true)
     let [recurso, setRecurso] = useState(null)
+    let [titulo, setTitulo] = useState('')
     let [post, setPost] = useState('')
 
     let openModal = () => {
@@ -107,6 +108,7 @@ function Recursos() {
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
                 <div className='in-new-post'>
                     <h2 className='in-upload-header'>Novo Post</h2>
+                    <input className='in-titulo-input' value={titulo} onChange={(e) => setTitulo(e.target.value)} placeholder="Titulo..." />
                     <textarea className='in-post-input' value={post} onChange={(e) => setPost(e.target.value)} placeholder="Conteudo..." />
                     <div className='w3-btn in-upload-submit'>Post</div>
                 </div>

@@ -196,8 +196,13 @@ RECURSOS PAGE CSS */
 
 .in-post-input{
     height:30vh;
-    width:20vw;
+    width:25vw;
     margin:20px;
     margin-bottom: 30px;
     resize: none;
+}
+
+.in-titulo-input{
+    width:25vw;
+    margin-top: 30px;
 }
