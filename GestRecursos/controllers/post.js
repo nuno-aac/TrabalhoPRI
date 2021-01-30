@@ -7,11 +7,11 @@ module.exports.list = () => {
 }
 
 //Fazer isto porque not sure if right ----------------------
-/*
+
 // Returns a post by id
 module.exports.lookUp = id => {
-    return Post.findOne({ id: id }).exec()
-}*/
+    return Post.findOne({ _id: id }).exec()
+}
 
 // Inserts a new post
 module.exports.insert = p => {
@@ -21,15 +21,15 @@ module.exports.insert = p => {
 }
 
 //Fazer isto porque not sure if right ----------------------
-/*
+
 // Removes a post by id
 module.exports.remove = id => {
-    return Post.deleteOne({ id: id })
-}*/
+    return Post.deleteOne({ _id: id })
+}
 
 //Fazer isto porque not sure if right ----------------------
-/*
+
 // Changes a post
 module.exports.edit = (id, p) => {
     return Post.findByIdAndUpdate(id, p, { new: true })
-}*/
+}
