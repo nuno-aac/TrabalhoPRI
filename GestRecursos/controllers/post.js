@@ -15,9 +15,17 @@ module.exports.lookUp = id => {
 
 // Inserts a new post
 module.exports.insert = p => {
-    console.log(JSON.stringify(p))
     var newPost = new Post(p)
     return newPost.save()
+}
+
+module.exports.insertComment = (id,c) => {
+    return Post.update(
+        {_id:id},
+        {
+            $push: {comments: c}
+        }
+    )
 }
 
 //Fazer isto porque not sure if right ----------------------

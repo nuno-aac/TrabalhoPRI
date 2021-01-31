@@ -10,6 +10,12 @@ router.get('/', function (req, res) {
     .catch(err => res.status(500).jsonp(err))
 });
 
+router.get('/:id', function (req, res) {
+    Post.lookUp(req.params.id)
+      .then(post => res.status(200).jsonp(post))
+      .catch(err => res.status(500).jsonp(err))
+  });
+
 router.post('/:id', function (req,res) {
     var p = {
         titulo: req.body.titulo,
@@ -21,4 +27,16 @@ router.post('/:id', function (req,res) {
         .then(post => res.status(201).jsonp(post))
         .catch(err => res.status(500).jsonp(err))
 })
+
+router.post('/:id/comment', function (req,res) {
+    var c = {
+        user: req.user.id,
+        comment: req.body.comment
+    }
+    
+    Post.insertComment(req.params.id, c)
+        .then(comment => res.status(201).jsonp(comment))
+        .catch(err => res.status(500).jsonp(err))
+})
+
 module.exports = router;
