@@ -63,9 +63,10 @@ function Recursos() {
     }
 
     let newPost = () => {
-        axios.post('http://localhost:6969/posts/' + id,{titulo: titulo, conteudo: post}, { withCredentials: true, responseType: 'blob' })
+        axios.post('http://localhost:6969/posts/' + id,{titulo: titulo, conteudo: post}, { withCredentials: true})
             .then(dados => {
                 console.log(dados)
+                closeModal();
             })
             .catch(err => { console.log(err) })
     }
