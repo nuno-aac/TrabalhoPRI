@@ -4,6 +4,7 @@ import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import PostCard from './postCard';
 
 function HomeScreen() {
     let [posts,setPosts] = useState(null);
@@ -25,7 +26,9 @@ function HomeScreen() {
                 isLoading ? 
                 <></>
                 :
-                posts.map((v, i) => <div key={i}>{v.titulo + ' - ' + v.conteudo}</div>)
+                <div className='in-posts-center'>
+                    {posts.map((v, i) => <PostCard key={i} post={v}/>)}
+                </div>
             }
         </NavbarWrapper>
     );

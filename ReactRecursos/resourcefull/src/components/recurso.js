@@ -8,13 +8,34 @@ import fileDownload from 'js-file-download';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal'
 
+function timeSince(date) {
+    let now = new Date()
 
+    var seconds = Math.floor((now.getTime() - Date.parse(date)) / 1000);
+    console.log(date + '||-||' + seconds)
 
-const style = {
-    height: '3em',
-    width: '7em',
-    margin: '7px',
-    transform: 'translate(0, 0)'
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+        return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
 }
 
 const customStyles = {
@@ -80,51 +101,36 @@ function Recursos() {
             .then(dados => {
                 console.log(dados.data)
                 setRecurso(dados.data)
-                setIsLoading(false)
             })
             .catch(err => { console.log(err) })
     }, [id])
 
+    useEffect(() =>{
+        if(recurso!=null) setIsLoading(false)
+    }, [recurso])
+
     return (
         <NavbarWrapper>
-            <div className='in-recursos-container'>
-                {isLoading ? 
-                <>{/*NADA*/}</> 
-                : 
-                <div className="w3-center">
-                    {
-                        <table className="w3-table-all">
-                            <tr>
-                                <th>Autor</th>
-                                <td>{recurso.autor}</td>
-                            </tr>
-                            <tr>
-                                <th>Título</th>
-                                <td>{recurso.titulo}</td>
-                            </tr>
-                            <tr>
-                                <th>Tipo</th>
-                                <td>{recurso.tipo}</td>
-                            </tr>
-                            <tr>
-                                <th>Data de Registo</th>
-                                <td>{recurso.dataRegisto}</td>
-                            </tr>
-                            <tr>
-                                <th>Visibilidade</th>
-                                <td>{recurso.visibilidade}</td>
-                            </tr>
-                        </table>
-                         
-                    }
-
-                </div>}
-                <div style={style}>
-                    <button className="w3-button w3-black" style={style} onClick={openModal}>Criar Post</button>
-                    <button className="w3-button w3-black" style={style}>Ver Post</button>
-                    <button className="w3-button w3-black" style={style} onClick={downloadRecurso}>Download</button>
+            {
+            isLoading ? 
+            <>{/*NADA*/}</> 
+            : 
+            <div className='in-recurso-page'>
+                <div className="in-recurso">
+                    <div className='in-center-content'>
+                        <img src='/images/file.svg' alt='File' className='in-recurso-image' />
+                    </div>
+                    <div>
+                        <span className='w3-xxxlarge'>{recurso.titulo}</span><br/>
+                        <span clas>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></span>
+                    </div>
+                    <div className='in-recurso-buttons'>
+                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={openModal}>Criar Post</button>
+                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={downloadRecurso}>Download</button>
+                    </div>
                 </div>
             </div>
+            }
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
                 <div className='in-new-post'>
                     <h2 className='in-upload-header'>Novo Post</h2>
