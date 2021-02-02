@@ -130,7 +130,7 @@ function createManifesto(obj){
 
 function createMetadata(obj){
     obj.forEach(f => {
-        var meta = 'encoding:' + f.encoding + '\n' + 'mimetype:' + f.mimetype + '\n' +  'file:' + f.size + '\n'
+        var meta = 'encoding:' + f.encoding + '\n' + 'mimetype:' + f.mimetype + '\n' +  'size:' + f.size + '\n'
         fs.appendFileSync(__dirname.split('routes')[0] + '/uploads/' + f.originalname.slice(0,f.originalname.lastIndexOf('.')) + '.txt', meta, function(err){
             if (err) console.log(err)
         })
