@@ -121,7 +121,8 @@ function Recursos() {
                         <img src='/images/file.svg' alt='File' className='in-recurso-image' />
                     </div>
                     <div>
-                        <span className='w3-xxxlarge'>{recurso.titulo}</span><br/>
+                        <span className='w3-xxxlarge'>{recurso.titulo}</span>
+                        <br/>
                         <span clas>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></span>
                     </div>
                     <div className='in-recurso-buttons'>

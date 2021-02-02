@@ -256,7 +256,7 @@ POST PAGE CSS */
 .in-posts-center{
     display: grid;
     width: 100vw;
-    margin:40px 0px;
+    margin-top:40px;
     row-gap: 20px;
     justify-content: center;
 }
@@ -266,6 +266,7 @@ POST PAGE CSS */
     grid-template-columns: 80% 1fr;
     width: 60vw;
     height: 150px;
+    margin-bottom: 20px;
 
     border-radius: 10px;
     border: rgb(60, 136, 111) solid 2px;
