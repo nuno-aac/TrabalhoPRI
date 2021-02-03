@@ -13,6 +13,11 @@ module.exports.lookUp = id => {
     return Post.findOne({ _id: id }).exec()
 }
 
+//Returns posts by recurso
+module.exports.lookUp = rID => {
+    return Post.find({recursoID: rID }).exec()
+}
+
 // Inserts a new post
 module.exports.insert = p => {
     var newPost = new Post(p)
