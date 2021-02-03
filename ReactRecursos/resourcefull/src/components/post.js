@@ -60,7 +60,7 @@ const customStyles = {
 };
 
 
-function Recurso() {
+function Post() {
     let [isLoading, setIsLoading] = useState(true)
     let [recurso, setRecurso] = useState(null)
     let [titulo, setTitulo] = useState('')
@@ -75,16 +75,16 @@ function Recurso() {
         setIsModalOpen(false)
     }
 
-    let downloadRecurso = () =>{
-        axios.get('http://localhost:6969/recursos/download/' + id, { withCredentials: true,  responseType: 'blob' })
-            .then(dados =>{
-                fileDownload(dados.data,recurso.titulo +'.zip')
+    let downloadRecurso = () => {
+        axios.get('http://localhost:6969/recursos/download/' + id, { withCredentials: true, responseType: 'blob' })
+            .then(dados => {
+                fileDownload(dados.data, recurso.titulo + '.zip')
             })
             .catch(err => { console.log(err) })
     }
 
     let newPost = () => {
-        axios.post('http://localhost:6969/posts/' + id,{titulo: titulo, conteudo: post}, { withCredentials: true})
+        axios.post('http://localhost:6969/posts/' + id, { titulo: titulo, conteudo: post }, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
                 closeModal();
@@ -105,33 +105,33 @@ function Recurso() {
             .catch(err => { console.log(err) })
     }, [id])
 
-    useEffect(() =>{
-        if(recurso!=null) setIsLoading(false)
+    useEffect(() => {
+        if (recurso != null) setIsLoading(false)
     }, [recurso])
 
     return (
         <NavbarWrapper>
             {
-            isLoading ? 
-            <>{/*NADA*/}</> 
-            : 
-            <div className='in-recurso-page'>
-                <div className="in-recurso">
-                    <div className='in-center-content'>
-                        <img src='/images/file.svg' alt='File' className='in-recurso-image' />
+                isLoading ?
+                    <>{/*NADA*/}</>
+                    :
+                    <div className='in-recurso-page'>
+                        <div className="in-recurso">
+                            <div className='in-center-content'>
+                                <img src='/images/file.svg' alt='File' className='in-recurso-image' />
+                            </div>
+                            <div>
+                                <span className='w3-xxxlarge'>{recurso.titulo}</span>
+                                <br />
+                                <span clas>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></span>
+                            </div>
+                            <div className='in-recurso-buttons'>
+                                <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={openModal}>Criar Post</button>
+                                <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={downloadRecurso}>Download</button>
+                            </div>
+                        </div>
+                        <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge" onClick={openModal}>Mostrar Posts</button>
                     </div>
-                    <div>
-                        <span className='w3-xxxlarge'>{recurso.titulo}</span>
-                        <br/>
-                        <span clas>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></span>
-                    </div>
-                    <div className='in-recurso-buttons'>
-                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={openModal}>Criar Post</button>
-                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={downloadRecurso}>Download</button>
-                    </div>
-                </div>
-                <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge" onClick={openModal}>Mostrar Posts</button>
-            </div>
             }
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
                 <div className='in-new-post'>
@@ -145,4 +145,4 @@ function Recurso() {
     );
 }
 
-export default Recurso;
+export default Post;
