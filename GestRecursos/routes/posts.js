@@ -5,9 +5,9 @@ var Post = require('../controllers/post')
 
 
 router.get('/', function (req, res) {
-  Post.list()
-    .then(posts => res.status(200).jsonp(posts))
-    .catch(err => res.status(500).jsonp(err))
+    Post.list()
+        .then(posts => res.status(200).jsonp(posts))
+        .catch(err => res.status(500).jsonp(err))
 });
 
 router.get('/:id', function (req, res) {
