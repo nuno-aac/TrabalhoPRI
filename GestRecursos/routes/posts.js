@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
         .catch(err => res.status(500).jsonp(err))
 });
 
-router.get('/:id', function (req, res) {
+router.get('/:idRec/:idPost', function (req, res) {
     Post.lookUp(req.params.id)
       .then(post => res.status(200).jsonp(post))
       .catch(err => res.status(500).jsonp(err))
@@ -30,6 +30,13 @@ router.post('/:id', function (req,res) {
         .then(post => res.status(201).jsonp(post))
         .catch(err => res.status(500).jsonp(err))
 })
+
+//posts de um recurso
+router.get('/:idRec', function (req, res) {
+    //Post.lookUp(req.params.id)
+    //  .then(post => res.status(200).jsonp(post))
+    //  .catch(err => res.status(500).jsonp(err))
+  });
 
 router.post('/:id/comment', function (req,res) {
     var c = {
