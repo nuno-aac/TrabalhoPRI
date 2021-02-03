@@ -17,7 +17,6 @@ router.get('/', function (req, res) {
 
 
 
-//nuno mete no body um campo visibilidade de rec
 router.post('/:idRec', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
@@ -25,7 +24,7 @@ router.post('/:idRec', function (req,res) {
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         autor: req.user.id,
-        visibilidade: req.body.visibilidade,
+        visibilidade: 'PUBLIC',
         dataRegisto: d,
 
         recursoid: req.params.idRec
