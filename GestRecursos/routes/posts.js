@@ -10,13 +10,7 @@ router.get('/', function (req, res) {
         .catch(err => res.status(500).jsonp(err))
 });
 
-router.get('/:idRec/:idPost', function (req, res) {
-    Post.lookUp(req.params.idPost)
-      .then(post => res.status(200).jsonp(post))
-      .catch(err => res.status(500).jsonp(err))
-  });
-
-router.post('/:id', function (req,res) {
+router.post('/:idRec', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
     var p = {
@@ -24,7 +18,7 @@ router.post('/:id', function (req,res) {
         conteudo: req.body.conteudo,
         autor: req.user.id,
         dataRegisto: d,
-        recursoid: req.params.id
+        recursoid: req.params.idRec
     }
     Post.insert(p)
         .then(post => res.status(201).jsonp(post))
@@ -48,5 +42,12 @@ router.post('/:id/comment', function (req,res) {
         .then(comment => res.status(201).jsonp(comment))
         .catch(err => res.status(500).jsonp(err))
 })
+
+router.get('/:idRec/:idPost', function (req, res) {
+    Post.lookUp(req.params.idPost)
+      .then(post => res.status(200).jsonp(post))
+      .catch(err => res.status(500).jsonp(err))
+});
+
 
 module.exports = router;
