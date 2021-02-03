@@ -11,6 +11,12 @@ router.get('/', function (req, res) {
 });
 
 
+
+/////////////// EDITAR RECURSOS (E POR CONSEQUENTE OS SEUS POSTS)
+
+
+
+
 //nuno mete no body um campo visibilidade de rec
 router.post('/:idRec', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
