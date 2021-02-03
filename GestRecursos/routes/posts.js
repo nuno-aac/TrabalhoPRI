@@ -10,6 +10,8 @@ router.get('/', function (req, res) {
         .catch(err => res.status(500).jsonp(err))
 });
 
+
+//nuno mete no body um campo visibilidade de rec
 router.post('/:idRec', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
@@ -17,7 +19,9 @@ router.post('/:idRec', function (req,res) {
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         autor: req.user.id,
+        visibilidade: req.body.visibilidade,
         dataRegisto: d,
+
         recursoid: req.params.idRec
     }
     Post.insert(p)
