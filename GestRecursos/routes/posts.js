@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:idRec/:idPost', function (req, res) {
-    Post.lookUp(req.params.id)
+    Post.lookUp(req.params.idPost)
       .then(post => res.status(200).jsonp(post))
       .catch(err => res.status(500).jsonp(err))
   });
