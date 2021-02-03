@@ -34,17 +34,19 @@ router.post('/:idRec', function (req,res) {
         .catch(err => res.status(500).jsonp(err))
 })
 
-//posts de um recurso
 router.get('/:idRec', function (req, res) {
-    //Post.lookUp(req.params.id)
-    //  .then(post => res.status(200).jsonp(post))
-    //  .catch(err => res.status(500).jsonp(err))
+    Post.lookUpRec(req.params.idRec)
+      .then(post => res.status(200).jsonp(post))
+      .catch(err => res.status(500).jsonp(err))
   });
 
 router.post('/:id/comment', function (req,res) {
+    var d = new Date().toISOString().substr(0, 19)
+
     var c = {
         user: req.user.id,
-        comment: req.body.comment
+        comment: req.body.comment,
+        dataComment: d
     }
     
     Post.insertComment(req.params.id, c)

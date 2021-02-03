@@ -14,7 +14,7 @@ module.exports.lookUp = id => {
 }
 
 //Returns posts by recurso
-module.exports.lookUp = rID => {
+module.exports.lookUpRec = rID => {
     return Post.find({recursoID: rID, visibilidade: 'PUBLIC' }).exec()
 }
 
