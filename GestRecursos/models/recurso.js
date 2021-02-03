@@ -4,7 +4,7 @@ var recursoSchema = new mongoose.Schema({
     tipo: String, //required?
     titulo: { type: String, required: true},
     subtitulo: String,
-    dateCreation: Date, //this one is weird, como e que vamos buscar esta informaçao?
+    dateCreation: { type: Number, required: true},
     dataRegisto: { type: Date, required: true},
     visibilidade: { type: String, required: true},
     autor: { type: String, required: true},

@@ -8,14 +8,15 @@ var fs = require('fs')
 var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
-router.get('/', function(req, res, next) {
-  Recurso.listPrivate(req.user.id)
-    .then(privateRec => {
-        Recurso.listPublic()
-            .then(publicRec => res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec}))
-            .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
-    })
-    .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
+router.get('/', function(req, res) {
+    console.log(req.query)
+    Recurso.listPrivate(req.query.search, req.query.type, req.query.date, req.user.id)
+        .then(privateRec => {
+            Recurso.listPublic(req.query.search, req.query.type, req.query.date)
+                .then(publicRec => res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec}))
+                .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
+        })
+        .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
 });
 
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
@@ -60,6 +61,7 @@ router.post('/', upload.array('myFile'), function(req,res){
         titulo: req.body.titulo,
         dataRegisto: d,
         visibilidade: req.body.visibilidade,
+        dateCreation: req.body.year,
         autor: req.user.id
     })
         .then(dados => {

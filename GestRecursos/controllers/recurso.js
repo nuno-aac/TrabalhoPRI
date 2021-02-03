@@ -7,13 +7,59 @@ module.exports.list = () => {
 }
 
 // Returns list of PUBLIC recursos
-module.exports.listPublic = () => {
-    return Recurso.find({visibilidade: "PUBLIC"})
+module.exports.listPublic = (search, type, date) => {
+    if (search == null && type == null && date == null){
+        return Recurso.find({visibilidade: "PUBLIC"})
+    }
+    else if(search == null && type != null && date == null){
+        return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}})
+    }
+    else if(search == null && type == null && date != null){
+        return Recurso.find({visibilidade: "PUBLIC", dateCreation: {$in: date}})
+    }
+    else if(search == null && type != null && date != null){
+        return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}, dateCreation: {$in: date}})
+    }
+    else if(search != null && type == null && date == null){
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/})
+    }
+    else if(search != null && type != null && date == null){
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}})
+    }
+    else if(search != null && type == null && date != null){
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, dateCreation: {$in: date}})
+    }
+    else {
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$in: date}})
+    }
 }
 
 // Returns list of PRIVATE recursos of certain autor
-module.exports.listPrivate = id => {
-    return Recurso.find({visibilidade: "PRIVATE", autor: id})
+module.exports.listPrivate = (search, type, date, id) => {
+    if (search == null && type == null && date == null){
+        return Recurso.find({visibilidade: "PRIVATE", autor: id})
+    }
+    else if(search == null && type != null && date == null){
+        return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, autor: id})
+    }
+    else if(search == null && type == null && date != null){
+        return Recurso.find({visibilidade: "PRIVATE", dateCreation: {$in: date}, autor: id})
+    }
+    else if(search == null && type != null && date != null){
+        return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, dateCreation: {$in: date}, autor: id})
+    }
+    else if(search != null && type == null && date == null){
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, autor: id})
+    }
+    else if(search != null && type != null && date == null){
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, autor: id})
+    }
+    else if(search != null && type == null && date != null){
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, dateCreation: {$in: date}, autor: id})
+    }
+    else {
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$in: date}, autor: id})
+    }
 }
 
 //Fazer isto porque not sure if right ----------------------
