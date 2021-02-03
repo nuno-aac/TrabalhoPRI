@@ -8,8 +8,10 @@ var postSchema = new mongoose.Schema({
     comments: [{
         user: String,
         upvotes: { type: Number, default: 0},
-        comment: String
+        comment: String,
+        dataComment: { type: Date, required: true}
     }],
+    visibilidade: { type: String, required:true},
     upvotes: { type: Number, default: 0 },
     dataRegisto: { type: Date, required: true},
     recursoID: { type: mongoose.Schema.Types.ObjectId, require:true}

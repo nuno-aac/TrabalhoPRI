@@ -3,7 +3,7 @@ var Post = require('../models/post')
 
 // Returns list of posts
 module.exports.list = () => {
-    return Post.find().exec()
+    return Post.find({visibilidade: 'PUBLIC'}).exec()
 }
 
 //Fazer isto porque not sure if right ----------------------
@@ -11,6 +11,11 @@ module.exports.list = () => {
 // Returns a post by id
 module.exports.lookUp = id => {
     return Post.findOne({ _id: id }).exec()
+}
+
+//Returns posts by recurso
+module.exports.lookUpRec = rID => {
+    return Post.find({recursoID: rID, visibilidade: 'PUBLIC' }).exec()
 }
 
 // Inserts a new post
