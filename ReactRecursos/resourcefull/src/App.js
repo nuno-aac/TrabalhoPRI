@@ -16,6 +16,7 @@ import Register from './components/register';
 import HomeScreen from './components/homeScreen';
 import Recursos from './components/recursos';
 import Recurso from './components/recurso';
+import Post from './components/post';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
             </Route>
             <Route exact path='/'>
               <HomeScreen />
+            </Route>
+            <Route exact path='/post/:id'>
+              <Post />
             </Route>
           </ProtectedRoute>
         </Switch >
