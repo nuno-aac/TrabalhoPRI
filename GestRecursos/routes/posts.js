@@ -17,10 +17,13 @@ router.get('/:id', function (req, res) {
   });
 
 router.post('/:id', function (req,res) {
+    var d = new Date().toISOString().substr(0, 19)
+
     var p = {
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         autor: req.user.id,
+        dataRegisto: d,
         recursoid: req.params.id
     }
     Post.insert(p)
