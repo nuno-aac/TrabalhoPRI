@@ -9,7 +9,8 @@ var recursoSchema = new mongoose.Schema({
     visibilidade: { type: String, required: true},
     autor: { type: String, required: true},
     size: Number,
-    rating: Number
+    rating: Number, //classificaçao (se votar 4 estrelas e outra pessoa votar 3 fica 7 aqui, depois divide-se pelo num de ratings que seria 2)
+    numRatings: Number
 })
 
 module.exports = mongoose.model('recurso', recursoSchema)
