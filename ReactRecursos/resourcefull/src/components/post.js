@@ -5,6 +5,7 @@ import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Comment from './comment';
 
 function timeSince(date) {
     let now = new Date()
@@ -77,8 +78,8 @@ function Post() {
                             <img src='/images/file.svg' alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
                         </div>
-                        <div>
-                            <span className='w3-large in-post-content'>{post.conteudo}</span>
+                        <div className='in-post-content'>
+                            <span className='w3-large'>{post.conteudo}</span>
                         </div>
                         <div>
                                 {timeSince(1)}
@@ -90,7 +91,7 @@ function Post() {
                             <textarea className='in-comment-text' value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Conteudo..." />
                             <button className="w3-btn in-upload-submit" onClick={postComment}> Comentar </button>
                         </div>
-                        {post.comments.map((v, i) => <div key={i} post={v} > {v.comment} </div>)}
+                        {post.comments.map((v, i) => <Comment key={i} comment={v} />) }
                     </div>
                 </div>
             }

@@ -90,9 +90,12 @@ function Navbar() {
                                 <option value="slides">Slides</option>
                                 <option value="teste">Teste</option>
                             </select></div>
-                            <div className="w3-margin">
-                                <div className="w3-margin-left"> <label>Público </label><input type="radio" name="visibilidade" value="PUBLIC" /></div>
-                                <div className="w3-margin-left"><label>Privado </label><input type="radio" name="visibilidade" value="PRIVATE" /></div>
+                            <div className='w3-margin'>
+                                <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Ano..." value='year'/>
+                            </div>
+                            <div className="w3-margin-bottom">
+                                <div className="w3-margin-left"> <label> Público </label><input type="radio" name="visibilidade" value="PUBLIC" /></div>
+                                <div className="w3-margin-left"><label> Privado </label><input type="radio" name="visibilidade" value="PRIVATE" /></div>
                             </div>
                             <div className="w3-margin"> <input className="w3-btn in-upload-submit" type="submit" value="Submit" /></div>
                         </form>

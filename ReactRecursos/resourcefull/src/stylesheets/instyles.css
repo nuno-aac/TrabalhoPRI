@@ -59,6 +59,7 @@
     padding-right: 16px;
     text-decoration: none;
     font-size: max(1.5vmax,16px);
+    cursor: pointer;
 }
 
 .in-navbar-item:hover{
@@ -326,6 +327,8 @@ POST PAGE CSS */
 
 .in-post-content{
     margin-left: 5em;
+    margin-right: 2em;
+    margin-bottom: 2em;
 }
 
 .in-post-comments{
@@ -338,6 +341,14 @@ POST PAGE CSS */
     width:70vw;
     padding:30px;
     padding-top:50px;
+}
+
+.in-post-comment{
+    width: 90%;
+    padding:20px;
+    background-color: whitesmoke;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .in-comment-text{
