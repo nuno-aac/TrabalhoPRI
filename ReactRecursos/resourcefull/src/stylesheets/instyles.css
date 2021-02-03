@@ -269,7 +269,8 @@ POSTS PAGE CSS */
     display: grid;
     width: 100vw;
     margin-top:40px;
-    row-gap: 20px;
+    padding-bottom:40px;
+    row-gap: 40px;
     justify-content: center;
 }
 
@@ -278,7 +279,6 @@ POSTS PAGE CSS */
     grid-template-columns: 80% 1fr;
     width: 60vw;
     height: 150px;
-    margin-bottom: 20px;
 
     border-radius: 20px;
     border: rgb(60, 136, 111) solid 2px;

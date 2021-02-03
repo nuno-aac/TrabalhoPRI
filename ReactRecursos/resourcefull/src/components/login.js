@@ -24,9 +24,10 @@ function Login() {
         <div className="dt-background">
             <div className="dt-header-login w3-center">
                 <img className="dt-header-logo" src="/images/logorelevo.png" alt="logo" />
-                <h1 className="dt-name">Resourcefull</h1><a className="dt-reg-link" href="/users/register">
-                    <h4>Não tem Conta? Registar</h4>
-                </a>
+                <h1 className="dt-name">Resourcefull</h1>
+                <span className="dt-reg-link">
+                    <h4><a href="/users/register"> Não tem Conta? Registar </a></h4>
+                </span>
             </div>
             <div className="dt-login-container">
                 <div className="dt-login dt-round w3-container dt-login-form">
