@@ -230,6 +230,11 @@ RECURSO PAGE CSS */
     margin:10px;
 }
 
+.in-loadposts-button{
+    margin:70px;
+    box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
+}
+
 .in-new-post{
     display: flex;
     align-items: center;
