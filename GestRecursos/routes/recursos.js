@@ -10,10 +10,13 @@ var upload = multer({dest: 'uploads/'})
 
 router.get('/', function(req, res) {
     console.log(req.query)
-    Recurso.listPrivate(req.query.search, req.query.type, req.query.date, req.user.id)
+    Recurso.listPrivate(req.query.search, req.query.type, req.query.minYear, req.query.maxYear, req.user.id)
         .then(privateRec => {
-            Recurso.listPublic(req.query.search, req.query.type, req.query.date)
-                .then(publicRec => res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec}))
+            Recurso.listPublic(req.query.search, req.query.type, req.query.minYear, req.query.maxYear)
+                .then(publicRec => {
+                    console.log(publicRec)
+                    res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec})
+                })
                 .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
         })
         .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))

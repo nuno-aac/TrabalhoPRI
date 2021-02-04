@@ -7,58 +7,64 @@ module.exports.list = () => {
 }
 
 // Returns list of PUBLIC recursos
-module.exports.listPublic = (search, type, date) => {
-    if (search == null && type == null && date == null){
+module.exports.listPublic = (search, type, mindate, maxdate) => {
+    if (search == null && type == null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PUBLIC"})
     }
-    else if(search == null && type != null && date == null){
+    else if(search == null && type != null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}})
     }
-    else if(search == null && type == null && date != null){
-        return Recurso.find({visibilidade: "PUBLIC", dateCreation: {$in: date}})
+    else if(search == null && type == null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PUBLIC", dateCreation: {$gte:mindate, $lte:maxdate}})
     }
-    else if(search == null && type != null && date != null){
-        return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}, dateCreation: {$in: date}})
+    else if(search == null && type != null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}})
     }
-    else if(search != null && type == null && date == null){
+    else if(search != null && type == null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/})
     }
-    else if(search != null && type != null && date == null){
+    else if(search != null && type != null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}})
     }
-    else if(search != null && type == null && date != null){
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, dateCreation: {$in: date}})
+    else if(search != null && type == null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, dateCreation: {$gte:mindate, $lte:maxdate}})
+    }
+    else if(search != null && type != null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}})
     }
     else {
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$in: date}})
+        return Recurso.find({visibilidade: "PUBLIC"})
     }
 }
 
 // Returns list of PRIVATE recursos of certain autor
-module.exports.listPrivate = (search, type, date, id) => {
-    if (search == null && type == null && date == null){
+module.exports.listPrivate = (search, type, mindate, maxdate, id) => {
+    if (search == null && type == null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PRIVATE", autor: id})
     }
-    else if(search == null && type != null && date == null){
+    else if(search == null && type != null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, autor: id})
     }
-    else if(search == null && type == null && date != null){
-        return Recurso.find({visibilidade: "PRIVATE", dateCreation: {$in: date}, autor: id})
+    else if(search == null && type == null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PRIVATE", dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
-    else if(search == null && type != null && date != null){
-        return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, dateCreation: {$in: date}, autor: id})
+    else if(search == null && type != null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
-    else if(search != null && type == null && date == null){
+    else if(search != null && type == null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, autor: id})
     }
-    else if(search != null && type != null && date == null){
+    else if(search != null && type != null && mindate == null && maxdate == null){
         return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, autor: id})
     }
-    else if(search != null && type == null && date != null){
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, dateCreation: {$in: date}, autor: id})
+    else if(search != null && type == null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+    }
+    else if(search != null && type != null && mindate != null && maxdate != null){
+        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
     else {
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$in: date}, autor: id})
+        return Recurso.find({visibilidade: "PRIVATE", autor: id})
     }
 }
 
