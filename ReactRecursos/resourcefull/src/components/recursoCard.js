@@ -7,7 +7,6 @@ function timeSince(date) {
     let now = new Date()
 
     var seconds = Math.floor((now.getTime() - Date.parse(date)) / 1000);
-    console.log(date + '||-||' + seconds)
 
     var interval = seconds / 31536000;
 
@@ -36,7 +35,7 @@ function timeSince(date) {
 function RecursoCard({recurso}) {
 
     return (
-        <Link to={"/recurso/" + recurso._id} style={{ textDecoration: 'none', height: 'calc((82vw - 200px - 8rem) / 5)'}}>
+        <Link to={"/recurso/" + recurso._id} style={{ textDecoration: 'none', height: 'calc((82vw - 200px - 8rem) / 5)', minHeight:'200px'}}>
             <div className='in-recursos-recurso'>
                 <div className='in-recurso-card'>
                     <h3>{recurso.titulo.slice(0,14)}{recurso.titulo.length>14 ? '...' : ''}</h3>
