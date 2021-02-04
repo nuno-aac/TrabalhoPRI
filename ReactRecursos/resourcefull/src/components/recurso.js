@@ -72,6 +72,7 @@ function Recurso() {
 
     let closeModal = () => {
         setPost('')
+        setTitulo('')
         setIsModalOpen(false)
     }
 

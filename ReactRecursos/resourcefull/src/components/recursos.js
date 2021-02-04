@@ -5,8 +5,11 @@ import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecursoCard from './recursoCard'
+import Sidebar from './sidebar';
+
 
 function Recursos() {
+    let [queryString,setQueryString] = useState('')
     let [isLoading,setIsLoading] = useState(true);
     let [recursos, setRecursos] = useState([])
 
@@ -23,8 +26,8 @@ function Recursos() {
     return (
         <NavbarWrapper>
             <div className='in-recursos'>
-                <div className='in-recursos-sidebar'>
-
+                <div className='in-recursos-sidebar in-flex-center'>
+                    <Sidebar setQueryString={setQueryString}/>
                 </div>
                 <div className='in-recursos-container'>
                     {isLoading ? <></> : recursos.map((v, i) => <RecursoCard recurso={v} key={i}/>) }

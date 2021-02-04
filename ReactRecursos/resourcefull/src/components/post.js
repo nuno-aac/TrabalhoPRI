@@ -40,7 +40,7 @@ function timeSince(date) {
 
 function Post() {
     let [isLoading, setIsLoading] = useState(true)
-    let [post, setPost] = useState('')
+    let [post, setPost] = useState(null)
     let [comment, setComment] = useState('')
 
     let { id } = useParams();
@@ -57,7 +57,7 @@ function Post() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:6969/posts/' + id, { withCredentials: true })
+        axios.get('http://localhost:6969/posts/6015671962d4ba66404d63b7/' + id, { withCredentials: true })
             .then(dados => {
                 console.log(dados.data)
                 setPost(dados.data)
@@ -91,7 +91,7 @@ function Post() {
                             <textarea className='in-comment-text' value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Conteudo..." />
                             <button className="w3-btn in-upload-submit" onClick={postComment}> Comentar </button>
                         </div>
-                        {post.comments.map((v, i) => <Comment key={i} comment={v} />) }
+                        {post.comments.map((v, i) => <Comment key={i} comment={v} />)}
                     </div>
                 </div>
             }

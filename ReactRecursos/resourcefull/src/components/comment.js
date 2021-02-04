@@ -1,17 +1,8 @@
 import '../stylesheets/style.css';
 import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
-import { Link } from 'react-router-dom'
 
-
-//***********************/
-// TODO
-// --Rating
-// --Data
-// --Info Recurso
-//
-//***********************/
-/*function timeSince(date) {
+function timeSince(date) {
     let now = new Date()
 
     var seconds = Math.floor((now.getTime() - Date.parse(date)) / 1000);
@@ -39,7 +30,7 @@ import { Link } from 'react-router-dom'
         return Math.floor(interval) + " minutes";
     }
     return Math.floor(seconds) + " seconds";
-}*/
+}
 
 function Comment({ comment }) {
 
@@ -49,6 +40,9 @@ function Comment({ comment }) {
             <span>
                 {comment.comment}
             </span>
+            <div className="w3-margin-top">
+                {timeSince(comment.dataComment)} ago
+            </div>
         </div>
     );
 }

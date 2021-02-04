@@ -91,7 +91,7 @@ function Navbar() {
                                 <option value="teste">Teste</option>
                             </select></div>
                             <div className='w3-margin'>
-                                <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Ano..." value='year'/>
+                                <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Ano..." name='year'/>
                             </div>
                             <div className="w3-margin-bottom">
                                 <div className="w3-margin-left"> <label> Público </label><input type="radio" name="visibilidade" value="PUBLIC" /></div>
