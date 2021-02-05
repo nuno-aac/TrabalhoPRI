@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var Post = require('../models/post')
 
+ObjectID = mongoose.Types.ObjectId
+
 // Returns list of posts
 module.exports.list = () => {
     return Post.find({visibilidade: 'PUBLIC'}).exec()
@@ -24,6 +26,23 @@ module.exports.insert = p => {
     return newPost.save()
 }
 
+// Removes a post by id
+module.exports.remove = id => {
+    return Post.deleteOne({ _id: id })
+}
+
+// Changes a post
+module.exports.edit = (id, p) => {
+    return Post.findByIdAndUpdate(id, p, { new: true })
+}
+
+
+
+
+module.exports.getComment = (id, idCom) => {
+    return Post.findOne({_id: id}).select({ comments: {$elemMatch: {_id: idCom}}})
+}
+
 module.exports.insertComment = (id,c) => {
     return Post.update(
         {_id:id},
@@ -33,23 +52,43 @@ module.exports.insertComment = (id,c) => {
     )
 }
 
-//Fazer isto porque not sure if right ----------------------
-
-// Removes a post by id
-module.exports.remove = id => {
-    return Post.deleteOne({ _id: id })
+module.exports.addUpvoteComment = (id, idCom, idUser) => {
+    var idcomment = mongoose.Types.ObjectId(idCom);
+    return Post.update(
+        { _id: id },
+        {
+            $push: { "comments.$[b].upvotes": idUser }
+        },
+        {
+            new:true,
+            arrayFilters: [
+                { "b._id": idcomment }
+            ]
+        }
+    )
 }
 
-//Fazer isto porque not sure if right ----------------------
-
-// Changes a post
-module.exports.edit = (id, p) => {
-    return Post.findByIdAndUpdate(id, p, { new: true })
+module.exports.removeUpvoteComment = (id,idUser) => {
+    var idcomment = mongoose.Types.ObjectId(idCom);
+    return Post.update(
+        { _id: id },
+        {
+            $pull: { "comments.$[b].upvotes": idUser }
+        },
+        {
+            new:true,
+            arrayFilters: [
+                { "b._id": idcomment }
+            ]
+        }
+    )
 }
+
+
 
 //get upvotes
 module.exports.getUpvotes = id => {
-    return Post.findOne({_id : id}).select('upvotes -_id')
+    return Post.findOne({_id : id}).select({upvotes:1, _id:0})
 }
 
 module.exports.addUpvote = (id,idUser) => {

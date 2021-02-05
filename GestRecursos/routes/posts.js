@@ -40,12 +40,11 @@ router.get('/:idRec', function (req, res) {
   });
 
 router.post('/:id/upvote', function(req, res){
-    Post.lookUp(req.params.id)
+    Post.getUpvotes(req.params.id)
         .then(post => {
 
             var uID = req.user.id
 
-            console.log(post)
             if(post.upvotes.includes(uID)){
                 Post.removeUpvote(post._id, uID)
                     .then(d => res.status(201).jsonp(d))
@@ -72,6 +71,30 @@ router.post('/:id/comment', function (req,res) {
     Post.insertComment(req.params.id, c)
         .then(comment => res.status(201).jsonp(comment))
         .catch(err => res.status(500).jsonp(err))
+})
+
+router.post('/:id/comment/:idCom/upvote', function(req, res){
+    Post.getComment(req.params.id, req.params.idCom)
+        .then(com => {
+
+            console.log(com.comments)
+
+            var uID = req.user.id
+
+            if(com.comments[0].upvotes.includes(uID)){
+                console.log('downvote')
+                Post.removeUpvoteComment(post._id, uID)
+                    .then(d => res.status(201).jsonp(d))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                console.log('upvote')
+                Post.addUpvoteComment(req.params.id, com.comments._id, uID)
+                    .then(u => res.status(201).jsonp(u))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+        })
+        .catch(err => res.status(500).jsonp(err)) 
 })
 
 router.get('/:idRec/:idPost', function (req, res) {

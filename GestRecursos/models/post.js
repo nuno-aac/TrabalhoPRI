@@ -7,7 +7,7 @@ var postSchema = new mongoose.Schema({
     conteudo: { type:String, require:true},
     comments: [{
         user: String,
-        upvotes: { type: Number, default: 0},
+        upvotes: [String],
         comment: String,
         dataComment: { type: Date, required: true}
     }],
