@@ -10,41 +10,15 @@ function EditProfile() {
 
     let { user } = useAuth();
     user=user.user;
-    console.log(user);
-
-    let [editedUser,setEditedUser] = useState(user)
 
     let [nome,setNome] = useState('');
     let [idade, setIdade] = useState('');
     let [filiacao, setFiliacao] = useState('');
     let [bio, setBio] = useState('');
 
-    useEffect(() =>{
-        if(filiacao !== '')
-            setEditedUser(prevState => ({...prevState, filiacao: filiacao}))
-        else
-            setEditedUser(prevState => ({ ...prevState, filiacao: user.filiacao }))
-        if (idade !== '')
-            setEditedUser(prevState => ({ ...prevState, age: idade }))
-        else
-            setEditedUser(prevState => ({ ...prevState, age: user.idade }))
-        if (bio !== '')
-            setEditedUser(prevState => ({ ...prevState, bio: bio }))
-        else
-            setEditedUser(prevState => ({ ...prevState, bio: user.bio }))
-        if (nome !== '')
-            setEditedUser(prevState => ({ ...prevState, nome: nome }))
-        else
-            setEditedUser(prevState => ({ ...prevState, nome: user.nome }))
-    },[nome,idade,filiacao,bio,user])
-
-    useEffect(() =>{
-        console.log('EDOTED?')
-        console.log(editedUser)
-    },[editedUser])
 
     let editUser = () =>{
-        axios.post('http://localhost:6969/users/perfil/' + user._id, editedUser, { withCredentials: true })
+        axios.post('http://localhost:6969/users/perfil/' + user._id, {nome:nome,age:idade,filiacao:filiacao,email:user.email,bio:bio}, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
                 window.location.reload();
