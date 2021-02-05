@@ -7,6 +7,7 @@ import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal'
+import PostCard from './postCard';
 
 function timeSince(date) {
     let now = new Date()
@@ -65,7 +66,7 @@ function Recurso() {
     let [recurso, setRecurso] = useState(null)
     let [titulo, setTitulo] = useState('')
     let [post, setPost] = useState('')
-    //let [posts,setPosts] = useState([])
+    let [posts,setPosts] = useState(null)
 
     let openModal = () => {
         setIsModalOpen(true)
@@ -86,7 +87,7 @@ function Recurso() {
     }
 
     let newPost = () => {
-        axios.post('http://localhost:6969/posts/' + id,{titulo: titulo, conteudo: post}, { withCredentials: true})
+        axios.post('http://localhost:6969/posts',{idRec:id, titulo: titulo, conteudo: post}, { withCredentials: true})
             .then(dados => {
                 console.log(dados)
                 closeModal();
@@ -94,14 +95,14 @@ function Recurso() {
             .catch(err => { console.log(err) })
     }
 
-    /*let loadPosts = () => {
-        axios.get('http://localhost:6969/posts/' + id, { titulo: titulo, conteudo: post }, { withCredentials: true })
+    let loadPosts = () => {
+        axios.get('http://localhost:6969/posts?rec=' + id, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
-                closeModal();
+                setPosts(dados.data)
             })
             .catch(err => { console.log(err) })
-    }*/
+    }
 
     let [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -141,7 +142,13 @@ function Recurso() {
                         <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={downloadRecurso}>Download</button>
                     </div>
                 </div>
-                <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge" onClick={openModal}>Mostrar Posts</button>
+                <div className='in-posts-center'>
+                    { posts == null ?
+                        <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge" onClick={loadPosts}>Mostrar Posts</button>
+                        :
+                        posts.map((v, i) => <PostCard key={i} post={v} />)
+                    }
+                </div>
             </div>
             }
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>

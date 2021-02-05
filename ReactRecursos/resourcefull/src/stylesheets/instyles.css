@@ -107,16 +107,18 @@
 }
 
 .in-like-img{
-    height: 50px;
+    height: 25px;
     margin-left:25px;
-    margin-bottom: 30px;
+    margin-right:5px;
+    margin-bottom: 5px;
     filter: invert(43%) sepia(78%) saturate(259%) hue-rotate(109deg) brightness(91%) contrast(93%);
 }
 
 .in-nolike-img{
-    height: 50px;
+    height: 25px;
     margin-left:25px;
-    margin-bottom: 30px;
+    margin-right:5px;
+    margin-bottom: 5px;
     filter: invert(48%) sepia(4%) saturate(54%) hue-rotate(314deg) brightness(105%) contrast(77%);
 }
 
@@ -275,7 +277,7 @@ RECURSO PAGE CSS */
     width: 90vw;
     height: 40vh;
     
-    margin-top: 5vw;
+    margin-top: 3vw;
     padding: 20px;
 
     border-radius: 20px;
@@ -303,7 +305,6 @@ RECURSO PAGE CSS */
 }
 
 .in-loadposts-button{
-    margin:70px;
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
 }
 
@@ -395,6 +396,12 @@ POST PAGE CSS */
     margin-bottom: 2em;
 }
 
+.in-post-footer{
+    display: flex;
+    align-items: center;
+    margin-left: 5em;
+}
+
 .in-post-comments{
     display: flex;
     align-items: center;
@@ -437,7 +444,7 @@ PROFILE PAGE CSS */
     width:70vw;
     display:grid;
     grid-template-columns: 20% 80%;
-    margin: 50px;
+    margin-top: 5vh;
     padding: 50px;
 }
 

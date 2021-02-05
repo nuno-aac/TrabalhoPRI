@@ -58,7 +58,7 @@ function Post() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:6969/posts/6015671962d4ba66404d63b7/' + id, { withCredentials: true })
+        axios.get('http://localhost:6969/posts/'+ id, { withCredentials: true })
             .then(dados => {
                 console.log(dados.data)
                 setPost(dados.data)
@@ -83,9 +83,11 @@ function Post() {
                             <span className='w3-large'>{post.conteudo}</span>
                         </div>
                         <div className='in-flex-row'>
+                            <div className='in-post-footer'>
                                 Posted {timeSince(post.dataRegisto)} ago
                                 <Like upvotes={post.upvotes} path={'posts/' + post._id + '/upvote'} />
                                 {post.upvotes.length}
+                            </div>
                         </div>
                     </div>
                     <div className='in-post-comments in-content-box'>

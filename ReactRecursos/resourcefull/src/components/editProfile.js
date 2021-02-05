@@ -3,7 +3,8 @@ import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useAuth } from '../contexts/authcontext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function EditProfile() {
 
@@ -11,10 +12,47 @@ function EditProfile() {
     user=user.user;
     console.log(user);
 
+    let [editedUser,setEditedUser] = useState(user)
+
     let [nome,setNome] = useState('');
     let [idade, setIdade] = useState('');
-    let [afiliacao, setAfiliacao] = useState('');
+    let [filiacao, setFiliacao] = useState('');
     let [bio, setBio] = useState('');
+
+    useEffect(() =>{
+        if(filiacao !== '')
+            setEditedUser(prevState => ({...prevState, filiacao: filiacao}))
+        else
+            setEditedUser(prevState => ({ ...prevState, filiacao: user.filiacao }))
+        if (idade !== '')
+            setEditedUser(prevState => ({ ...prevState, age: idade }))
+        else
+            setEditedUser(prevState => ({ ...prevState, age: user.idade }))
+        if (bio !== '')
+            setEditedUser(prevState => ({ ...prevState, bio: bio }))
+        else
+            setEditedUser(prevState => ({ ...prevState, bio: user.bio }))
+        if (nome !== '')
+            setEditedUser(prevState => ({ ...prevState, nome: nome }))
+        else
+            setEditedUser(prevState => ({ ...prevState, nome: user.nome }))
+    },[nome,idade,filiacao,bio,user])
+
+    useEffect(() =>{
+        console.log('EDOTED?')
+        console.log(editedUser)
+    },[editedUser])
+
+    let editUser = () =>{
+        axios.post('http://localhost:6969/users/perfil/' + user._id, editedUser, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <NavbarWrapper>
@@ -26,18 +64,18 @@ function EditProfile() {
                     </div>
                     <div className='w3-margin'>
                         <label className='w3-large w3-margin-bottom'>Idade:</label>
-                        <input autoComplete='off' className="w3-input in-upload-input" type="text" value={idade} onChange={(e) => setIdade(e.target.value)} placeholder={user.age} />
+                        <input autoComplete='off' className="w3-input in-upload-input" type="number" value={idade} onChange={(e) => setIdade(e.target.value)} placeholder={user.age} />
                     </div>
                     <div className='w3-margin'>
-                        <label className='w3-large w3-margin-bottom'>Afiliacao:</label>
-                        <input autoComplete='off' className="w3-input in-upload-input" type="text" value={afiliacao} onChange={(e) => setAfiliacao(e.target.value)} placeholder={user.afiliacao} />
+                        <label className='w3-large w3-margin-bottom'>Filiação:</label>
+                        <input autoComplete='off' className="w3-input in-upload-input" type="text" value={filiacao} onChange={(e) => setFiliacao(e.target.value)} placeholder={user.filiacao} />
                     </div>
                     <div className='w3-margin'>
                         <label className='w3-large w3-margin-bottom'>Bio:</label><br/>
                         <textarea className='in-edit-bio' type="text" value={bio} onChange={(e) => setBio(e.target.value)} placeholder={user.bio}/>
                     </div>
                     <div className='in-flex-center w3-margin-bottom'>
-                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" >Editar</button>  
+                        <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={editUser}>Editar</button>  
                     </div>  
                 </div>
             </div>

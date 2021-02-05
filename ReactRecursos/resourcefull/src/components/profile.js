@@ -4,6 +4,9 @@ import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useAuth } from '../contexts/authcontext';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import PostCard from './postCard';
 
 function timeSince(date) {
     let now = new Date()
@@ -36,9 +39,19 @@ function timeSince(date) {
 
 function Profile() {
 
+    let [posts, setPosts] = useState(null)
     let { user } = useAuth();
     user=user.user;
     console.log(user);
+
+    let loadPosts = () => {
+        axios.get('http://localhost:6969/posts?users=' + user.id, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                setPosts(dados.data)
+            })
+            .catch(err => { console.log(err) })
+    }
 
     return (
         <NavbarWrapper>
@@ -70,8 +83,13 @@ function Profile() {
                         }
                    </div>
                 </div>
-                
-                <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge">Mostrar Posts</button>
+                <div className='in-posts-center'>
+                    {posts == null ?
+                        <button className="w3-btn in-upload-submit in-loadposts-button w3-xlarge" onClick={loadPosts}>Mostrar Posts</button>
+                        :
+                        posts.map((v, i) => <PostCard key={i} post={v} />)
+                    }
+                </div>
             </div>
         </NavbarWrapper>
     );
