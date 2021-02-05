@@ -53,7 +53,7 @@ module.exports.getUpvotes = id => {
 }
 
 module.exports.addUpvote = (id,idUser) => {
-    Post.update(
+    return Post.update(
         {_id:id},
         {
             $push: {upvotes: idUser}
@@ -62,7 +62,7 @@ module.exports.addUpvote = (id,idUser) => {
 }
 
 module.exports.removeUpvote = (id,idUser) => {
-    Post.update(
+    return Post.update(
         {_id:id},
         {
             $pull: {upvotes: idUser}

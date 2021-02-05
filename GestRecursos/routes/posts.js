@@ -39,23 +39,20 @@ router.get('/:idRec', function (req, res) {
       .catch(err => res.status(500).jsonp(err))
   });
 
-router.post('/upvote/:id', function(req, res){
-    console.log("ola")
+router.post('/:id/upvote', function(req, res){
     Post.lookUp(req.params.id)
         .then(post => {
+
+            var uID = req.user.id
+
             console.log(post)
-            if(post.upvotes.includes({user: req.user.id})){
-                console.log("E QUE")
-                Post.removeUpvote(post._id, {user: req.user.id})
+            if(post.upvotes.includes(uID)){
+                Post.removeUpvote(post._id, uID)
                     .then(d => res.status(201).jsonp(d))
                     .catch(err => res.status(500).jsonp(err))
             }
             else{
-                console.log("E QUE2")
-                var up = {
-                    user: req.user.id
-                }
-                Post.addUpvote(post._id, up)
+                Post.addUpvote(req.params.id, uID)
                     .then(u => res.status(201).jsonp(u))
                     .catch(err => res.status(500).jsonp(err))
             }
@@ -63,23 +60,6 @@ router.post('/upvote/:id', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
-
-/*
-Post.getUpvotes(req.params.id)
-        .then(upvoteList => {
-            if(upvoteList.contains(req.user.id)){
-                Post.removeUpvote(req.params.id, req.user.id)
-                    .then(d => res.status(201).jsonp(d))
-                    .catch(err => res.status(500).jsonp(err))
-            }
-            else{
-                Post.addUpvote(req.params.id, req.user.id)
-                    .then(u => res.status(201).jsonp(u))
-                    .catch(err => res.status(500).jsonp(err))
-            }
-        })
-        .catch(err => res.status(500).jsonp(err)) 
- */
 router.post('/:id/comment', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
