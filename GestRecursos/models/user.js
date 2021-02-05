@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
     password: { type: String, required: true},
     nome: { type: String, required: true},
     email: { type: String, required: true},
-    filiaçao: String, //do we need this? metemos options: estudante, docente, departamento, etc?
+    filiacao: String, //do we need this? metemos options: estudante, docente, departamento, etc?
     age: { type: Number, required: true},
     bio: String,
     access: { type: String, required: true},

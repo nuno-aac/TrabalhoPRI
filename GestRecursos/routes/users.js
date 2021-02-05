@@ -40,7 +40,7 @@ router.post('/perfil/:id', function(req, res){
             password: req.body.password,
             nome: req.body.nome,
             email: req.body.email,
-            filiaçao: req.body.filiaçao, 
+            filiacao: req.body.filiacao, 
             age: req.user.age,
             bio: req.body.bio,
             access: req.user.access,

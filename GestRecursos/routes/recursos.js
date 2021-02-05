@@ -9,12 +9,10 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 
 router.get('/', function(req, res) {
-    console.log(req.query)
     Recurso.listPrivate(req.query.search, req.query.type, req.query.minYear, req.query.maxYear, req.user.id)
         .then(privateRec => {
             Recurso.listPublic(req.query.search, req.query.type, req.query.minYear, req.query.maxYear)
                 .then(publicRec => {
-                    console.log(publicRec)
                     res.status(200).jsonp({recursosPriv: privateRec, recursosPublic: publicRec})
                 })
                 .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
@@ -35,29 +33,34 @@ router.get('/download/:recursoid', function(req,res){
 
 /////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
 router.post('/', upload.array('myFile'), function(req,res){
-    // req.file is the 'myFile' file
-    //req.body will hold the text fields if any
 
-    var zip = new AdmZip()
- 
     var d = new Date().toISOString().substr(0, 19)
 
-    createManifesto(req.files)
+    var zipFlag = true
 
-    createMetadata(req.files)
+    if(!(req.files.length == 1 && req.files[0].originalname.slice(req.files[0].originalname.lastIndexOf('.'),req.files[0].originalname.length) == '.zip')) {
 
-    zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/manifesto.json')
+        zipFlag = false
+        
+        var zip = new AdmZip()
 
-    req.files.forEach(a => {
-        zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt')
-    })
+        createManifesto(req.files)
 
-    renameUploads(req.files).then(data => {
+        createMetadata(req.files)
+
+        zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/manifesto.json')
+
         req.files.forEach(a => {
-            zip.addLocalFile(__dirname.split('routes')[0] + 'uploads/' + a.originalname)
+            zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt')
         })
-        zip.writeZip(__dirname.split('routes')[0] + '/' + req.body.titulo + '.zip');
-    })
+
+        renameUploads(req.files).then(data => {
+            req.files.forEach(a => {
+                zip.addLocalFile(__dirname.split('routes')[0] + 'uploads/' + a.originalname)
+            })
+            zip.writeZip(__dirname.split('routes')[0] + '/' + req.body.titulo + '.zip');
+        })
+    }
 
     Recurso.insert({
         tipo: req.body.tipo,
@@ -68,25 +71,29 @@ router.post('/', upload.array('myFile'), function(req,res){
         autor: req.user.id
     })
         .then(dados => {
-            console.log(dados)
 
             let quarantinePath = __dirname.split('routes')[0] + req.body.titulo + '.zip'
+            
+            if (zipFlag) quarantinePath = __dirname.split('routes')[0] + req.files[0].path
+
             let newPath = __dirname.split('routes')[0] + 'public/fileStore/' + dados._id + '.zip'
 
             fs.rename(quarantinePath, newPath, function (err) {
                 if (err) {
                     console.log(err)
                     Recurso.remove(dados._id)
-                        .then(data => console.log(data))
+                        .then(data => console.log('removed'))
                         .catch(erro => console.log("erro: " + erro))
                 }
             })
 
-            fs.unlink(__dirname.split('routes')[0] + '/uploads/manifesto.json', (err) => {})
-            req.files.forEach(a => {
-                fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt', (err) => {})
-                fs.unlink(__dirname.split('routes')[0] + 'uploads/' + a.originalname, (err) => {})
-            })
+            if(!zipFlag) {
+                fs.unlink(__dirname.split('routes')[0] + '/uploads/manifesto.json', (err) => {})
+                req.files.forEach(a => {
+                    fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt', (err) => {})
+                    fs.unlink(__dirname.split('routes')[0] + 'uploads/' + a.originalname, (err) => {})
+                })
+            }
         })
         .catch(error => res.render('error', { error: error }))
 
@@ -99,17 +106,7 @@ router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp(err))
-    //res.render('recurso', )
 })
-
-function verificaAutenticacao(req, res, next) {//usar isto? pipeline vertical broski
-    if (req.isAuthenticated()) {
-      next();
-    }
-    else {
-      res.status(500).jsonp({erro: 'Erro na verificação do user'});
-    }
-  }
 
 function createManifesto(obj){
     var fileNames = []
