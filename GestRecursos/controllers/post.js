@@ -20,6 +20,11 @@ module.exports.lookUpRec = rID => {
     return Post.find({recursoID: rID, visibilidade: 'PUBLIC' }).exec()
 }
 
+//Returns posts by user
+module.exports.lookUpUsers = uID => {
+    return Post.find({autor: uID, visibilidade: 'PUBLIC' }).exec()
+}
+
 // Inserts a new post
 module.exports.insert = p => {
     var newPost = new Post(p)
