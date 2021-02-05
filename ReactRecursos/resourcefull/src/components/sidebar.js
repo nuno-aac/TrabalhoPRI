@@ -3,23 +3,27 @@ import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
 import Filter from './filter';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 
-function Sidebar({setQueryString,loadFilters}) {
+function Sidebar() {
     let [queryObject,setQueryObject] = useState({
         types:{slides: false, teste: false},
         maxYear:'',
         minYear:''
     });
 
+    let [queryString, setQueryString] = useState('')
+
+    let location = useLocation();
+
     let [minYear,setMinYear] = useState('')
     let [maxYear, setMaxYear] = useState('')
 
+
     useEffect(() => {
-        if(minYear.length > 0)
-            setQueryObject(prevState => ({ ...prevState, minYear:minYear }))
-        if (maxYear.length > 0)
-            setQueryObject(prevState => ({ ...prevState, maxYear: maxYear }))
+        setQueryObject(prevState => ({ ...prevState, minYear:minYear }))
+        setQueryObject(prevState => ({ ...prevState, maxYear: maxYear }))
     },[minYear,maxYear])
     
     let isChecked = (type) => {
@@ -28,7 +32,6 @@ function Sidebar({setQueryString,loadFilters}) {
 
     let changeCheck = (event) => {
         let type = event.target.value
-        console.log(type)
         let tempTypes=queryObject.types
         tempTypes[type] = !tempTypes[type]
         setQueryObject({...queryObject, types: tempTypes})
@@ -36,10 +39,19 @@ function Sidebar({setQueryString,loadFilters}) {
 
     useEffect(() => {
         let isfirst = true
-        let query = ''
+        let qs = location.search
+        let search = qs.match(/\?search=.*?(?=(?:&|$))/)
+        let query
+        if (search == null) {
+            search = '';
+            query = search;
+
+        }
+        else query = search[0];
+
+        if(query !== '') isfirst=false
         
 
-        console.log(queryObject.types)
         if(queryObject.maxYear.length>0)
             if(isfirst){
                 isfirst = false
@@ -47,7 +59,6 @@ function Sidebar({setQueryString,loadFilters}) {
             }
             else
                 query = query + '&maxYear=' + queryObject.maxYear
-
         if (queryObject.minYear.length > 0)
             if (isfirst) {
                 isfirst = false
@@ -69,7 +80,7 @@ function Sidebar({setQueryString,loadFilters}) {
         }
 
         setQueryString(query)
-    }, [queryObject,setQueryString])
+    }, [queryObject,location])
 
     return (
         <>
@@ -84,7 +95,9 @@ function Sidebar({setQueryString,loadFilters}) {
                     <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Max..." value={maxYear} onChange={(e) => setMaxYear(e.target.value)} />
                 </div>
             </Filter>
-            <input className="w3-btn in-upload-submit w3-margin" type="submit" value="Filtra" onClick={loadFilters}/>
+            <Link to={'/recursos' + queryString}>
+                <input className="w3-btn in-upload-submit w3-margin" type="submit" value="Filtra"/>
+            </Link>
         </>
     );
 }
