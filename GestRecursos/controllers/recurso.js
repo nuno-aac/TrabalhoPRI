@@ -21,20 +21,33 @@ module.exports.listPublic = (search, type, mindate, maxdate) => {
         return Recurso.find({visibilidade: "PUBLIC", tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}})
     }
     else if(search != null && type == null && mindate == null && maxdate == null){
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PUBLIC", titulo: {$in:nsSearch}})
     }
     else if(search != null && type != null && mindate == null && maxdate == null){
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PUBLIC", titulo: {$in:nsSearch}, tipo: {$in: type}})
     }
     else if(search != null && type == null && mindate != null && maxdate != null){
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, dateCreation: {$gte:mindate, $lte:maxdate}})
+        console.log(maxdate)
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PUBLIC", titulo: {$in:nsSearch}, dateCreation: {$gte:mindate, $lte:maxdate}})
     }
     else if(search != null && type != null && mindate != null && maxdate != null){
-        return Recurso.find({visibilidade: "PUBLIC"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PUBLIC", titulo: {$in:nsSearch}, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}})
     }
     else {
         return Recurso.find({visibilidade: "PUBLIC"})
     }
+}
+
+function noSpace(array) {
+    var newArray = []
+    array.forEach(a => {
+        if(a != '') newArray.push(new RegExp(a, "i"))
+    })
+    return newArray
 }
 
 // Returns list of PRIVATE recursos of certain autor
@@ -52,16 +65,20 @@ module.exports.listPrivate = (search, type, mindate, maxdate, id) => {
         return Recurso.find({visibilidade: "PRIVATE", tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
     else if(search != null && type == null && mindate == null && maxdate == null){
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, autor: id})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PRIVATE", titulo: {$in:nsSearch}, autor: id})
     }
     else if(search != null && type != null && mindate == null && maxdate == null){
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, autor: id})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PRIVATE", titulo: {$in:nsSearch}, tipo: {$in: type}, autor: id})
     }
     else if(search != null && type == null && mindate != null && maxdate != null){
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PRIVATE", titulo: {$in:nsSearch}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
     else if(search != null && type != null && mindate != null && maxdate != null){
-        return Recurso.find({visibilidade: "PRIVATE"/*, SEARCH*/, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({visibilidade: "PRIVATE", titulo: {$in:nsSearch}, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
     }
     else {
         return Recurso.find({visibilidade: "PRIVATE", autor: id})
