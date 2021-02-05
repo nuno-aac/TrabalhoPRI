@@ -43,10 +43,12 @@ router.post('/:id/upvote', function(req, res){
     Post.getUpvotes(req.params.id)
         .then(post => {
 
+            console.log(post)
+
             var uID = req.user.id
 
             if(post.upvotes.includes(uID)){
-                Post.removeUpvote(post._id, uID)
+                Post.removeUpvote(req.params.id, uID)
                     .then(d => res.status(201).jsonp(d))
                     .catch(err => res.status(500).jsonp(err))
             }

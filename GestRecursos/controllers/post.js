@@ -88,7 +88,8 @@ module.exports.removeUpvoteComment = (id,idUser) => {
 
 //get upvotes
 module.exports.getUpvotes = id => {
-    return Post.findOne({_id : id}).select({upvotes:1, _id:0})
+    return Post.findOne({_id : id})
+        .select({upvotes:1, _id:0})
 }
 
 module.exports.addUpvote = (id,idUser) => {
