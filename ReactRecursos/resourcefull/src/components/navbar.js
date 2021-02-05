@@ -66,7 +66,7 @@ function Navbar() {
                     <Searchbar/>
                 </div>
                 <div className="in-navbar-right">
-                    <a className="in-navbar-item" href="/users/perfil">Perfil</a>
+                    <a className="in-navbar-item" href="/users/me">Perfil</a>
                     <a className="in-navbar-item" href="/">Os meus Recursos</a>
                     <div className="in-navbar-item" onClick={handleLogout}><div className="w3-xlarge"><img src="/images/logout.svg" className="in-icon" alt="Logout" /></div></div>
                 </div>

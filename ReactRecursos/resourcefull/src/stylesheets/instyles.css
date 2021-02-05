@@ -405,3 +405,18 @@ POST PAGE CSS */
     background-color: whitesmoke;
     border-radius: 5px;
 }
+
+/******************|
+PROFILE PAGE CSS */
+.in-profile-img{
+    width:20%;
+    margin: 0 20px;
+}
+
+.in-profile{
+    width:80vw;
+    display:grid;
+    grid-template-columns: auto 1fr;
+    margin: 50px;
+    padding: 50px;
+}
