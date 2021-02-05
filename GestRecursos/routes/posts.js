@@ -29,7 +29,7 @@ router.get('/', function (req, res) {
 
 
 
-router.post('/:idRec', function (req,res) {
+router.post('/', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
     var p = {
@@ -38,7 +38,7 @@ router.post('/:idRec', function (req,res) {
         autor: req.user.id,
         visibilidade: 'PUBLIC',
         dataRegisto: d,
-        recursoID: req.params.idRec
+        recursoID: req.body.idRec
     }
     Post.insert(p)
         .then(post => res.status(201).jsonp(post))
@@ -105,7 +105,7 @@ router.post('/:id/comment/:idCom/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
-router.get('/:idRec/:idPost', function (req, res) {
+router.get('/:idPost', function (req, res) {
     Post.lookUp(req.params.idPost)
       .then(post => res.status(200).jsonp(post))
       .catch(err => res.status(500).jsonp(err))
