@@ -65,6 +65,7 @@ function Recurso() {
     let [recurso, setRecurso] = useState(null)
     let [titulo, setTitulo] = useState('')
     let [post, setPost] = useState('')
+    //let [posts,setPosts] = useState([])
 
     let openModal = () => {
         setIsModalOpen(true)
@@ -92,6 +93,15 @@ function Recurso() {
             })
             .catch(err => { console.log(err) })
     }
+
+    /*let loadPosts = () => {
+        axios.get('http://localhost:6969/posts/' + id, { titulo: titulo, conteudo: post }, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                closeModal();
+            })
+            .catch(err => { console.log(err) })
+    }*/
 
     let [isModalOpen, setIsModalOpen] = useState(false);
 

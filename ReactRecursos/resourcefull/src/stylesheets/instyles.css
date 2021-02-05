@@ -106,6 +106,30 @@
     margin: 2em;
 }
 
+.in-like-img{
+    height: 50px;
+    margin-left:25px;
+    margin-bottom: 30px;
+    filter: invert(43%) sepia(78%) saturate(259%) hue-rotate(109deg) brightness(91%) contrast(93%);
+}
+
+.in-nolike-img{
+    height: 50px;
+    margin-left:25px;
+    margin-bottom: 30px;
+    filter: invert(48%) sepia(4%) saturate(54%) hue-rotate(314deg) brightness(105%) contrast(77%);
+}
+
+.in-like-img:hover{
+    filter: invert(43%) sepia(78%) saturate(259%) hue-rotate(109deg) brightness(101%) contrast(93%);
+    cursor: pointer;
+} 
+
+.in-nolike-img:hover{
+    filter: invert(48%) sepia(4%) saturate(54%) hue-rotate(314deg) brightness(95%) contrast(77%);
+    cursor: pointer;
+}
+
 .in-round{
     border-radius: 7%;
 }
@@ -408,15 +432,25 @@ POST PAGE CSS */
 
 /******************|
 PROFILE PAGE CSS */
-.in-profile-img{
-    width:20%;
-    margin: 0 20px;
-}
 
 .in-profile{
-    width:80vw;
+    width:70vw;
     display:grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 20% 80%;
     margin: 50px;
     padding: 50px;
+}
+
+.in-profile-img{
+    width:100%;
+}
+
+.in-profile-details{
+    width: 100%;
+}
+
+.in-edit-bio{
+    width: 70vh;
+    height: 30vh;
+    margin: 20px 0;
 }
