@@ -78,13 +78,14 @@ function Post() {
                         <div>
                             <img src='/images/file.svg' alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
-                            <Like upvotes={['Nuni']} path='' />
                         </div>
                         <div className='in-post-content'>
                             <span className='w3-large'>{post.conteudo}</span>
                         </div>
                         <div className='in-flex-row'>
-                                {timeSince(1)}
+                                Posted {timeSince(post.dataRegisto)} ago
+                                <Like upvotes={post.upvotes} path={'posts/' + post._id + '/upvote'} />
+                                {post.upvotes.length}
                         </div>
                     </div>
                     <div className='in-post-comments in-content-box'>

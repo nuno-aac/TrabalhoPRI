@@ -13,11 +13,14 @@ function Like({ upvotes, path }) {
     let checked = upvotes.includes(username);
 
     let upvote = () => {
-        axios.post(path, { withCrendetials: true } )
-        .then(dados =>{
-            console.log(dados)
-            window.location.reload();
-        })
+        axios.post('http://localhost:6969/' + path, {}, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (
