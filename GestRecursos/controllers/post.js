@@ -46,3 +46,26 @@ module.exports.remove = id => {
 module.exports.edit = (id, p) => {
     return Post.findByIdAndUpdate(id, p, { new: true })
 }
+
+//get upvotes
+module.exports.getUpvotes = id => {
+    return Post.findOne({_id : id}).select('upvotes -_id')
+}
+
+module.exports.addUpvote = (id,idUser) => {
+    Post.update(
+        {_id:id},
+        {
+            $push: {upvotes: idUser}
+        }
+    )
+}
+
+module.exports.removeUpvote = (id,idUser) => {
+    Post.update(
+        {_id:id},
+        {
+            $pull: {upvotes: idUser}
+        }
+    )
+}
