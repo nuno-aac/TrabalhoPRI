@@ -33,32 +33,28 @@ router.get('/logout', function (req, res) {
     });
 })
 
-router.post('/perfil/:id', verificaAcessoUser(), function(req, res){
-    var u = {
-        id: req.user.id,
-        password: req.body.password,
-        nome: req.body.nome,
-        email: req.body.email,
-        filiaçao: req.body.filiaçao, 
-        age: req.user.age,
-        bio: req.body.bio,
-        access: req.user.access,
-        dataRegisto: req.user.dataRegisto,       
-        dataUltimoAcesso: req.user.dataUltimoAcesso
-    }
-    User.edit(req.user.id, u)
-        .then(dados => res.status(200))
-        .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
-})
-
-function verificaAcessoUser(req, res, next) {
+router.post('/perfil/:id', function(req, res){
     if (req.user.id == req.params.id) {
-      next();
+        var u = {
+            id: req.user.id,
+            password: req.body.password,
+            nome: req.body.nome,
+            email: req.body.email,
+            filiaçao: req.body.filiaçao, 
+            age: req.user.age,
+            bio: req.body.bio,
+            access: req.user.access,
+            dataRegisto: req.user.dataRegisto,       
+            dataUltimoAcesso: req.user.dataUltimoAcesso
+        }
+        User.edit(req.user.id, u)
+            .then(dados => res.status(200))
+            .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
     }
     else {
-      res.redirect("/");
+        res.redirect("/");
     }
-}
+})
 
 router.post('/login',passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
