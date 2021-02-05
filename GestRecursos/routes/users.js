@@ -33,7 +33,7 @@ router.get('/logout', function (req, res) {
     });
 })
 
-router.post('/perfil', function(req, res){
+router.post('/perfil/:id', verificaAcessoUser(), function(req, res){
     var u = {
         id: req.user.id,
         password: req.body.password,
@@ -51,6 +51,14 @@ router.post('/perfil', function(req, res){
         .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
 })
 
+function verificaAcessoUser(req, res, next) {
+    if (req.user.id == req.params.id) {
+      next();
+    }
+    else {
+      res.redirect("/");
+    }
+}
 
 /*router.get('/:id', function (req, res) {
     User.lookUp(req.params.id)
