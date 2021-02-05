@@ -17,6 +17,7 @@ import HomeScreen from './components/homeScreen';
 import Recursos from './components/recursos';
 import Recurso from './components/recurso';
 import Post from './components/post';
+import Profile from './components/profile';
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route exact path='/post/:id'>
               <Post />
+            </Route>
+            <Route exact path='/users/me'>
+              <Profile />
             </Route>
           </ProtectedRoute>
         </Switch >
