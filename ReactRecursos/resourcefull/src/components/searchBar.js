@@ -9,7 +9,7 @@ function Searchbar() {
 
     return (
         <div className='in-navbar-searchbar'>
-            <input className='in-search' value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." />
+            <input className='in-search' value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Procura recursos..." />
             <Link to={'/recursos?search=' + search}>
                 <img src="/images/lupa.svg" className="in-icon" alt="Lupa" />
             </Link>

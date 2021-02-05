@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Comment from './comment';
+import Like from './like';
 
 function timeSince(date) {
     let now = new Date()
@@ -77,11 +78,12 @@ function Post() {
                         <div>
                             <img src='/images/file.svg' alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
+                            <Like upvotes={['Nuni']} path='' />
                         </div>
                         <div className='in-post-content'>
                             <span className='w3-large'>{post.conteudo}</span>
                         </div>
-                        <div>
+                        <div className='in-flex-row'>
                                 {timeSince(1)}
                         </div>
                     </div>
