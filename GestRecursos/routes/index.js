@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  res.status(201).jsonp({status: 'success'})
+  res.status(201).jsonp({user: req.user})
 });
 
 /*function verificaAutenticacao(req, res, next) {//usar isto?
