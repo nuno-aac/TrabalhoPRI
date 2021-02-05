@@ -26,7 +26,7 @@
 .in-navbar-container {
     position: relative;
     display: flex;
-    background: linear-gradient( whitesmoke, white);
+    background: linear-gradient(rgb(230, 230, 230), whitesmoke);
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
     height: max(10vh,60px);
     font-family: 'Quicksand', sans-serif;
@@ -68,6 +68,38 @@
 
 .in-navbar-item:active{
     box-shadow:inset 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.in-searchbar-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:20vw;
+}
+
+.in-navbar-searchbar{
+    width:100%;
+    padding:3px;
+    background-color:#ffffff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border: black solid 1px;
+}
+
+.in-search{
+    padding: 2.4%;
+    width: 80%;
+    background-color: transparent;
+    border: 0;
+}
+.in-search:focus{
+    background-color: transparent;
+    border: 0 !important;
+    outline: none;
 }
 
 .in-footer-login{

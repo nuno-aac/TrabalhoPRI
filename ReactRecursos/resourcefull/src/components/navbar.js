@@ -62,7 +62,7 @@ function Navbar() {
                     <a className="in-navbar-item" href="/recursos">Recursos</a>
                     <div className="in-navbar-item" onClick={openModal}>Upload</div>
                 </div>
-                <div className='w3-border in-flex-center'>
+                <div className='in-searchbar-container'>
                     <Searchbar/>
                 </div>
                 <div className="in-navbar-right">
