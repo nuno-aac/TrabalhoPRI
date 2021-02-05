@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/authcontext';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal'
 import { useState } from 'react';
+import Searchbar from './searchBar';
 
 const customStyles = {
     overlay: {
@@ -60,6 +61,9 @@ function Navbar() {
                     <a className="in-navbar-item" href="/"><div className="w3-xlarge"><img src="/images/home.svg" className="in-icon" alt="Home" /></div></a>
                     <a className="in-navbar-item" href="/recursos">Recursos</a>
                     <div className="in-navbar-item" onClick={openModal}>Upload</div>
+                </div>
+                <div className='w3-border in-flex-center'>
+                    <Searchbar/>
                 </div>
                 <div className="in-navbar-right">
                     <a className="in-navbar-item" href="/users/perfil">Perfil</a>
