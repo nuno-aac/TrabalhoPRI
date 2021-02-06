@@ -10,8 +10,6 @@ module.exports.list = () => {
         .exec()
 }
 
-//Fazer isto porque not sure if right ----------------------
-
 // Returns a post by id
 module.exports.lookUp = id => {
     return Post.findOne({ _id: id }).exec()
@@ -42,7 +40,7 @@ module.exports.remove = id => {
     return Post.deleteOne({ _id: id })
 }
 
-// Changes a post
+// Changes a post <- not done
 module.exports.edit = (id, p) => {
     return Post.findByIdAndUpdate(id, p, { new: true })
 }
@@ -53,6 +51,7 @@ module.exports.getUpvotes = id => {
         .select({upvotes:1, _id:0})
 }
 
+//add upvote
 module.exports.addUpvote = (id,idUser) => {
     return Post.update(
         {_id:id},
@@ -62,6 +61,7 @@ module.exports.addUpvote = (id,idUser) => {
     )
 }
 
+//remove upvote
 module.exports.removeUpvote = (id,idUser) => {
     return Post.update(
         {_id:id},
@@ -71,6 +71,7 @@ module.exports.removeUpvote = (id,idUser) => {
     )
 }
 
+//changes visibilidade
 module.exports.changeVisibilidade = (idR, vis) => {
     return Post.updateMany(
         {recursoID:idR},

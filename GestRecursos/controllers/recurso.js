@@ -136,13 +136,12 @@ module.exports.remove = id => {
     return Recurso.deleteOne({ _id: id })
 }
 
-//Fazer isto porque not sure if right ----------------------
-
 // Changes a recurso
 module.exports.edit = (id, r) => {
-    return Recurso.findByIdAndUpdate(id, r, { new: true })
+    return Recurso.findByIdAndUpdate(id, r, { new: true }) // <- not done
 }
 
+// adiciona rating a recurso
 module.exports.addRating = (idR, rt) => {
     return Recurso.update(
         {_id:idR},
@@ -152,6 +151,7 @@ module.exports.addRating = (idR, rt) => {
     )
 }
 
+// retira rating de recurso
 module.exports.removeRating = (idR, rt) => {
     return Recurso.update(
         {_id:idR},
@@ -161,6 +161,7 @@ module.exports.removeRating = (idR, rt) => {
     )
 }
 
+// changes visibilidade
 module.exports.changeVisibilidade = (idR, vis) => {
     return Recurso.update(
         {_id:idR},
