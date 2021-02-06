@@ -102,7 +102,7 @@ function Recurso() {
     }
 
     let newPost = () => {
-        axios.post('http://localhost:6969/posts',{idRec:id, tipo:recurso.tipo, titulo: titulo, conteudo: post}, { withCredentials: true})
+        axios.post('http://localhost:6969/posts',{idRec:id, tipo:recurso.tipo, titulo: titulo, conteudo: post, visibilidade: recurso.visibilidade}, { withCredentials: true})
             .then(dados => {
                 closeModal();
             })
@@ -131,7 +131,7 @@ function Recurso() {
     let changeVisibilidade = () =>{
         let newVisibilidade = '';
         recurso.visibilidade === 'PRIVATE' ? newVisibilidade = 'PUBLIC' : newVisibilidade = 'PRIVATE'
-        
+
         axios.post('http://localhost:6969/recursos/' + id + '/visibilidade', { visibilidade: newVisibilidade }, { withCredentials: true })
             .then(dados => {
                 window.location.reload()
