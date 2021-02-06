@@ -28,7 +28,7 @@ module.exports.edit = (id, u) => {
 }
 
 module.exports.changeAccess = (id, adm) => {
-    return Recurso.update(
+    return User.update(
         {id:id},
         {
             access: adm
