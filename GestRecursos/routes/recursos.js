@@ -109,7 +109,7 @@ router.post('/:id/rating', function(req, res){
         rating: req.body.rating,
         user: req.user.id
     }
-    
+
     Recurso.lookUp(req.params.id)
         .then(rec => {
             if(rec.ratings.length == 0){
@@ -121,17 +121,17 @@ router.post('/:id/rating', function(req, res){
                 rec.ratings.forEach(rat => {
                     if(rat.user == req.user.id){
                         flag = true
-                        console.log(rat)
                         var oldrt = {
                             user: req.user.id,
                             rating: rat.rating
                         }
                         Recurso.removeRating(rec._id, oldrt)
-                            .then(r => res.status(201).jsonp(r))
-                            .catch(err => res.status(500).jsonp(err))  
-                        Recurso.addRating(rec._id, rt)
-                            .then(r2 => res.status(201).jsonp(r2))
-                            .catch(err => res.status(500).jsonp(err))        
+                            .then(r =>{
+                                Recurso.addRating(rec._id, rt)
+                                    .then(r2 => res.status(201).jsonp(r2))
+                                    .catch(err => res.status(500).jsonp(err))
+                            })
+                            .catch(err => res.status(500).jsonp(err))         
                     }
                 })
                 if(flag == false){
