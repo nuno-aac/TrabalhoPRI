@@ -1,12 +1,11 @@
 var mongoose = require('mongoose')
 
 var userSchema = new mongoose.Schema({
-    //model for user, not finished
-    id: { type: String, required: true, unique: true}, //username
+    id: { type: String, required: true, unique: true},
     password: { type: String, required: true},
     nome: { type: String, required: true},
     email: { type: String, required: true},
-    filiacao: String, //do we need this? metemos options: estudante, docente, departamento, etc?
+    filiacao: String,
     age: { type: Number, required: true},
     bio: String,
     access: { type: String, required: true},

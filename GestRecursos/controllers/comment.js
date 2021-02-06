@@ -22,11 +22,12 @@ module.exports.remove = id => {
     return Comment.deleteOne({ _id: id })
 }
 
-// Changes a user
+// Changes a comment <- not done
 module.exports.edit = (id, c) => {
     return Comment.findByIdAndUpdate(id, c, { new: true })//{id:id}
 }
 
+// Adds upvote to comment
 module.exports.addUpvote = (id,idUser) => {
     return Comment.update(
         {_id:id},
@@ -36,6 +37,7 @@ module.exports.addUpvote = (id,idUser) => {
     )
 }
 
+// Removes upvote from comment
 module.exports.removeUpvote = (id,idUser) => {
     return Comment.update(
         {_id:id},

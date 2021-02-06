@@ -1,7 +1,6 @@
 var mongoose = require('mongoose')
 
 var postSchema = new mongoose.Schema({
-    //model for post, título, lista de comentários, etc?
     titulo: { type: String, required: true},
     autor: { type:String, require: true},
     conteudo: { type:String, require:true},
