@@ -37,7 +37,7 @@ router.post('/', function (req,res) {
         titulo: req.body.titulo,
         conteudo: req.body.conteudo,
         autor: req.user.id,
-        visibilidade: 'PUBLIC',
+        visibilidade: req.body.visibilidade,
         dataRegisto: d,
         recursoID: req.body.idRec,
         tipo: req.body.tipo
