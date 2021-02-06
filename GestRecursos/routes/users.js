@@ -37,7 +37,15 @@ router.get('/logout', function (req, res) {
 
 router.post('/:id/admin', function(req, res){
     if(req.user.access == 'ADMIN'){
-        User.makeAdmin(req.params.id, 'ADMIN')
+        User.lookUp(req.params.id)
+            .then(u => {
+                if(u.access == 'ADMIN'){
+                    User.changeAccess(u, 'USER')
+                }
+                else{
+                    User.changeAccess(u, 'ADMIN')
+                }
+            })
     }
 })
 
