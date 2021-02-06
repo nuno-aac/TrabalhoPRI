@@ -9,7 +9,8 @@ var postSchema = new mongoose.Schema({
     upvotes: [String],
     dataRegisto: { type: Date, required: true},
     recursoID: { type: mongoose.Schema.Types.ObjectId, require:true},
-    tipo: { type: String, required:true }
+    tipo: { type: String, required:true },
+    recTitle: { type:String, required:true }
 })
 
 module.exports = mongoose.model('post', postSchema)

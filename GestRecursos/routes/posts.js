@@ -40,7 +40,8 @@ router.post('/', function (req,res) {
         visibilidade: req.body.visibilidade,
         dataRegisto: d,
         recursoID: req.body.idRec,
-        tipo: req.body.tipo
+        tipo: req.body.tipo,
+        recTitle: req.body.recTitle
     }
     Post.insert(p)
         .then(post => res.status(201).jsonp(post))
