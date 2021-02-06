@@ -144,6 +144,12 @@ router.post('/:id/rating', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+router.delete('/:id', function(req, res){
+    Recurso.remove(req.params.id)
+        .then(re => res.status(200).jsonp(re))
+        .catch(err => res.status(500).jsonp(err))   
+})
+
 router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
