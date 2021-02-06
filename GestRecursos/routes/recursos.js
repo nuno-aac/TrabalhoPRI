@@ -102,6 +102,29 @@ router.post('/', upload.array('myFile'), function(req,res){
     
 })
 
+router.post('/:id/rating', function(req, res){
+    var flag = false
+    var rt = {
+        rating: req.body.rating,
+        user: req.user.id
+    }
+
+    Recurso.lookUp(req.params.id)
+        .then(rec => {
+            rec.ratings.forEach(rat => {
+                if(rat.user == req.user.id){
+                    flag = true
+                    Recurso.removeRating(rec._id, rat)
+                    Recurso.addRating(rec._id, rt)     
+                }
+            })
+            if(flag == false){
+                Recurso.addRating(rec._id, rt)
+            }
+        })
+        .catch(err => res.status(500).jsonp(err)) 
+})
+
 router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
