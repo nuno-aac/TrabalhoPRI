@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import StarRatings from 'react-star-ratings';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Modal from 'react-modal'
 import PostCard from './postCard';
 import { useAuth } from '../contexts/authcontext';
@@ -181,7 +181,7 @@ function Recurso() {
                     <div>
                         <span className='w3-xxxlarge'>{recurso.titulo}</span>
                         <br/>
-                        <div>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></div>
+                        <div>Recurso by <Link to={'/users/' + recurso.autor}>{recurso.autor}</Link> <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></div>
                         <div style={{marginTop:'30px',alignItems:'center'}} className='in-flex-row'>
                             <span className='w3-large w3-margin-right'>Rating </span>
                             <StarRatings rating={globalRating} starRatedColor="rgb(60, 136, 111)" starDimension='40px' numberOfStars={5} name='rating' />

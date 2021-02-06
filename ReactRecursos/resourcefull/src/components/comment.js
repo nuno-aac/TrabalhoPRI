@@ -4,6 +4,7 @@ import '../stylesheets/instyles.css';
 import Like from './like';
 import { useAuth } from '../contexts/authcontext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function timeSince(date) {
     let now = new Date()
@@ -52,7 +53,7 @@ function Comment({ comment }) {
 
     return (
         <div className='in-post-comment'>
-            <span className='w3-large'>{comment.user}:</span>
+            <Link style={{ marginLeft: '5px' }} to={'/users/' + comment.user}><span className='w3-xlarge'>{comment.user}:</span></Link>
             {comment.user === user.id || user.access === 'ADMIN' ? <span onClick={deleteComment} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
             <br/>
             <span>
@@ -60,7 +61,7 @@ function Comment({ comment }) {
             </span>
             <div className='w3-margin-top'>
                 {timeSince(comment.dataComment)} ago
-                                <Like upvotes={comment.upvotes} path={'posts/comment/' + comment._id + '/upvote'} />
+                 <Like upvotes={comment.upvotes} path={'posts/comment/' + comment._id + '/upvote'} />
                 {comment.upvotes.length}
             </div>
         </div>

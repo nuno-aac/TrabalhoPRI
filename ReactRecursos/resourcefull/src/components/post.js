@@ -112,7 +112,7 @@ function Post() {
                         </div>
                         <div className='in-flex-row'>
                             <div className='in-post-footer'>
-                                Posted {timeSince(post.dataRegisto)} ago
+                                    Posted {timeSince(post.dataRegisto)} ago by <Link style={{marginLeft:'5px'}}to={'/users/' + post.autor}> {post.autor}</Link>
                                 <Like upvotes={post.upvotes} path={'posts/' + post._id + '/upvote'} />
                                 {post.upvotes.length}
                             </div>
