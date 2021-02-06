@@ -3,7 +3,7 @@ import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useAuth } from '../contexts/authcontext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 function EditProfile() {
@@ -21,7 +21,7 @@ function EditProfile() {
         axios.post('http://localhost:6969/users/perfil/' + user.id, {nome:nome,age:idade,filiacao:filiacao,email:user.email,bio:bio}, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
-                window.location.reload();
+                window.location.replace('/users/me');
             })
             .catch(err => {
                 console.log(err);

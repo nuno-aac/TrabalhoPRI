@@ -46,8 +46,7 @@ router.post('/perfil/:id', function(req, res){
 
                 User.edit(user._id, user)
                     .then(dados => {
-                        console.log(dados)
-                        res.status(200)
+                        res.status(201).jsonp(dados)
                     })
                     .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
             })
