@@ -180,6 +180,14 @@ router.post('/:id/visibilidade', function(req, res){
     
 })
 
+router.get('/mine', function(req, res){
+    Recurso.listUser(req.query.search, req.query.type, req.query.minYear, req.query.maxYear, req.user.id)
+        .then(rec => {
+            res.status(200).jsonp(rec)
+        })
+        .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
+})
+
 router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
