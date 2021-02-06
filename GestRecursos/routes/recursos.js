@@ -52,7 +52,7 @@ router.post('/', upload.array('myFile'), function(req,res){
         zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/manifesto.json')
 
         req.files.forEach(a => {
-            zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt')
+            zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt')
         })
 
         renameUploads(req.files).then(data => {
@@ -91,7 +91,7 @@ router.post('/', upload.array('myFile'), function(req,res){
             if(!zipFlag) {
                 fs.unlink(__dirname.split('routes')[0] + '/uploads/manifesto.json', (err) => {})
                 req.files.forEach(a => {
-                    fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.txt', (err) => {})
+                    fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt', (err) => {})
                     fs.unlink(__dirname.split('routes')[0] + 'uploads/' + a.originalname, (err) => {})
                 })
             }
@@ -187,7 +187,7 @@ function createManifesto(obj){
 function createMetadata(obj){
     obj.forEach(f => {
         var meta = 'encoding:' + f.encoding + '\n' + 'mimetype:' + f.mimetype + '\n' +  'size:' + f.size + '\n'
-        fs.appendFileSync(__dirname.split('routes')[0] + '/uploads/' + f.originalname.slice(0,f.originalname.lastIndexOf('.')) + '.txt', meta, function(err){
+        fs.appendFileSync(__dirname.split('routes')[0] + '/uploads/' + f.originalname.slice(0,f.originalname.lastIndexOf('.')) + '.meta.txt', meta, function(err){
             if (err) console.log(err)
         })
     })
