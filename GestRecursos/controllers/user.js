@@ -26,3 +26,12 @@ module.exports.remove = id => {
 module.exports.edit = (id, u) => {
     return User.findByIdAndUpdate(id, u, { new: true })//{id:id}
 }
+
+module.exports.makeAdmin = (id, adm) => {
+    return Recurso.update(
+        {_id:id},
+        {
+            access: adm
+        }
+    )
+}

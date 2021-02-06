@@ -35,6 +35,12 @@ router.get('/logout', function (req, res) {
     });
 })
 
+router.post('/:id/admin', function(req, res){
+    if(req.user.access == 'ADMIN'){
+        User.makeAdmin(req.params.id, 'ADMIN')
+    }
+})
+
 // edit perfil
 router.post('/perfil/:id', function(req, res){
     if (req.user.id == req.params.id || req.user.access == 'ADMIN') {
