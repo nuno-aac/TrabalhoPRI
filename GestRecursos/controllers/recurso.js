@@ -126,3 +126,12 @@ module.exports.removeRating = (idR, rt) => {
         }
     )
 }
+
+module.exports.changeVisibilidade = (idR, vis) => {
+    return Recurso.update(
+        {_id:idR},
+        {
+            visibilidade: vis
+        }
+    )
+}

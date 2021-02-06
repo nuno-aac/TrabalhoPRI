@@ -158,6 +158,21 @@ router.delete('/:id', function(req, res){
         })
 })
 
+router.post('/:id/visibilidade', function(req, res){
+    Recurso.lookUp(req.params.id)
+        .then(recurso => {
+            if(recurso.autor == req.user.id || req.user.acess == "ADMIN"){
+                Recurso.changeVisibilidade(req.params.id, req.body.visibilidade)
+                    .then(re => res.status(200).jsonp(re))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                res.status(500).jsonp({error: "Unauthorized"})
+            }
+        })
+    
+})
+
 router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
