@@ -41,7 +41,7 @@ function UserProfile() {
     let { id } = useParams()
     let [posts, setPosts] = useState(null)
     let [user,setUser] = useState(null)
-    let globalUser = useAuth().user;
+    let globalUser = useAuth().user.user;
     
     useEffect(()=> {
         axios.get('http://localhost:6969/users/' + id, { withCredentials: true })
