@@ -119,7 +119,7 @@ module.exports.addRating = (idR, rt) => {
 }
 
 module.exports.removeRating = (idR, rt) => {
-    return Post.update(
+    return Recurso.update(
         {_id:idR},
         {
             $pull: {ratings: rt}
