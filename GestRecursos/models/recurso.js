@@ -12,7 +12,7 @@ var recursoSchema = new mongoose.Schema({
     ratings: [
         {
             rating: Number,
-            user: { type:String, unique:true}
+            user: String
         }
     ]
 })
