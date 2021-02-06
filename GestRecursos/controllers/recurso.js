@@ -85,7 +85,41 @@ module.exports.listPrivate = (search, type, mindate, maxdate, id) => {
     }
 }
 
-//Fazer isto porque not sure if right ----------------------
+// Returns list of recursos of certain autor
+module.exports.listUser = (search, type, mindate, maxdate, id) => {
+    if (search == null && type == null && mindate == null && maxdate == null){
+        return Recurso.find({autor: id})
+    }
+    else if(search == null && type != null && mindate == null && maxdate == null){
+        return Recurso.find({tipo: {$in: type}, autor: id})
+    }
+    else if(search == null && type == null && mindate != null && maxdate != null){
+        return Recurso.find({dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+    }
+    else if(search == null && type != null && mindate != null && maxdate != null){
+        return Recurso.find({tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+    }
+    else if(search != null && type == null && mindate == null && maxdate == null){
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({titulo: {$in:nsSearch}, autor: id})
+    }
+    else if(search != null && type != null && mindate == null && maxdate == null){
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({titulo: {$in:nsSearch}, tipo: {$in: type}, autor: id})
+    }
+    else if(search != null && type == null && mindate != null && maxdate != null){
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({titulo: {$in:nsSearch}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+    }
+    else if(search != null && type != null && mindate != null && maxdate != null){
+        let nsSearch = noSpace(search.split(' '))
+        return Recurso.find({titulo: {$in:nsSearch}, tipo: {$in: type}, dateCreation: {$gte:mindate, $lte:maxdate}, autor: id})
+    }
+    else {
+        return Recurso.find({autor: id})
+    }
+}
+
 // Returns a recurso by id
 module.exports.lookUp = id => {
     return Recurso.findOne({ _id: id }).exec()
