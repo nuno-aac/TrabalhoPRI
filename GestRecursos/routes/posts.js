@@ -111,6 +111,20 @@ router.post('/comment/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+router.delete('/:id', function(req, res){
+    Post.lookUp(req.params.id)
+        .then(post => {
+            if(post.autor == req.user.id || req.user.acess == "ADMIN"){
+                Post.remove(req.params.id)
+                    .then(re => res.status(200).jsonp(re))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                res.status(500).jsonp({error: "Unauthorized"})
+            }
+        })
+})
+
 router.get('/:idPost', function (req, res) {
     Post.lookUp(req.params.idPost)
       .then(post => res.status(200).jsonp(post))

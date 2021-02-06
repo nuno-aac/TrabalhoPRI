@@ -70,3 +70,12 @@ module.exports.removeUpvote = (id,idUser) => {
         }
     )
 }
+
+module.exports.changeVisibilidade = (idR, vis) => {
+    return Post.updateMany(
+        {recursoID:idR},
+        {
+            visibilidade: vis
+        }
+    )
+}
