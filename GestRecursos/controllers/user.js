@@ -29,7 +29,7 @@ module.exports.edit = (id, u) => {
 
 module.exports.changeAccess = (id, adm) => {
     return Recurso.update(
-        {_id:id},
+        {id:id},
         {
             access: adm
         }
