@@ -108,3 +108,21 @@ module.exports.remove = id => {
 module.exports.edit = (id, r) => {
     return Recurso.findByIdAndUpdate(id, r, { new: true })
 }
+
+module.exports.addRating = (idR, rt) => {
+    return Recurso.update(
+        {_id:idR},
+        {
+            $push: {ratings: rt}
+        }
+    )
+}
+
+module.exports.removeRating = (idR, rt) => {
+    return Recurso.update(
+        {_id:idR},
+        {
+            $pull: {ratings: rt}
+        }
+    )
+}

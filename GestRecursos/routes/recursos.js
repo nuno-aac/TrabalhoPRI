@@ -5,7 +5,8 @@ var AdmZip = require('adm-zip');
 
 var fs = require('fs')
 
-var multer = require('multer')
+var multer = require('multer');
+const { Console } = require('console');
 var upload = multer({dest: 'uploads/'})
 
 router.get('/', function(req, res) {
@@ -100,6 +101,47 @@ router.post('/', upload.array('myFile'), function(req,res){
     res.redirect('http://localhost:3000/recursos')//port
     
     
+})
+
+router.post('/:id/rating', function(req, res){
+    var flag = false
+    var rt = {
+        rating: req.body.rating,
+        user: req.user.id
+    }
+    
+    Recurso.lookUp(req.params.id)
+        .then(rec => {
+            if(rec.ratings.length == 0){
+                Recurso.addRating(rec._id, rt)
+                    .then(r => res.status(201).jsonp(r))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                rec.ratings.forEach(rat => {
+                    if(rat.user == req.user.id){
+                        flag = true
+                        console.log(rat)
+                        var oldrt = {
+                            user: req.user.id,
+                            rating: rat.rating
+                        }
+                        Recurso.removeRating(rec._id, oldrt)
+                            .then(r => res.status(201).jsonp(r))
+                            .catch(err => res.status(500).jsonp(err))  
+                        Recurso.addRating(rec._id, rt)
+                            .then(r2 => res.status(201).jsonp(r2))
+                            .catch(err => res.status(500).jsonp(err))        
+                    }
+                })
+                if(flag == false){
+                    Recurso.addRating(rec._id, rt)
+                        .then(r => res.status(201).jsonp(r))
+                        .catch(err => res.status(500).jsonp(err))
+                }
+            }
+        })
+        .catch(err => res.status(500).jsonp(err)) 
 })
 
 router.get('/:id', function(req,res){
