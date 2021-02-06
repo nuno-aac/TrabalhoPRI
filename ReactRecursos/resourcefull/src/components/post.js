@@ -4,7 +4,7 @@ import '../stylesheets/instyles.css';
 import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Comment from './comment';
 import Like from './like';
 import { useAuth } from '../contexts/authcontext';
@@ -104,7 +104,7 @@ function Post() {
                     <div className="in-post in-content-box">
                         <div>
                             <img src={'/images/types/'+post.tipo+'.svg'} alt='File' className='in-post-image' />
-                            <span className='w3-xxxlarge'>{post.titulo}</span>
+                            <span className='w3-xxxlarge'>{post.titulo}</span><span> Post sobre <Link to={'/recurso/'+post.recursoID}>{post.recTitle}</Link></span>
                             {post.autor === user.id || user.access === 'ADMIN' ? <span onClick={deletePost} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
                         </div>
                         <div className='in-post-content'>

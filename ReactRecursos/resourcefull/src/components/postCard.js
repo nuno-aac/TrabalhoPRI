@@ -48,7 +48,7 @@ function PostCard({ post }) {
                 <div className='in-posts-details'>
                     <div>
                         <span className='w3-xxlarge in-font-quicksand'>{post.titulo}</span>
-                        <span> Post sobre Recurso</span>
+                        <span> Post sobre {post.recTitle}</span>
                     </div>
                     <div>
                         {timeSince(post.dataRegisto)} ago by {post.autor}
