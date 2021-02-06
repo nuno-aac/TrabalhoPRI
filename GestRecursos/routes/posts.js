@@ -71,7 +71,7 @@ router.post('/:id/upvote', function(req, res){
 
 router.get('/:id/comments', function (req,res) {
     Comment.list(req.params.id)
-        .then(comments => res.status(201).jsonp(comments))
+        .then(comments => res.status(200).jsonp(comments))
         .catch(err => res.status(500).jsonp(err))
 })
 
