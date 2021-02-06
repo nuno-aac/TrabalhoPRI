@@ -125,6 +125,20 @@ router.delete('/:id', function(req, res){
         })
 })
 
+router.delete('/comment/:id', function (req,res) {
+    Comment.lookUp(req.params.id)
+        .then(com => {
+            if(com.user == req.user.id || req.user.acess == "ADMIN"){
+                Comment.remove(req.params.id)
+                    .then(c => res.status(200).jsonp(c))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                res.status(500).jsonp({error: "Unauthorized"})
+            }
+        })
+})
+
 router.get('/:idPost', function (req, res) {
     Post.lookUp(req.params.idPost)
       .then(post => res.status(200).jsonp(post))
