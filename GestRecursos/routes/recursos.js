@@ -148,7 +148,7 @@ router.post('/:id/rating', function(req, res){
 router.delete('/:id', function(req, res){
     Recurso.lookUp(req.params.id)
         .then(recurso => {
-            if(recurso.autor == req.user.id || req.user.acess == "ADMIN"){
+            if(recurso.autor == req.user.id || req.user.access == "ADMIN"){
                 Recurso.remove(req.params.id)
                     .then(re => res.status(200).jsonp(re))
                     .catch(err => res.status(500).jsonp(err))
@@ -162,7 +162,7 @@ router.delete('/:id', function(req, res){
 router.post('/:id/visibilidade', function(req, res){
     Recurso.lookUp(req.params.id)
         .then(recurso => {
-            if(recurso.autor == req.user.id || req.user.acess == "ADMIN"){
+            if(recurso.autor == req.user.id || req.user.access == "ADMIN"){
                 Recurso.changeVisibilidade(req.params.id, req.body.visibilidade)
                     .then(re => {
                         Post.changeVisibilidade(req.params.id, req.body.visibilidade)

@@ -115,7 +115,7 @@ router.post('/comment/:id/upvote', function(req, res){
 router.delete('/:id', function(req, res){
     Post.lookUp(req.params.id)
         .then(post => {
-            if(post.autor == req.user.id || req.user.acess == "ADMIN"){
+            if(post.autor == req.user.id || req.user.access == "ADMIN"){
                 Post.remove(req.params.id)
                     .then(re => res.status(200).jsonp(re))
                     .catch(err => res.status(500).jsonp(err))
@@ -129,7 +129,7 @@ router.delete('/:id', function(req, res){
 router.delete('/comment/:id', function (req,res) {
     Comment.lookUp(req.params.id)
         .then(com => {
-            if(com.user == req.user.id || req.user.acess == "ADMIN"){
+            if(com.user == req.user.id || req.user.access == "ADMIN"){
                 Comment.remove(req.params.id)
                     .then(c => res.status(200).jsonp(c))
                     .catch(err => res.status(500).jsonp(err))
