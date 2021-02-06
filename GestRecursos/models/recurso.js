@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 
 var recursoSchema = new mongoose.Schema({
-    tipo: String, //required?
+    tipo: { type:String, required:true }, //required?
     titulo: { type: String, required: true},
     subtitulo: String,
     dateCreation: { type: Number, required: true},

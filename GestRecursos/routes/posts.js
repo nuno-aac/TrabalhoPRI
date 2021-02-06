@@ -38,7 +38,8 @@ router.post('/', function (req,res) {
         autor: req.user.id,
         visibilidade: 'PUBLIC',
         dataRegisto: d,
-        recursoID: req.body.idRec
+        recursoID: req.body.idRec,
+        tipo: req.body.tipo
     }
     Post.insert(p)
         .then(post => res.status(201).jsonp(post))
