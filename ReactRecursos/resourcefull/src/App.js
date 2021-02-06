@@ -19,6 +19,7 @@ import Recurso from './components/recurso';
 import Post from './components/post';
 import Profile from './components/profile';
 import EditProfile from './components/editProfile';
+import UserProfile from './components/userProfile';
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
             </Route>
             <Route exact path='/users/me'>
               <Profile />
+            </Route>
+            <Route exact path='/users/:id'>
+              <UserProfile />
             </Route>
             <Route exact path='/users/edit'>
               <EditProfile />

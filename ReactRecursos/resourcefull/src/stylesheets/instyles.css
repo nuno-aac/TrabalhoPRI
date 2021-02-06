@@ -402,6 +402,10 @@ POST PAGE CSS */
     margin-bottom: 2em;
 }
 
+.in-post-delete{
+    cursor: pointer
+}
+
 .in-post-footer{
     display: flex;
     align-items: center;

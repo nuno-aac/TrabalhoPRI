@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Comment from './comment';
 import Like from './like';
+import { useAuth } from '../contexts/authcontext';
 
 function timeSince(date) {
     let now = new Date()
@@ -44,6 +45,9 @@ function Post() {
     let [post, setPost] = useState(null)
     let [comment, setComment] = useState('')
 
+    let { user } = useAuth();
+    user = user.user
+
     let { id } = useParams();
 
     let postComment = () => {
@@ -78,6 +82,7 @@ function Post() {
                         <div>
                             <img src='/images/file.svg' alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
+                            {post.autor === user.id || user.access === 'ADMIN' ? <span onClick='' className='w3-right in-post-delete w3-large'>❌</span> : <></>}
                         </div>
                         <div className='in-post-content'>
                             <span className='w3-large'>{post.conteudo}</span>
