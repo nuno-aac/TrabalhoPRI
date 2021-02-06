@@ -478,6 +478,11 @@ PROFILE PAGE CSS */
     width: 100%;
 }
 
+.in-profile-token{
+    width: 100%;
+    height: 200px;
+}
+
 .in-edit-bio{
     width: 70vh;
     height: 30vh;

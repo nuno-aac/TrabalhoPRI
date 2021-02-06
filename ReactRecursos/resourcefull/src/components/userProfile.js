@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import PostCard from './postCard';
+import { useAuth } from '../contexts/authcontext';
 
 function timeSince(date) {
     let now = new Date()
@@ -40,6 +41,7 @@ function UserProfile() {
     let { id } = useParams()
     let [posts, setPosts] = useState(null)
     let [user,setUser] = useState(null)
+    let globalUser = useAuth().user;
     
     useEffect(()=> {
         axios.get('http://localhost:6969/users/' + id, { withCredentials: true })
@@ -59,6 +61,14 @@ function UserProfile() {
             .catch(err => { console.log(err) })
     }
 
+    let toAdministrador = () => {
+        axios.post('http://localhost:6969/users/' + user._id + '/admin', {}, { withCredentials: true })
+            .then(dados => {
+                window.location.reload()
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <NavbarWrapper>
             {user !== null ?
@@ -66,6 +76,7 @@ function UserProfile() {
                 <div className="in-profile in-content-box">
                     <div className='in-flex-center'>
                         <img className='in-profile-img' src='https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png' alt='User' />
+                        {globalUser.access === 'ADMIN' && user.access !== 'ADMIN' ? <span onClick={toAdministrador}>Tornar Admin 👑</span> : <></>}
                     </div>
                     <div className='in-profile-details w3-margin-left'>
                         <div>
