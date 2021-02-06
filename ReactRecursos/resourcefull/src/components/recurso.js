@@ -102,7 +102,7 @@ function Recurso() {
     }
 
     let newPost = () => {
-        axios.post('http://localhost:6969/posts',{idRec:id, tipo:recurso.tipo, titulo: titulo, conteudo: post, visibilidade: recurso.visibilidade}, { withCredentials: true})
+        axios.post('http://localhost:6969/posts',{idRec:id, tipo:recurso.tipo, titulo: titulo, conteudo: post, visibilidade: recurso.visibilidade, recTitle: recurso.titulo}, { withCredentials: true})
             .then(dados => {
                 closeModal();
             })
