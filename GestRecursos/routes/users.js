@@ -34,7 +34,7 @@ router.get('/logout', function (req, res) {
 })
 
 router.post('/perfil/:id', function(req, res){
-    if (req.user.id == req.params.id) {
+    if (req.user.id == req.params.id || req.user.access == 'ADMIN') {
         User.lookUp(req.params.id)
             .then(user => {
 
@@ -77,6 +77,17 @@ router.get('/:id', function (req, res) {
     User.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp({erro: 'Erro no lookup do User: ' + err}))
+})
+
+router.delete('/:id', function(req, res){
+    if (req.user.id == req.params.id || req.user.access == 'ADMIN'){
+        User.remove(req.params.id)
+            .then(u => res.status(200).jsonp(u))
+            .catch(err => res.status(500).jsonp(err))
+    }
+    else{
+        res.status(500).jsonp({error: "Unauthorized"})
+    }
 })
 
 
