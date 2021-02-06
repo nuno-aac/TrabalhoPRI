@@ -37,20 +37,24 @@ router.post('/perfil/:id', function(req, res){
     if (req.user.id == req.params.id) {
         User.lookUp(req.params.id)
             .then(user => {
-                user.nome = req.body.nome
-                user.email = req.body.email
-                user.filiacao = req.body.filiacao
-                user.age = req.body.age
-                user.bio = req.body.bio
 
-                User.edit(req.params.id, user)
-                    .then(dados => res.status(200))
+                if(req.body.nome != '') user.nome = req.body.nome
+                if(req.body.email != '') user.email = req.body.email
+                if(req.body.filiacao != '') user.filiacao = req.body.filiacao
+                if(req.body.age != '') user.age = req.body.age
+                if(req.body.bio != '') user.bio = req.body.bio
+
+                User.edit(user._id, user)
+                    .then(dados => {
+                        console.log(dados)
+                        res.status(200)
+                    })
                     .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
             })
             .catch(err => res.status(500).jsonp({error: "Erro: " + err}))
     }
     else {
-        res.redirect("/");
+        res.status(401).jsonp({error: "unauthorized"});
     }
 })
 

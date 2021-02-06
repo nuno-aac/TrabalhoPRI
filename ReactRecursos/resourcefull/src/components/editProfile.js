@@ -18,7 +18,7 @@ function EditProfile() {
 
 
     let editUser = () =>{
-        axios.post('http://localhost:6969/users/perfil/' + user._id, {nome:nome,age:idade,filiacao:filiacao,email:user.email,bio:bio}, { withCredentials: true })
+        axios.post('http://localhost:6969/users/perfil/' + user.id, {nome:nome,age:idade,filiacao:filiacao,email:user.email,bio:bio}, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
                 window.location.reload();
