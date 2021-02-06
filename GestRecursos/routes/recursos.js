@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Recurso = require('../controllers/recurso')
+var Post = require('../controllers/post')
 var AdmZip = require('adm-zip');
 
 var fs = require('fs')
@@ -163,7 +164,13 @@ router.post('/:id/visibilidade', function(req, res){
         .then(recurso => {
             if(recurso.autor == req.user.id || req.user.acess == "ADMIN"){
                 Recurso.changeVisibilidade(req.params.id, req.body.visibilidade)
-                    .then(re => res.status(200).jsonp(re))
+                    .then(re => {
+                        Post.changeVisibilidade(req.params.id, req.body.visibilidade)
+                            .then(po => {
+                                res.status(201).jsonp({re:re,po:po})
+                            })
+                            .catch(err => res.status(500).jsonp(err))
+                    })
                     .catch(err => res.status(500).jsonp(err))
             }
             else{
