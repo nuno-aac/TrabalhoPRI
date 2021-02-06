@@ -40,10 +40,14 @@ router.post('/:id/admin', function(req, res){
         User.lookUp(req.params.id)
             .then(u => {
                 if(u.access == 'ADMIN'){
-                    User.changeAccess(u, 'USER')
+                    User.changeAccess(u.id, 'USER')
+                        .then(dados => res.status(201).jsonp(dados))
+                        .catch(erro => console.log(erro))
                 }
                 else{
-                    User.changeAccess(u, 'ADMIN')
+                    User.changeAccess(u.id, 'ADMIN')
+                        .then(dados => res.status(201).jsonp(dados))
+                        .catch(erro => console.log(erro))
                 }
             })
     }
