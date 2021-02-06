@@ -17,7 +17,6 @@ router.get('/tipos', function(req, res){
 
   for(var i = 0; i < buffer.split(',').length; i++){
     if(i == (buffer.split(',').length)-1){
-      console.log(buf.split(',')[i].split(']')[0].replace('"','').replace('"',''))
       tipos.push(buf.split(',')[i].split(']')[0].replace('"','').replace('"',''))
     }
     else{
