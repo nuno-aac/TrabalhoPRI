@@ -98,14 +98,12 @@ router.post('/comment/:id/upvote', function(req, res){
             var uID = req.user.id
 
             if(com.upvotes.includes(uID)){
-                console.log('downvote')
-                Post.removeUpvote(req.params._id, uID)
+                Comment.removeUpvote(req.params.id, uID)
                     .then(d => res.status(201).jsonp(d))
                     .catch(err => res.status(500).jsonp(err))
             }
             else{
-                console.log('upvote')
-                Post.addUpvote(req.params.id, uID)
+                Comment.addUpvote(req.params.id, uID)
                     .then(u => res.status(201).jsonp(u))
                     .catch(err => res.status(500).jsonp(err))
             }
