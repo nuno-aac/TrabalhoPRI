@@ -5,7 +5,9 @@ ObjectID = mongoose.Types.ObjectId
 
 // Returns list of posts
 module.exports.list = () => {
-    return Post.find({visibilidade: 'PUBLIC'}).exec()
+    return Post.find({visibilidade: 'PUBLIC'})
+        .sort({dataRegisto:-1})
+        .exec()
 }
 
 //Fazer isto porque not sure if right ----------------------
@@ -17,12 +19,16 @@ module.exports.lookUp = id => {
 
 //Returns posts by recurso
 module.exports.lookUpRec = rID => {
-    return Post.find({recursoID: rID, visibilidade: 'PUBLIC' }).exec()
+    return Post.find({recursoID: rID, visibilidade: 'PUBLIC' })
+        .sort({dataRegisto:-1})
+        .exec()
 }
 
 //Returns posts by user
 module.exports.lookUpUsers = uID => {
-    return Post.find({autor: uID, visibilidade: 'PUBLIC' }).exec()
+    return Post.find({autor: uID, visibilidade: 'PUBLIC' })
+        .sort({dataRegisto:-1})
+        .exec()
 }
 
 // Inserts a new post

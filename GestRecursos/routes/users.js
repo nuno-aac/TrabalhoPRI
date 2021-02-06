@@ -69,8 +69,14 @@ router.post('/register', function (req, res) {
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
     req.body.access = 'USER'
     User.insert(req.body)
-        .then(dados => res.status(200).jsonp(dados))
+        .then(dados => res.status(201).jsonp(dados))
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
+})
+
+router.get('/:id', function (req, res) {
+    User.lookUp(req.params.id)
+        .then(dados => res.status(200).jsonp(dados))
+        .catch(err => res.status(500).jsonp({erro: 'Erro no lookup do User: ' + err}))
 })
 
 
