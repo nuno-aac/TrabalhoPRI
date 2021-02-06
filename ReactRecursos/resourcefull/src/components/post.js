@@ -44,6 +44,7 @@ function Post() {
     let [isLoading, setIsLoading] = useState(true)
     let [post, setPost] = useState(null)
     let [comment, setComment] = useState('')
+    let [comments, setComments] = useState([])
 
     let { user } = useAuth();
     user = user.user
@@ -61,6 +62,17 @@ function Post() {
         });
     }
 
+    let deletePost = () => {
+        axios.delete('http://localhost:6969/posts/' + id, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                window.location.replace('/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
     useEffect(() => {
         axios.get('http://localhost:6969/posts/'+ id, { withCredentials: true })
             .then(dados => {
@@ -70,6 +82,17 @@ function Post() {
             })
             .catch(err => { console.log(err) })
     }, [id])
+
+    useEffect(()=>{
+        if(post !== null){
+            axios.get('http://localhost:6969/posts/' + post._id +'/comments', { withCredentials: true })
+                .then(dados => {
+                    console.log(dados.data)
+                    setComments(dados.data)
+                })
+                .catch(err => { console.log(err) })
+        }
+    }, [post])
 
     return (
         <NavbarWrapper>
@@ -82,7 +105,7 @@ function Post() {
                         <div>
                             <img src='/images/file.svg' alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
-                            {post.autor === user.id || user.access === 'ADMIN' ? <span onClick='' className='w3-right in-post-delete w3-large'>❌</span> : <></>}
+                            {post.autor === user.id || user.access === 'ADMIN' ? <span onClick={deletePost} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
                         </div>
                         <div className='in-post-content'>
                             <span className='w3-large'>{post.conteudo}</span>
@@ -101,7 +124,7 @@ function Post() {
                             <textarea className='in-comment-text' value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Conteudo..." />
                             <button className="w3-btn in-upload-submit" onClick={postComment}> Comentar </button>
                         </div>
-                        {post.comments.map((v, i) => <Comment key={i} comment={v} />)}
+                        {comments.map((v, i) => <Comment key={i} comment={v} />)}
                     </div>
                 </div>
             }

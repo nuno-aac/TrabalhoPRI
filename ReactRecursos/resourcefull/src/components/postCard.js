@@ -55,7 +55,7 @@ function PostCard({ post }) {
                     </div>
                 </div>
                 <div className='in-center-content'>
-                    <img src='/images/file.svg' alt='File' className='in-img-card' />
+                    <img src={'/images/types/' + post.tipo + '.svg'} alt='File' className='in-img-card' />
                 </div>
             </div>
         </Link>

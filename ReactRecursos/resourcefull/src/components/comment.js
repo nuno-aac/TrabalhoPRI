@@ -1,6 +1,7 @@
 import '../stylesheets/style.css';
 import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
+import Like from './like';
 
 function timeSince(date) {
     let now = new Date()
@@ -33,15 +34,16 @@ function timeSince(date) {
 }
 
 function Comment({ comment }) {
-
     return (
         <div className='in-post-comment'>
             <h3>{comment.user}:</h3>
             <span>
                 {comment.comment}
             </span>
-            <div className="w3-margin-top">
+            <div className='w3-margin-top'>
                 {timeSince(comment.dataComment)} ago
+                                <Like upvotes={comment.upvotes} path={'posts/comment/' + comment._id + '/upvote'} />
+                {comment.upvotes.length}
             </div>
         </div>
     );

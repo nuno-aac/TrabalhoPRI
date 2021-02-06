@@ -258,8 +258,14 @@ RECURSOS PAGE CSS */
     padding-bottom: 16px;
 }
 
-.in-recurso-delete{
+.in-recurso-PRIVATE{
     background: linear-gradient(360deg, #de6262, #ffb88c);
+    color: black;
+    border: rgb(26, 34, 31) solid 1px;
+}
+
+.in-recurso-PUBLIC{
+    background: linear-gradient(360deg, #b6eae1, #D2FBAD);
     color: black;
     border: rgb(26, 34, 31) solid 1px;
 }
