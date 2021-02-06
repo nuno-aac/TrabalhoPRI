@@ -41,7 +41,7 @@ function RecursoCard({recurso}) {
                     <h3>{recurso.titulo.slice(0,14)}{recurso.titulo.length>14 ? '...' : ''}</h3>
                 </div>
                 <div className='in-recurso-card'>
-                    <img src='/images/file.svg' alt='File' className='in-img-card'/>
+                    <img src={'/images/types/' + recurso.tipo + '.svg'} alt='File' className='in-img-card'/>
                     by {recurso.autor}
                 </div>
                 <div className='in-recurso-card'>

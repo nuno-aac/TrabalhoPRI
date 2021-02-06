@@ -8,12 +8,12 @@ import fileDownload from 'js-file-download';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal'
 import PostCard from './postCard';
+import { useAuth } from '../contexts/authcontext';
 
 function timeSince(date) {
     let now = new Date()
 
     var seconds = Math.floor((now.getTime() - Date.parse(date)) / 1000);
-    console.log(date + '||-||' + seconds)
 
     var interval = seconds / 31536000;
 
@@ -67,6 +67,9 @@ function Recurso() {
     let [titulo, setTitulo] = useState('')
     let [post, setPost] = useState('')
     let [posts,setPosts] = useState(null)
+
+    let { user } = useAuth();
+    user=user.user
 
     let openModal = () => {
         setIsModalOpen(true)
@@ -130,7 +133,7 @@ function Recurso() {
             <div className='in-recurso-page'>
                 <div className="in-recurso">
                     <div className='in-center-content'>
-                        <img src='/images/file.svg' alt='File' className='in-recurso-image' />
+                        <img src={'/images/types/' + recurso.tipo + '.svg'} alt='File' className='in-recurso-image' />
                     </div>
                     <div>
                         <span className='w3-xxxlarge'>{recurso.titulo}</span>
@@ -140,6 +143,11 @@ function Recurso() {
                     <div className='in-recurso-buttons'>
                         <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={openModal}>Criar Post</button>
                         <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={downloadRecurso}>Download</button>
+                                {(user.access === 'ADMIN' || recurso.autor === user.id) ?
+                            <button className="w3-btn in-recurso-delete in-recurso-button w3-xlarge" onClick={downloadRecurso}>Delete</button>
+                            :
+                            <></>
+                        }
                     </div>
                 </div>
                 <div className='in-posts-center'>

@@ -258,8 +258,14 @@ RECURSOS PAGE CSS */
     padding-bottom: 16px;
 }
 
+.in-recurso-delete{
+    background: linear-gradient(360deg, #de6262, #ffb88c);
+    color: black;
+    border: rgb(26, 34, 31) solid 1px;
+}
+
 .in-img-card{
-    width: 30%;
+    height: 50px;
 }
 
 /******************|

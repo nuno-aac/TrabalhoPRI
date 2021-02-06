@@ -4,6 +4,7 @@ import '../stylesheets/instyles.css';
 import Filter from './filter';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Sidebar() {
@@ -19,7 +20,18 @@ function Sidebar() {
 
     let [minYear,setMinYear] = useState('')
     let [maxYear, setMaxYear] = useState('')
+    let [tipos,setTipos] = useState([])
 
+
+    useEffect(() => {
+        axios.get('http://localhost:6969/tipos', { withCredentials: true })
+            .then(dados => {
+                setTipos(dados.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })
 
     useEffect(() => {
         setQueryObject(prevState => ({ ...prevState, minYear:minYear }))
@@ -33,7 +45,10 @@ function Sidebar() {
     let changeCheck = (event) => {
         let type = event.target.value
         let tempTypes=queryObject.types
-        tempTypes[type] = !tempTypes[type]
+        if(tempTypes[type]==null)
+            tempTypes[type] = true
+        else
+            tempTypes[type] = !tempTypes[type]
         setQueryObject({...queryObject, types: tempTypes})
     }
 
@@ -85,8 +100,7 @@ function Sidebar() {
     return (
         <>
             <Filter titulo='Tipo'>
-                <div className="w3-margin-left"><input type="checkbox" checked={isChecked('Slides')} onChange={changeCheck} value="slides" /><label> Slides </label></div>
-                <div className="w3-margin-left"><input type="checkbox" checked={isChecked('Test')} onChange={changeCheck} value="teste" /><label> Testes </label></div>
+                {tipos.map((v, i) => <div className="w3-margin-left" key={i}><input type="checkbox" checked={isChecked(v)} onChange={changeCheck} value={v}/><label> {v} </label></div>)}
             </Filter>
             <Filter titulo='Ano'>
                 <div className='in-flex-row'>

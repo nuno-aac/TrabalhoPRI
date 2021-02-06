@@ -66,7 +66,7 @@ function Profile() {
                             <span className='w3-jumbo'> {user.nome} </span>
                             <span className='w3-small'>last visited {timeSince(user.dataUltimoAcesso)} ago </span>
                         </div>
-                        <div className='w3-large'>{user.id}, {user.age} anos {user.afiliacao ? <span>, {user.afiliacao} </span> : <></>} </div>
+                        <div className='w3-large'>{user.id}, {user.age} anos{user.filiacao ? <span>, {user.filiacao} </span> : <></>} </div>
                         {
                         user.bio ?
                             <div>
