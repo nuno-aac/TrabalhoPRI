@@ -4,8 +4,9 @@ import '../stylesheets/instyles.css';
 import { useAuth } from '../contexts/authcontext';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Searchbar from './searchBar';
+import axios from 'axios';
 
 const customStyles = {
     overlay: {
@@ -43,6 +44,7 @@ function Navbar() {
     
     let [isModalOpen,setIsModalOpen] = useState(false);
     let [numFiles, setNumFiles] = useState([1])
+    let [tipos, setTipos] = useState([])
 
     let handleLogout = () => {
         auth.signout(() => {
@@ -53,6 +55,16 @@ function Navbar() {
     let addFile = () => {
         setNumFiles([...numFiles,1])
     }
+
+    useEffect(() => {
+        axios.get('http://localhost:6969/tipos', {withCredentials: true})
+            .then(dados => {
+                setTipos(dados.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },[])
 
     return (
         <>
@@ -91,8 +103,7 @@ function Navbar() {
                             </div>
                             <div className="w3-margin-top"><label>Tipo de Recurso: </label><select name="tipo">
                                 <option value="">-Select-</option>
-                                <option value="slides">Slides</option>
-                                <option value="teste">Teste</option>
+                                {tipos.map((v, i) =>  <option value={v} key={i}>{v}</option> )}
                             </select></div>
                             <div className='w3-margin'>
                                 <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Ano..." name='year'/>
