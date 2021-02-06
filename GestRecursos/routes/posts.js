@@ -4,7 +4,7 @@ var router = express.Router();
 var Post = require('../controllers/post')
 var Comment = require('../controllers/comment')
 
-
+// get posts
 router.get('/', function (req, res) {
     if(req.query.rec != null) {
         Post.lookUpRec(req.query.rec)
@@ -23,13 +23,7 @@ router.get('/', function (req, res) {
     }
 });
 
-
-
-/////////////// EDITAR RECURSOS (E POR CONSEQUENTE OS SEUS POSTS)
-
-
-
-
+// post post
 router.post('/', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
@@ -48,6 +42,7 @@ router.post('/', function (req,res) {
         .catch(err => res.status(500).jsonp(err))
 })
 
+// upvote post
 router.post('/:id/upvote', function(req, res){
     Post.getUpvotes(req.params.id)
         .then(post => {
@@ -70,12 +65,14 @@ router.post('/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+// get comments by post
 router.get('/:id/comments', function (req,res) {
     Comment.list(req.params.id)
         .then(comments => res.status(200).jsonp(comments))
         .catch(err => res.status(500).jsonp(err))
 })
 
+// post comment in post
 router.post('/:id/comment', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
@@ -92,6 +89,7 @@ router.post('/:id/comment', function (req,res) {
         .catch(err => res.status(500).jsonp(err))
 })
 
+// upvote comment
 router.post('/comment/:id/upvote', function(req, res){
     Comment.lookUp(req.params.id)
         .then(com => {
@@ -112,6 +110,7 @@ router.post('/comment/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+// delete post
 router.delete('/:id', function(req, res){
     Post.lookUp(req.params.id)
         .then(post => {
@@ -126,6 +125,7 @@ router.delete('/:id', function(req, res){
         })
 })
 
+// delete comment
 router.delete('/comment/:id', function (req,res) {
     Comment.lookUp(req.params.id)
         .then(com => {
@@ -140,6 +140,7 @@ router.delete('/comment/:id', function (req,res) {
         })
 })
 
+// get post by id
 router.get('/:idPost', function (req, res) {
     Post.lookUp(req.params.idPost)
       .then(post => res.status(200).jsonp(post))

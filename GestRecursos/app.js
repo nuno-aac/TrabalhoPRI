@@ -33,7 +33,7 @@ var User = require("./controllers/user")
 
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
-    User.lookUp(id) // DAR LOOK UP APENAS DE INFO NECESSARIA PORQUE SENAO É MUITO PESADO, MUDAR CONTROLLER
+    User.lookUp(id)
       .then(dados => {
         const user = dados
         if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }
@@ -63,22 +63,7 @@ var postsRouter = require('./routes/posts')
 var app = express();
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
-/*
-  app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.send(200);
-  }
-  else {
-    next();
-  }
-});
-*/
 app.use(session({
   genid: req => {
     return uuidv4()
@@ -98,6 +83,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// autenticaçao por token ou verificaçao passport
 app.use(function (req, res, next) {
   var myToken = req.query.token || req.body.token
   if (req.url == "/users/login" || req.url == "/users/register")

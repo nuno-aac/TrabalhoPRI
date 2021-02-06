@@ -5,6 +5,7 @@ var User = require('../controllers/user')
 var jwt = require('jsonwebtoken')
 var Bcrypt = require('bcrypt')
 
+// retorna um token que o utilizador pode usar para usar a api livremente fora do website
 router.get('/token', function (req, res) {
     User.lookUp(req.user.id)
         .then(user => {
@@ -22,6 +23,7 @@ router.get('/token', function (req, res) {
         .catch(err => res.status(500).jsonp({ erro: 'Erro no lookup do User: ' + err }))
 })
 
+// logout
 router.get('/logout', function (req, res) {
     req.logout();
     req.session.destroy(function (err) {
@@ -33,6 +35,7 @@ router.get('/logout', function (req, res) {
     });
 })
 
+// edit perfil
 router.post('/perfil/:id', function(req, res){
     if (req.user.id == req.params.id || req.user.access == 'ADMIN') {
         User.lookUp(req.params.id)
@@ -57,6 +60,7 @@ router.post('/perfil/:id', function(req, res){
     }
 })
 
+// login
 router.post('/login',passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
     User.edit(req.user._id, req.user)
@@ -64,6 +68,7 @@ router.post('/login',passport.authenticate('local'), function (req, res) {
         .catch(erro => res.status(401).jsonp(erro))
 })
 
+// register
 router.post('/register', function (req, res) {
     req.body.password = Bcrypt.hashSync(req.body.password, 10);
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
@@ -73,12 +78,14 @@ router.post('/register', function (req, res) {
         .catch(err => res.status(500).jsonp({erro: 'Erro no register do User: ' + err}))
 })
 
+// get user by id
 router.get('/:id', function (req, res) {
     User.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp({erro: 'Erro no lookup do User: ' + err}))
 })
 
+// delete user
 router.delete('/:id', function(req, res){
     if (req.user.id == req.params.id || req.user.access == 'ADMIN'){
         User.remove(req.params.id)

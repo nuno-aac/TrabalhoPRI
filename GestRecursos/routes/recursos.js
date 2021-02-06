@@ -10,6 +10,7 @@ var multer = require('multer');
 const { Console } = require('console');
 var upload = multer({dest: 'uploads/'})
 
+// lista todos os recursos, privados do user e publicos
 router.get('/', function(req, res) {
     Recurso.listPrivate(req.query.search, req.query.type, req.query.minYear, req.query.maxYear, req.user.id)
         .then(privateRec => {
@@ -22,18 +23,12 @@ router.get('/', function(req, res) {
         .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
 });
 
-/////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
+// download recurso
 router.get('/download/:recursoid', function(req,res){
     res.download(__dirname.split('routes')[0] + 'public/fileStore/' + req.params.recursoid + '.zip')
 })
 
-
-
-/////////////// EDITAR RECURSOS (E POR CONSEQUENTE OS SEUS POSTS)
-
-
-
-/////////////// sistema funciona na assumption que só se da upload de ficheiro .zip
+// post recurso, upload ficheiro
 router.post('/', upload.array('myFile'), function(req,res){
 
     var d = new Date().toISOString().substr(0, 19)
@@ -104,6 +99,7 @@ router.post('/', upload.array('myFile'), function(req,res){
     
 })
 
+// rating ao recurso
 router.post('/:id/rating', function(req, res){
     var flag = false
     var rt = {
@@ -145,6 +141,7 @@ router.post('/:id/rating', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+// delete recurso
 router.delete('/:id', function(req, res){
     Recurso.lookUp(req.params.id)
         .then(recurso => {
@@ -159,6 +156,7 @@ router.delete('/:id', function(req, res){
         })
 })
 
+// changes visibilidade
 router.post('/:id/visibilidade', function(req, res){
     Recurso.lookUp(req.params.id)
         .then(recurso => {
@@ -180,6 +178,7 @@ router.post('/:id/visibilidade', function(req, res){
     
 })
 
+// get user recursos
 router.get('/mine', function(req, res){
     Recurso.listUser(req.query.search, req.query.type, req.query.minYear, req.query.maxYear, req.user.id)
         .then(rec => {
@@ -188,11 +187,15 @@ router.get('/mine', function(req, res){
         .catch(error => res.status(500).jsonp({ error: 'Erro na listagem de recursos: ' + error }))
 })
 
+// get recurso by id
 router.get('/:id', function(req,res){
     Recurso.lookUp(req.params.id)
         .then(dados => res.status(200).jsonp(dados))
         .catch(err => res.status(500).jsonp(err))
 })
+
+
+// funçoes auxiliares para a criação do pacote uploaded
 
 function createManifesto(obj){
     var fileNames = []
