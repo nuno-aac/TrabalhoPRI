@@ -145,9 +145,17 @@ router.post('/:id/rating', function(req, res){
 })
 
 router.delete('/:id', function(req, res){
-    Recurso.remove(req.params.id)
-        .then(re => res.status(200).jsonp(re))
-        .catch(err => res.status(500).jsonp(err))   
+    Recurso.lookUp(req.params.id)
+        .then(recurso => {
+            if(recurso.autor == req.user.id || req.user.acess == "ADMIN"){
+                Recurso.remove(req.params.id)
+                    .then(re => res.status(200).jsonp(re))
+                    .catch(err => res.status(500).jsonp(err))
+            }
+            else{
+                res.status(500).jsonp({error: "Unauthorized"})
+            }
+        })
 })
 
 router.get('/:id', function(req,res){
