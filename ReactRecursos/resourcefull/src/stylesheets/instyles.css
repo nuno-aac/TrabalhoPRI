@@ -26,7 +26,7 @@
 .in-navbar-container {
     position: relative;
     display: flex;
-    background: linear-gradient(rgb(230, 230, 230), whitesmoke);
+    background: linear-gradient(whitesmoke,rgb(255, 255, 255));
     box-shadow: 4px 4px 9px 0 rgba(0, 0, 0, 0.15);
     height: max(10vh,60px);
     font-family: 'Quicksand', sans-serif;

@@ -5,6 +5,7 @@ import NavbarWrapper from './navbarWrapper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
+import StarRatings from 'react-star-ratings';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal'
 import PostCard from './postCard';
@@ -67,6 +68,7 @@ function Recurso() {
     let [titulo, setTitulo] = useState('')
     let [post, setPost] = useState('')
     let [posts,setPosts] = useState(null)
+    let [rating, setRating] = useState(0)
 
     let { user } = useAuth();
     user=user.user
@@ -79,6 +81,10 @@ function Recurso() {
         setPost('')
         setTitulo('')
         setIsModalOpen(false)
+    }
+
+    let changeRating = (newRating, name) => {
+        setRating(newRating);
     }
 
     let downloadRecurso = () =>{
@@ -116,13 +122,10 @@ function Recurso() {
             .then(dados => {
                 console.log(dados.data)
                 setRecurso(dados.data)
+                setIsLoading(false)
             })
             .catch(err => { console.log(err) })
     }, [id])
-
-    useEffect(() =>{
-        if(recurso!=null) setIsLoading(false)
-    }, [recurso])
 
     return (
         <NavbarWrapper>
@@ -138,7 +141,15 @@ function Recurso() {
                     <div>
                         <span className='w3-xxxlarge'>{recurso.titulo}</span>
                         <br/>
-                        <span clas>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></span>
+                        <div>Recurso by {recurso.autor} <i>sumbited {timeSince(recurso.dataRegisto)} ago</i></div>
+                        <div style={{marginTop:'30px',alignItems:'center'}} className='in-flex-row'>
+                            <span className='w3-large w3-margin-right'>Rating </span>
+                            <StarRatings rating={2.5} starRatedColor="rgb(60, 136, 111)" starDimension='40px' numberOfStars={5} name='rating' />
+                        </div>
+                        <div style={{ marginTop: '20px', alignItems: 'center' }} className='in-flex-row'>
+                            <span className='w3-large w3-margin-right'>Pessoal</span>
+                            <StarRatings rating={rating} starRatedColor="rgb(60, 136, 111)" starHoverColor="rgb(60, 136, 111)" starDimension='40px' changeRating={changeRating} numberOfStars={5} name='rating' />
+                        </div>
                     </div>
                     <div className='in-recurso-buttons'>
                         <button className="w3-btn in-upload-submit in-recurso-button w3-xlarge" onClick={openModal}>Criar Post</button>
