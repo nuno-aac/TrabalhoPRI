@@ -2,6 +2,7 @@ import '../stylesheets/style.css';
 import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
 import Like from './like';
+import { useAuth } from '../contexts/authcontext';
 
 function timeSince(date) {
     let now = new Date()
@@ -34,9 +35,18 @@ function timeSince(date) {
 }
 
 function Comment({ comment }) {
+    let { user } = useAuth();
+    user = user.user
+
+    let deleteComment = () => {
+
+    }
+
     return (
         <div className='in-post-comment'>
-            <h3>{comment.user}:</h3>
+            <span className='w3-large'>{comment.user}:</span>
+            {comment.user === user.id || user.access === 'ADMIN' ? <span onClick={deleteComment} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
+            <br/>
             <span>
                 {comment.comment}
             </span>
