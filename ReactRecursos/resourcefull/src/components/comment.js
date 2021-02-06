@@ -40,7 +40,7 @@ function Comment({ comment }) {
     user = user.user
 
     let deleteComment = () => {
-        axios.delete('http://localhost:6969/comments/' + comment._id, { withCredentials: true })
+        axios.delete('http://localhost:6969/comment/' + comment._id, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
                 window.location.reload();
