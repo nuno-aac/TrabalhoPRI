@@ -188,6 +188,12 @@ UPLOAD MODAL CSS */
     margin-top: 10px;
 }
 
+.in-files-list{
+    height: 100px;
+    overflow-Y: scroll;
+    overflow-x: hidden;
+}
+
 .in-upload-submit{
     background: linear-gradient(360deg, #b6eae1, #D2FBAD);
     color: black;

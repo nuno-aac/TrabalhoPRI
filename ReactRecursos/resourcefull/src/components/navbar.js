@@ -98,7 +98,9 @@ function Navbar() {
                                 <input className="w3-input in-upload-input" type="text" name="titulo" autoComplete="off" />
                             </div>
                             <div className='in-upload-files'>
+                                <div className='in-files-list'>
                                 { numFiles.map((v,i) => <input className="w3-input w3-margin" type="file" key={i} name="myFile" />) }
+                                </div>
                                 <div className="w3-btn in-upload-submit" onClick={addFile}> + </div>
                             </div>
                             <div className="w3-margin-top"><label>Tipo de Recurso: </label><select name="tipo">
