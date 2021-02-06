@@ -3,6 +3,7 @@ import '../stylesheets/docstyles.css';
 import '../stylesheets/instyles.css';
 import Like from './like';
 import { useAuth } from '../contexts/authcontext';
+import axios from 'axios';
 
 function timeSince(date) {
     let now = new Date()
@@ -39,7 +40,14 @@ function Comment({ comment }) {
     user = user.user
 
     let deleteComment = () => {
-
+        axios.delete('http://localhost:6969/comments/' + comment.id, { withCredentials: true })
+            .then(dados => {
+                console.log(dados)
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (

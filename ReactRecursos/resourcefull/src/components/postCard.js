@@ -11,11 +11,10 @@ import { Link } from 'react-router-dom'
 // --Info Recurso
 //
 //***********************/
-/*function timeSince(date) {
+function timeSince(date) {
     let now = new Date()
 
     var seconds = Math.floor((now.getTime() - Date.parse(date)) / 1000);
-    console.log(date + '||-||' + seconds)
 
     var interval = seconds / 31536000;
 
@@ -39,7 +38,7 @@ import { Link } from 'react-router-dom'
         return Math.floor(interval) + " minutes";
     }
     return Math.floor(seconds) + " seconds";
-}*/
+}
 
 function PostCard({ post }) {
 
@@ -48,10 +47,11 @@ function PostCard({ post }) {
             <div className='in-posts-post'>
                 <div className='in-posts-details'>
                     <div>
-                        <h2 className='in-font-quicksand'>{post.titulo}</h2>
+                        <span className='w3-xxlarge in-font-quicksand'>{post.titulo}</span>
+                        <span> Post sobre Recurso</span>
                     </div>
                     <div>
-                        by {post.autor}
+                        {timeSince(post.dataRegisto)} ago by {post.autor}
                     </div>
                 </div>
                 <div className='in-center-content'>

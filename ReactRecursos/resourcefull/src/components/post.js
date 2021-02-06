@@ -103,7 +103,7 @@ function Post() {
                 <div className='in-post-page'>
                     <div className="in-post in-content-box">
                         <div>
-                            <img src='/images/file.svg' alt='File' className='in-post-image' />
+                            <img src={'/images/types/'+post.tipo+'.svg'} alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span>
                             {post.autor === user.id || user.access === 'ADMIN' ? <span onClick={deletePost} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
                         </div>
