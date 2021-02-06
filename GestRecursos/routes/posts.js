@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Post = require('../controllers/post')
+var Comment = require('../controllers/comment')
 
 
 router.get('/', function (req, res) {
@@ -68,37 +69,43 @@ router.post('/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+router.get('/:id/comments', function (req,res) {
+    Comment.list(req.params.id)
+        .then(comments => res.status(201).jsonp(comments))
+        .catch(err => res.status(500).jsonp(err))
+})
+
 router.post('/:id/comment', function (req,res) {
     var d = new Date().toISOString().substr(0, 19)
 
     var c = {
         user: req.user.id,
+        upvotes: [],
         comment: req.body.comment,
-        dataComment: d
+        dataComment: d,
+        postID: req.params.id
     }
     
-    Post.insertComment(req.params.id, c)
+    Comment.insert(c)
         .then(comment => res.status(201).jsonp(comment))
         .catch(err => res.status(500).jsonp(err))
 })
 
-router.post('/:id/comment/:idCom/upvote', function(req, res){
-    Post.getComment(req.params.id, req.params.idCom)
+router.post('/comment/:id/upvote', function(req, res){
+    Comment.lookUp(req.params.id)
         .then(com => {
-
-            console.log(com.comments)
 
             var uID = req.user.id
 
-            if(com.comments[0].upvotes.includes(uID)){
+            if(com.upvotes.includes(uID)){
                 console.log('downvote')
-                Post.removeUpvoteComment(post._id, uID)
+                Post.removeUpvote(req.params._id, uID)
                     .then(d => res.status(201).jsonp(d))
                     .catch(err => res.status(500).jsonp(err))
             }
             else{
                 console.log('upvote')
-                Post.addUpvoteComment(req.params.id, com.comments._id, uID)
+                Post.addUpvote(req.params.id, uID)
                     .then(u => res.status(201).jsonp(u))
                     .catch(err => res.status(500).jsonp(err))
             }

@@ -1,35 +1,30 @@
 var mongoose = require('mongoose')
 var Comment = require('../models/comment')
 
-// Returns list of users
-module.exports.list = () => {
-    return Comment.find().exec()
+// Returns list of comments by post
+module.exports.list = (id) => {
+    return Comment.find({postID: id}).exec()
 }
 
-// Returns a user by id
+// Returns a comment by id
 module.exports.lookUp = id => {
     return Comment.findOne({ _id: id }).exec()
 }
 
-// Inserts a new user
+// Inserts a new comment
 module.exports.insert = c => {
     var newComment = new Comment(c)
     return newComment.save()
 }
 
-// Removes a user by id
+// Removes a comment by id
 module.exports.remove = id => {
     return Comment.deleteOne({ _id: id })
 }
 
 // Changes a user
-module.exports.edit = (id, u) => {
-    return Comment.findByIdAndUpdate(id, u, { new: true })//{id:id}
-}
-
-module.exports.getUpvotes = id => {
-    return Comment.findOne({_id : id})
-        .select({upvotes:1, _id:0})
+module.exports.edit = (id, c) => {
+    return Comment.findByIdAndUpdate(id, c, { new: true })//{id:id}
 }
 
 module.exports.addUpvote = (id,idUser) => {

@@ -5,7 +5,7 @@ var commentSchema = new mongoose.Schema({
     upvotes: [String],
     comment: { type:String, required:true},
     dataComment: { type: Date, required: true},
-    postID: { type: mongoose.Schema.Types.ObjectId, require:true},
+    postID: { type: mongoose.Schema.Types.ObjectId, require:true}
 })
 
 module.exports = mongoose.model('comment', commentSchema)
