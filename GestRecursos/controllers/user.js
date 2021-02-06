@@ -13,7 +13,6 @@ module.exports.lookUp = id => {
 
 // Inserts a new user
 module.exports.insert = u => {
-    console.log(JSON.stringify(u))
     var newUser = new User(u)
     return newUser.save()
 }
