@@ -31,7 +31,7 @@ function Sidebar() {
             .catch(err => {
                 console.log(err)
             })
-    })
+    },[])
 
     useEffect(() => {
         setQueryObject(prevState => ({ ...prevState, minYear:minYear }))
