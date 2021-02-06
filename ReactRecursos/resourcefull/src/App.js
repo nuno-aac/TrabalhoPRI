@@ -45,13 +45,13 @@ function App() {
             <Route exact path='/post/:id'>
               <Post />
             </Route>
-            <Route exact path='/users/me'>
+            <Route exact path='/user/me'>
               <Profile />
             </Route>
             <Route exact path='/users/:id'>
               <UserProfile />
             </Route>
-            <Route exact path='/users/edit'>
+            <Route exact path='/user/edit'>
               <EditProfile />
             </Route>
           </ProtectedRoute>

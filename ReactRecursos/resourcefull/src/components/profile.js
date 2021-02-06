@@ -59,7 +59,7 @@ function Profile() {
                 <div className="in-profile in-content-box">
                     <div className='in-flex-center'>
                         <img className='in-profile-img' src='https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png' alt='User' />
-                        <Link to='/users/edit'>Editar</Link>
+                        <Link to='/user/edit'>Editar</Link>
                     </div>
                     <div className='in-profile-details w3-margin-left'>
                         <div>
