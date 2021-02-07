@@ -15,7 +15,7 @@ router.get('/token', function (req, res) {
                     else {
                         user.dataUltimoAcesso = new Date().toISOString().substr(0, 19)
                         User.edit(user._id, user)
-                            .then(dados => res.status(201).jsonp({ token: token }))
+                            .then(dados => res.status(200).jsonp({ token: token }))
                             .catch(erro => console.log(erro))
                     }
                 });
