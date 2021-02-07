@@ -34,7 +34,12 @@ function Upload({numFiles, setNumFiles}) {
         data.append('tipo', tipo)
         data.append('visibilidade', visibilidade)
         
-        axios.post('http://localhost:6969/recursos', data, { withCredentials:true })
+        axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
+        .then(dados => {
+            console.log(dados)
+            window.location.reload()
+        })
+        .catch(err => console.log(err))
     }
 
 
