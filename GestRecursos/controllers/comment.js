@@ -24,7 +24,7 @@ module.exports.remove = id => {
 
 // Changes a comment <- not done
 module.exports.edit = (id, c) => {
-    return Comment.findByIdAndUpdate(id, c, { new: true })//{id:id}
+    return Comment.findByIdAndUpdate(id, c, { new: true })
 }
 
 // Adds upvote to comment
