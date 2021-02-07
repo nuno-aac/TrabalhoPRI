@@ -19,7 +19,7 @@ function Upload({numFiles, setNumFiles}) {
 
     let handleFileChange = (e) => {
         let filesTemp = files
-        filesTemp[e.target.getAttribute('numfile')] = e.target.value
+        filesTemp[e.target.getAttribute('numfile')] = e.target.files[0]
         setFiles(filesTemp)
     }
 
@@ -33,13 +33,15 @@ function Upload({numFiles, setNumFiles}) {
         data.append('year', ano)
         data.append('tipo', tipo)
         data.append('visibilidade', visibilidade)
+
+        console.log(files)
         
-        axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
+        /*axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
         .then(dados => {
             console.log(dados)
             window.location.reload()
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))*/
     }
 
 
