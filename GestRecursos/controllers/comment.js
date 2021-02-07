@@ -3,7 +3,9 @@ var Comment = require('../models/comment')
 
 // Returns list of comments by post
 module.exports.list = (id) => {
-    return Comment.find({postID: id}).exec()
+    return Comment.find({postID: id})
+        .sort({dataComment:-1})
+        .exec()
 }
 
 // Returns a comment by id

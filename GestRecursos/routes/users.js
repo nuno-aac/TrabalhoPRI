@@ -92,11 +92,16 @@ router.post('/register', function (req, res) {
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
     req.body.access = 'USER'
     User.lookUp(req.body.id)
-        .then(user => res.status(500).jsonp({erro: 'Username já ocupado'}))
-        .catch(err => {
-            User.insert(req.body)
+        .then(user => {
+            if(user == null) {
+                User.insert(req.body)
                 .then(dados => res.status(201).jsonp(dados))
                 .catch(erro => res.status(500).jsonp({erro: 'Erro no register do User'}))
+            }
+            else res.status(500).jsonp({erro: 'Username já ocupado'})    
+        })
+        .catch(err => {
+            res.status(500).jsonp({erro: err})   
         })
 })
 
