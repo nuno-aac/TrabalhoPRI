@@ -7,10 +7,15 @@ import { Link } from 'react-router-dom';
 function Searchbar() {
     let [search,setSearch] = useState('')
 
+    let getUrl = s => {
+        if (s === '') return '/recursos'
+        else return ('/recursos?search=' + s)
+    }
+
     return (
         <div className='in-navbar-searchbar'>
             <input className='in-search' value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Procura recursos..." />
-            <Link to={'/recursos?search=' + search}>
+            <Link to={getUrl(search)}>
                 <img src="/images/lupa.svg" className="in-icon" alt="Lupa" />
             </Link>
         </div>
