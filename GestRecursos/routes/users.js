@@ -9,7 +9,7 @@ var Bcrypt = require('bcrypt')
 router.get('/token', function (req, res) {
     User.lookUp(req.user.id)
         .then(user => {
-            jwt.sign({ username: user.id, level: user.access }, 'PRI2020', { expiresIn: '3h' },//TOKEN - secret ou symmetric keys?
+            jwt.sign({ username: user.id, level: user.access }, 'PRI2020', { expiresIn: '3h' },
                 function (err, token) {
                     if (err) res.status(500).jsonp({ error: "Erro na geração do token: " + err })
                     else {
@@ -82,7 +82,7 @@ router.post('/perfil/:id', function(req, res){
 router.post('/login',passport.authenticate('local'), function (req, res) {
     req.user.dataUltimoAcesso = new Date().toISOString().substr(0,19)
     User.edit(req.user._id, req.user)
-        .then(dados => res.status(201).jsonp({user: req.user}))//req.user
+        .then(dados => res.status(201).jsonp({user: req.user}))
         .catch(erro => res.status(401).jsonp(erro))
 })
 

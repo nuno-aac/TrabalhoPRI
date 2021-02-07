@@ -69,7 +69,7 @@ app.use(session({
     return uuidv4()
   },
   secret: 'secret pri tp L',
-  store: new FileStore({logFn: function(){}}), //esta a esconder mensagens de erro porque estavam a aparecer mil sem razao
+  store: new FileStore({logFn: function(){}}),
   resave: false,
   saveUninitialized: false
 }))
