@@ -20,6 +20,7 @@ import Post from './components/post';
 import Profile from './components/profile';
 import EditProfile from './components/editProfile';
 import UserProfile from './components/userProfile';
+import RecursosSelf from './components/recursosSelf';
 
 function App() {
   return (
@@ -53,6 +54,9 @@ function App() {
             </Route>
             <Route exact path='/user/edit'>
               <EditProfile />
+            </Route>
+            <Route exact path='/recursos/mine'>
+              <RecursosSelf />
             </Route>
           </ProtectedRoute>
         </Switch >
