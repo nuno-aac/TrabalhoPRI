@@ -110,6 +110,33 @@ router.post('/comment/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+router.post('/:id/edit', function(req, res){
+    Post.lookUp(req.params.id)
+        .then(p => {
+            if(req.user.id == p.autor){
+                if(req.body.titulo != null && req.body.conteudo != null){
+                    Post.editTituloConteudo(p._id, req.body.titulo, req.body.conteudo)
+                        .then(r => res.status(201).jsonp(r))
+                        .catch(err => res.status(500).jsonp(err))
+                }
+                else if(req.body.titulo != null && req.body.conteudo == null){
+                    Post.editTitulo(p._id, req.body.titulo)
+                        .then(r => res.status(201).jsonp(r))
+                        .catch(err => res.status(500).jsonp(err))
+                }
+                else if(req.body.titulo == null && req.body.conteudo != null){
+                    Post.editConteudo(p._id, req.body.conteudo)
+                        .then(r => res.status(201).jsonp(r))
+                        .catch(err => res.status(500).jsonp(err))
+                }
+            }
+            else{
+                res.status(403).jsonp({erro: 'Unauthorized'})
+            }
+        })
+        .catch(err => res.status(500).jsonp(err))
+})
+
 // delete post
 router.delete('/:id', function(req, res){
     Post.lookUp(req.params.id)
