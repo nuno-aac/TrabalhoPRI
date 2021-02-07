@@ -35,66 +35,59 @@ router.post('/', upload.array('myFile'), function(req,res){
 
     var zipFlag = true
 
-    if(!(req.files.length == 1 && req.files[0].originalname.slice(req.files[0].originalname.lastIndexOf('.'),req.files[0].originalname.length) == '.zip')) {
+    if(req.body.tipo == '' || req.body.titulo == '' || req.body.visibilidade == '' || req.body.year == '' || req.files.length == 0) res.status(500).jsonp({error: 'Campos não preenchidos'})
+    
+    else {
+        if(!(req.files.length == 1 && req.files[0].originalname.slice(req.files[0].originalname.lastIndexOf('.'),req.files[0].originalname.length) == '.zip')) {
 
-        zipFlag = false
-        
-        var zip = new AdmZip()
-
-        createManifesto(req.files)
-
-        createMetadata(req.files)
-
-        zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/manifesto.json')
-
-        req.files.forEach(a => {
-            zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt')
-        })
-
-        renameUploads(req.files).then(data => {
-            req.files.forEach(a => {
-                zip.addLocalFile(__dirname.split('routes')[0] + 'uploads/' + a.originalname)
-            })
-            zip.writeZip(__dirname.split('routes')[0] + '/' + req.body.titulo + '.zip');
-        })
-    }
-
-    Recurso.insert({
-        tipo: req.body.tipo,
-        titulo: req.body.titulo,
-        dataRegisto: d,
-        visibilidade: req.body.visibilidade,
-        dateCreation: req.body.year,
-        autor: req.user.id
-    })
-        .then(dados => {
-
-            let quarantinePath = __dirname.split('routes')[0] + req.body.titulo + '.zip'
+            zipFlag = false
             
-            if (zipFlag) quarantinePath = __dirname.split('routes')[0] + req.files[0].path
-
-            let newPath = __dirname.split('routes')[0] + 'public/fileStore/' + dados._id + '.zip'
-
-            fs.rename(quarantinePath, newPath, function (err) {
-                if (err) {
-                    console.log(err)
-                    Recurso.remove(dados._id)
-                        .then(data => console.log('removed'))
-                        .catch(erro => console.log("erro: " + erro))
-                }
+            var zip = new AdmZip()
+    
+            createManifesto(req.files)
+    
+            createMetadata(req.files)
+    
+            zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/manifesto.json')
+    
+            req.files.forEach(a => {
+                zip.addLocalFile(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt')
             })
-
-            if(!zipFlag) {
-                fs.unlink(__dirname.split('routes')[0] + '/uploads/manifesto.json', (err) => {})
+    
+            renameUploads(req.files).then(data => {
                 req.files.forEach(a => {
-                    fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt', (err) => {})
-                    fs.unlink(__dirname.split('routes')[0] + 'uploads/' + a.originalname, (err) => {})
+                    zip.addLocalFile(__dirname.split('routes')[0] + 'uploads/' + a.originalname)
                 })
-            }
+                zip.writeZip(__dirname.split('routes')[0] + '/' + req.body.titulo + '.zip');
+            })
+        }
+    
+        Recurso.insert({
+            tipo: req.body.tipo,
+            titulo: req.body.titulo,
+            dataRegisto: d,
+            visibilidade: req.body.visibilidade,
+            dateCreation: req.body.year,
+            autor: req.user.id
         })
-        .catch(error => res.render('error', { error: error }))
+            .then(dados => {
+    
+                let quarantinePath = __dirname.split('routes')[0] + req.body.titulo + '.zip'
+                
+                if (zipFlag) quarantinePath = __dirname.split('routes')[0] + req.files[0].path
+    
+                let newPath = __dirname.split('routes')[0] + 'public/fileStore/' + dados._id + '.zip'
 
-    res.redirect('http://localhost:3000/recursos')//port
+                relocateUnlink(quarantinePath, newPath, zipFlag, req.files)
+                    .then(data => res.status(201).jsonp(dados))
+                    .catch(error => {
+                        console.log(error)
+                        res.status(500).jsonp({error: 'Erro na relocalizaçao de ficheiros'})
+                    })
+            })
+            .catch(error => res.status(500).jsonp(error ))
+    }
+    
     
     
 })
@@ -248,6 +241,29 @@ function renameUploads(obj) {
             })
         });
         resolve();
+    })
+}
+
+function relocateUnlink(quarantinePath, newPath, zipFlag, obj) {
+    return new Promise(function(resolve, reject) {
+
+        fs.rename(quarantinePath, newPath, function (err) {
+            if (err) {
+                console.log(err)
+                Recurso.remove(dados._id)
+                    .then(data => reject())
+                    .catch(erro => reject())
+            }
+        })
+
+        if(!zipFlag) {
+            fs.unlink(__dirname.split('routes')[0] + '/uploads/manifesto.json', (err) => { reject()})
+            obj.forEach(a => {
+                fs.unlink(__dirname.split('routes')[0] + '/uploads/' + a.originalname.slice(0,a.originalname.lastIndexOf('.')) + '.meta.txt', (err) => { reject()})
+                fs.unlink(__dirname.split('routes')[0] + 'uploads/' + a.originalname, (err) => {reject()})
+            })
+        }
+        resolve()
     })
 }
 
