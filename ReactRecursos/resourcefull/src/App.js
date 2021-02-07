@@ -22,6 +22,7 @@ import EditProfile from './components/editProfile';
 import UserProfile from './components/userProfile';
 import RecursosSelf from './components/recursosSelf';
 import EditPost from './components/editPost';
+import NotFound from './components/notFound';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           <Route exact path="/users/register">
             <Register />
           </Route >
-          <ProtectedRoute path="/">
+          <ProtectedRoute>
             <Route exact path='/recursos'>
               <Recursos />
             </Route>
@@ -61,6 +62,9 @@ function App() {
             </Route>
             <Route exact path='/recursos/mine'>
               <RecursosSelf />
+            </Route>
+            <Route path='*' >
+              <NotFound />
             </Route>
           </ProtectedRoute>
         </Switch >

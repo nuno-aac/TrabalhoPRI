@@ -156,6 +156,12 @@
     text-decoration: none;
 }
 
+.in-not-found{
+    display: grid;
+    place-items: center;
+    font-family: 'Kalam', sans-serif !important;
+}
+
 /******************|
 UPLOAD MODAL CSS */
 
