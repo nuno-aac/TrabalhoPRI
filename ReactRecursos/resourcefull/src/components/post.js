@@ -106,7 +106,7 @@ function Post() {
                             <img src={'/images/types/'+post.tipo+'.svg'} alt='File' className='in-post-image' />
                             <span className='w3-xxxlarge'>{post.titulo}</span><span> Post sobre <Link to={'/recurso/'+post.recursoID}>{post.recTitle}</Link></span>
                             {post.autor === user.id || user.access === 'ADMIN' ? <span onClick={deletePost} className='w3-right in-post-delete w3-large'>❌</span> : <></>}
-                            {post.autor === user.id || user.access === 'ADMIN' ? <a href={'/post/edit/' + id} className='w3-right in-decoration-none in-post-delete w3-large'>✏️</a> : <></>}
+                            {post.autor === user.id ? <a href={'/post/edit/' + id} className='w3-right in-decoration-none in-post-delete w3-large'>✏️</a> : <></>}
                         </div>
                         <div className='in-post-content'>
                                 <span className='w3-large  in-text'>{post.conteudo}</span>
