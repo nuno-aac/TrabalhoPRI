@@ -39,7 +39,7 @@ function Upload({numFiles, setNumFiles}) {
         axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
         .then(dados => {
             console.log(dados)
-            window.location.reload()
+            window.location.replace('/recursos')
         })
         .catch(err =>{
             alert('Erro no upload:\n' + err.response.data.error)

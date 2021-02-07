@@ -148,6 +148,14 @@
     flex-direction: row;
 }
 
+.in-text{
+    white-space: pre-line;
+}
+
+.in-decoration-none{
+    text-decoration: none;
+}
+
 /******************|
 UPLOAD MODAL CSS */
 
@@ -457,6 +465,12 @@ POST PAGE CSS */
     padding: 30px;
     background-color: whitesmoke;
     border-radius: 5px;
+}
+
+.in-edit-post{
+    width: 40vw;
+    height: 50vh;
+    margin: 20px 0;
 }
 
 /******************|
