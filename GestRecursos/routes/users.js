@@ -91,9 +91,13 @@ router.post('/register', function (req, res) {
     req.body.password = Bcrypt.hashSync(req.body.password, 10);
     req.body.dataRegisto = new Date().toISOString().substr(0,19)
     req.body.access = 'USER'
-    User.insert(req.body)
-        .then(dados => res.status(201).jsonp(dados))
-        .catch(err => res.status(500).jsonp({erro: 'Erro no register do User'}))
+    User.lookUp(req.body.id)
+        .then(user => res.status(500).jsonp({erro: 'Username já ocupado'}))
+        .catch(err => {
+            User.insert(req.body)
+                .then(dados => res.status(201).jsonp(dados))
+                .catch(erro => res.status(500).jsonp({erro: 'Erro no register do User'}))
+        })
 })
 
 // get user by id
