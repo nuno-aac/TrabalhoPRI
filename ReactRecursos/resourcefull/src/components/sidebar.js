@@ -109,7 +109,7 @@ function Sidebar() {
                     <input className="w3-input w3-margin-bottom dt-input" type='number' placeholder="Max..." value={maxYear} onChange={(e) => setMaxYear(e.target.value)} />
                 </div>
             </Filter>
-            <Link to={'/recursos' + queryString}>
+            <Link to={queryString}>
                 <input className="w3-btn in-upload-submit w3-margin" type="submit" value="Filtra"/>
             </Link>
         </>

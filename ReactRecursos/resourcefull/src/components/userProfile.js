@@ -120,7 +120,7 @@ function UserProfile() {
                 </div>
             </div>
             :
-            <></>
+            <div className='w3-xxlarge w3-center w3-margin-top'> User not found... </div>
             }
         </NavbarWrapper>
     );
