@@ -20,7 +20,7 @@ function Login() {
             console.log(dados)
             history.push("/users/login");
         })
-        .catch(err => console.log(err))
+        .catch(err => alert(err.response.data.erro))
     }
 
     return (
@@ -38,10 +38,10 @@ function Login() {
                         <input className="w3-input w3-margin-bottom dt-input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email..." />
                         <input className="w3-input w3-margin-bottom dt-input" type='number' value={age} onChange={(e) => setAge(e.target.value)} placeholder="Age..." />
                         <div class="w3-btn w3-dark-gray dt-round w3-margin" onClick={handleRegister}>Registar</div>
-                            
                     </form>
                 </div>
             </div>
+            <a className='w3-center' href='/users/login'>Voltar</a>
             <div class="dt-footer-login">
                 <h5 class="w3-center">Made with 🧠 PRI2020</h5>
             </div>
