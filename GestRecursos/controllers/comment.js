@@ -31,7 +31,7 @@ module.exports.edit = (id, c) => {
 
 // Adds upvote to comment
 module.exports.addUpvote = (id,idUser) => {
-    return Comment.update(
+    return Comment.updateOne(
         {_id:id},
         {
             $push: {upvotes: idUser}
@@ -41,7 +41,7 @@ module.exports.addUpvote = (id,idUser) => {
 
 // Removes upvote from comment
 module.exports.removeUpvote = (id,idUser) => {
-    return Comment.update(
+    return Comment.updateOne(
         {_id:id},
         {
             $pull: {upvotes: idUser}

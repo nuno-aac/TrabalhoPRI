@@ -143,7 +143,7 @@ module.exports.edit = (id, r) => {
 
 // adiciona rating a recurso
 module.exports.addRating = (idR, rt) => {
-    return Recurso.update(
+    return Recurso.updateOne(
         {_id:idR},
         {
             $push: {ratings: rt}
@@ -153,7 +153,7 @@ module.exports.addRating = (idR, rt) => {
 
 // retira rating de recurso
 module.exports.removeRating = (idR, rt) => {
-    return Recurso.update(
+    return Recurso.updateOne(
         {_id:idR},
         {
             $pull: {ratings: rt}
@@ -163,7 +163,7 @@ module.exports.removeRating = (idR, rt) => {
 
 // changes visibilidade
 module.exports.changeVisibilidade = (idR, vis) => {
-    return Recurso.update(
+    return Recurso.updateOne(
         {_id:idR},
         {
             visibilidade: vis

@@ -28,7 +28,7 @@ module.exports.edit = (id, u) => {
 }
 
 module.exports.changeAccess = (id, adm) => {
-    return User.update(
+    return User.updateOne(
         {id:id},
         {
             access: adm

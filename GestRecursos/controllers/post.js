@@ -53,7 +53,7 @@ module.exports.getUpvotes = id => {
 
 //add upvote
 module.exports.addUpvote = (id,idUser) => {
-    return Post.update(
+    return Post.updateOne(
         {_id:id},
         {
             $push: {upvotes: idUser}
@@ -63,7 +63,7 @@ module.exports.addUpvote = (id,idUser) => {
 
 //remove upvote
 module.exports.removeUpvote = (id,idUser) => {
-    return Post.update(
+    return Post.updateOne(
         {_id:id},
         {
             $pull: {upvotes: idUser}
@@ -82,7 +82,7 @@ module.exports.changeVisibilidade = (idR, vis) => {
 }
 
 module.exports.editTituloConteudo = (idP, tit, cont) => {
-    return Post.update(
+    return Post.updateOne(
         {_id: idP},
         {   
             titulo: tit,
@@ -92,7 +92,7 @@ module.exports.editTituloConteudo = (idP, tit, cont) => {
 }
 
 module.exports.editTitulo = (idP, tit) => {
-    return Post.update(
+    return Post.updateOne(
         {_id: idP},
         {   
             titulo: tit
@@ -101,7 +101,7 @@ module.exports.editTitulo = (idP, tit) => {
 }
 
 module.exports.editConteudo = (idP, cont) => {
-    return Post.update(
+    return Post.updateOne(
         {_id: idP},
         {   
             conteudo: cont
