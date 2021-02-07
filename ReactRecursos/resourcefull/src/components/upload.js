@@ -36,12 +36,12 @@ function Upload({numFiles, setNumFiles}) {
 
         console.log(files)
         
-        /*axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
+        axios.post('http://localhost:6969/recursos', data, { headers: { 'content-type': 'multipart/form-data' }, withCredentials:true })
         .then(dados => {
             console.log(dados)
             window.location.reload()
         })
-        .catch(err => console.log(err))*/
+        .catch(err => console.log(err))
     }
 
 

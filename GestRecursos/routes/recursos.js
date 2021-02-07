@@ -35,6 +35,10 @@ router.post('/', upload.array('myFile'), function(req,res){
 
     var zipFlag = true
 
+    console.log(req.files)
+
+    console.log(req.body)
+
     if(req.body.tipo == '' || req.body.titulo == '' || req.body.visibilidade == '' || req.body.year == '' || req.files.length == 0) res.status(500).jsonp({error: 'Campos não preenchidos'})
     
     else {
