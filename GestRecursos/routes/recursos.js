@@ -141,7 +141,7 @@ router.delete('/:id', function(req, res){
                 Recurso.remove(req.params.id)
                     .then(re => {
                         Post.removePostsRecurso(req.params.id)
-                            .then(r => res.status(201).jsonp(r))
+                            .then(r => res.status(200).jsonp(r))
                             .catch(err => res.status(500).jsonp(err))
                     })
                     .catch(err => res.status(500).jsonp(err))

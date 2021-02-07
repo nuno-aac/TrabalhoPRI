@@ -4,7 +4,7 @@ var fs = require('fs')
 
 // get req.user
 router.get('/', function (req, res) {
-  res.status(201).jsonp({user: req.user})
+  res.status(200).jsonp({user: req.user})
 });
 
 // get tipos
