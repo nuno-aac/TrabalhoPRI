@@ -80,3 +80,31 @@ module.exports.changeVisibilidade = (idR, vis) => {
         }
     )
 }
+
+module.exports.editTituloConteudo = (idP, tit, cont) => {
+    return Post.update(
+        {_id: idP},
+        {   
+            titulo: tit,
+            conteudo: cont
+        }
+    )
+}
+
+module.exports.editTitulo = (idP, tit) => {
+    return Post.update(
+        {_id: idP},
+        {   
+            titulo: tit
+        }
+    )
+}
+
+module.exports.editConteudo = (idP, cont) => {
+    return Post.update(
+        {_id: idP},
+        {   
+            conteudo: cont
+        }
+    )
+}
