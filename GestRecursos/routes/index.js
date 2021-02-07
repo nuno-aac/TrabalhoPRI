@@ -11,7 +11,6 @@ router.get('/', function (req, res) {
 router.get('/tipos', function(req, res){
   var filePath = __dirname.split('routes')[0] + 'public/tipos.json'
   var tipos = []
-  console.log(__dirname)
   var buffer = fs.readFileSync(filePath,'utf8')
 
   var buf = buffer.split('[')[1]

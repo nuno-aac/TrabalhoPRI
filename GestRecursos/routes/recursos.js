@@ -7,7 +7,6 @@ var AdmZip = require('adm-zip');
 var fs = require('fs')
 
 var multer = require('multer');
-const { Console } = require('console');
 var upload = multer({dest: 'uploads/'})
 
 // lista todos os recursos, privados do user e publicos
@@ -34,10 +33,6 @@ router.post('/', upload.array('myFile'), function(req,res){
     var d = new Date().toISOString().substr(0, 19)
 
     var zipFlag = true
-
-    console.log(req.files)
-
-    console.log(req.body)
 
     if(req.body.tipo == '' || req.body.titulo == '' || req.body.visibilidade == '' || req.body.year == '' || req.files.length == 0) res.status(400).jsonp({error: 'Campos não preenchidos'})
     
@@ -144,7 +139,11 @@ router.delete('/:id', function(req, res){
         .then(recurso => {
             if(recurso.autor == req.user.id || req.user.access == "ADMIN"){
                 Recurso.remove(req.params.id)
-                    .then(re => res.status(200).jsonp(re))
+                    .then(re => {
+                        Post.removePostsRecurso(req.params.id)
+                            .then(r => res.status(201).jsonp(r))
+                            .catch(err => res.status(500).jsonp(err))
+                    })
                     .catch(err => res.status(500).jsonp(err))
             }
             else{

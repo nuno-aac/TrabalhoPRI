@@ -110,6 +110,7 @@ router.post('/comment/:id/upvote', function(req, res){
         .catch(err => res.status(500).jsonp(err)) 
 })
 
+//edit post
 router.post('/:id/edit', function(req, res){
     Post.lookUp(req.params.id)
         .then(p => {
