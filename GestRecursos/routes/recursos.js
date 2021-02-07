@@ -39,7 +39,7 @@ router.post('/', upload.array('myFile'), function(req,res){
 
     console.log(req.body)
 
-    if(req.body.tipo == '' || req.body.titulo == '' || req.body.visibilidade == '' || req.body.year == '' || req.files.length == 0) res.status(500).jsonp({error: 'Campos não preenchidos'})
+    if(req.body.tipo == '' || req.body.titulo == '' || req.body.visibilidade == '' || req.body.year == '' || req.files.length == 0) res.status(400).jsonp({error: 'Campos não preenchidos'})
     
     else {
         if(!(req.files.length == 1 && req.files[0].originalname.slice(req.files[0].originalname.lastIndexOf('.'),req.files[0].originalname.length) == '.zip')) {

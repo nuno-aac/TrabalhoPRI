@@ -41,7 +41,10 @@ function Upload({numFiles, setNumFiles}) {
             console.log(dados)
             window.location.reload()
         })
-        .catch(err => console.log(err))
+        .catch(err =>{
+            alert('Erro no upload:\n' + err.response.data.error)
+            window.location.reload()
+        })
     }
 
 

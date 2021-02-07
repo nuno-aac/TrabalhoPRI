@@ -21,7 +21,7 @@ function EditProfile() {
         axios.post('http://localhost:6969/users/perfil/' + user.id, {nome:nome,age:idade,filiacao:filiacao,email:user.email,bio:bio}, { withCredentials: true })
             .then(dados => {
                 console.log(dados)
-                window.location.replace('/users/me');
+                window.location.replace('/user/me');
             })
             .catch(err => {
                 console.log(err);
