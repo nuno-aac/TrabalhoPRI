@@ -108,3 +108,9 @@ module.exports.editConteudo = (idP, cont) => {
         }
     )
 }
+
+module.exports.removePostsRecurso = (idR) => {
+    return Post.deleteMany(
+        {recursoID:idR}
+    )
+}

@@ -144,7 +144,11 @@ router.delete('/:id', function(req, res){
         .then(recurso => {
             if(recurso.autor == req.user.id || req.user.access == "ADMIN"){
                 Recurso.remove(req.params.id)
-                    .then(re => res.status(200).jsonp(re))
+                    .then(re => {
+                        Post.removePostsRecurso(req.params.id)
+                            .then(r => res.status(201).jsonp(r))
+                            .catch(err => res.status(500).jsonp(err))
+                    })
                     .catch(err => res.status(500).jsonp(err))
             }
             else{
