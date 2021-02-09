@@ -36,36 +36,38 @@ function App() {
             <Register />
           </Route >
           <ProtectedRoute>
-            <Route exact path='/recursos'>
-              <Recursos />
-            </Route>
-            <Route exact path='/recurso/:id'>
-              <Recurso />
-            </Route>
-            <Route exact path='/'>
-              <HomeScreen />
-            </Route>
-            <Route exact path='/post/:id'>
-              <Post />
-            </Route>
-            <Route exact path='/post/edit/:id'>
-              <EditPost />
-            </Route>
-            <Route exact path='/user/me'>
-              <Profile />
-            </Route>
-            <Route exact path='/users/:id'>
-              <UserProfile />
-            </Route>
-            <Route exact path='/user/edit'>
-              <EditProfile />
-            </Route>
-            <Route exact path='/recursos/mine'>
-              <RecursosSelf />
-            </Route>
-            <Route path='*' >
-              <NotFound />
-            </Route>
+            <Switch>
+              <Route exact path='/recursos'>
+                <Recursos />
+              </Route>
+              <Route exact path='/recurso/:id'>
+                <Recurso />
+              </Route>
+              <Route exact path='/'>
+                <HomeScreen />
+              </Route>
+              <Route exact path='/post/:id'>
+                <Post />
+              </Route>
+              <Route exact path='/post/edit/:id'>
+                <EditPost />
+              </Route>
+              <Route exact path='/user/me'>
+                <Profile />
+              </Route>
+              <Route exact path='/users/:id'>
+                <UserProfile />
+              </Route>
+              <Route exact path='/user/edit'>
+                <EditProfile />
+              </Route>
+              <Route exact path='/recursos/mine'>
+                <RecursosSelf />
+              </Route>
+              <Route exact path='*' >
+                <NotFound />
+              </Route>
+            </Switch>
           </ProtectedRoute>
         </Switch >
       </Router>
